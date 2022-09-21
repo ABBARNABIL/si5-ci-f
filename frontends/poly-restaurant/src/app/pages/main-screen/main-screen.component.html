@@ -1,0 +1,7 @@
+
+<mat-sidenav-container class="example-container" >
+  <mat-sidenav opened mode="side">
+    <app-side-bar (newItemEvent)="updateMenu($event)"></app-side-bar>
+  </mat-sidenav>
+  <app-menu [activeItem]="activeItem"></app-menu>
+</mat-sidenav-container>

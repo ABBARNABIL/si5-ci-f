@@ -1,0 +1,29 @@
+<h1>{{activeItem.name}}</h1>
+<router-outlet></router-outlet>
+<!--
+<div *ngFor = "let item of menu">
+  <mat-card>
+    <img mat-card-image src="{{item.image}}">
+    <mat-card-title style="text-align: center;">{{item.fullName}}</mat-card-title>
+
+    Catégorie : {{item.category}}
+    Prix : {{item.price | currency:'EUR':true}}
+    Short name : {{item.shortName}}
+
+  </mat-card>
+
+</div>-->
+
+<div class="content" fxLayout="row wrap" fxLayoutGap="16px grid">
+  <div
+    [fxFlex]="(100/3) + '%'"
+    fxFlex.xs="100%"
+    fxFlex.sm="33%"
+    *ngFor = "let item of menu"
+  >
+  <app-menu-item [menuItem]="item"></app-menu-item>
+  </div>
+</div>
+
+
+
