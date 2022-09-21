@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  bff-backend:
+    image: si5-ci-f/bff-backend
+    restart: always
+    ports:
+      - 8000:8080
+  
+  bff-fontend:
+    image: si5-ci-f/bff-frontend
+    restart: always
+    ports:
+      - 8001:3000
+    depends_on: 
+      - bff-backend
+
