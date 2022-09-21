@@ -15,7 +15,7 @@ import {serverDiningUrl} from 'src/configs/server.config'
 @Injectable({
   providedIn: 'root',
 })
-export class DiningControllerService {
+export class DiningService {
 
     protected basePath = serverDiningUrl;
     public defaultHeaders = new HttpHeaders();
