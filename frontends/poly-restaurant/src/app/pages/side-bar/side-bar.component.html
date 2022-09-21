@@ -1,0 +1,3 @@
+<div *ngFor="let item of sideBarItems">
+  <app-side-bar-item [sideBarItem]="item" (newItemEvent)="updateMenu($event)"></app-side-bar-item>
+</div>
