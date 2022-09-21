@@ -15,7 +15,7 @@ import {serverKitchenUrl} from 'src/configs/server.config'
 @Injectable({
   providedIn: 'root',
 })
-export class KitchenControllerService {
+export class KitchenService {
 
     protected basePath = serverKitchenUrl;
     public defaultHeaders = new HttpHeaders();

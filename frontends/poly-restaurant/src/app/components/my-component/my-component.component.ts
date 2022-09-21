@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'src/app/models/menuItem';
 import { MenuService } from 'src/app/services/menu.service';
-import { DiningControllerService } from '../../services/dining.service';
+import { DiningService } from '../../services/dining.service';
 
 
 @Component({
@@ -12,7 +12,7 @@ import { DiningControllerService } from '../../services/dining.service';
 export class MyComponentComponent implements OnInit {
   menu : Array<MenuItem> = [];
   constructor(
-    private menuService: MenuService, private diningService : DiningControllerService
+    private menuService: MenuService, private diningService : DiningService
   ) {}
 
 
