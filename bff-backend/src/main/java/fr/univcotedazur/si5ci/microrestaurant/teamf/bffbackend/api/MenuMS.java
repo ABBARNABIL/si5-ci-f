@@ -1,14 +1,11 @@
-package fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.microservices;
+package fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.api;
 
-import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.exceptions.ConflictException;
-import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.exceptions.ExceptionCode;
-import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.exceptions.NotFoundException;
+import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.exceptions.InternalServerException;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.menu.MenuItem;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -27,22 +24,21 @@ public class MenuMS {
     public MenuItem addMenuItem(MenuItem menuItem){
         try {
             return restTemplate.postForObject(URL + BASE_URI, menuItem, MenuItem.class);
-        } catch (HttpClientErrorException.Conflict e) {
-            throw new ConflictException(ExceptionCode.MENU_SHORT_NAME_ALREADY_EXISTS, e.getMessage());
+        } catch (Exception e) {
+            throw new InternalServerException(e.getMessage());
         }
     }
 
     public List<MenuItem> getTheFullMenu(){
         var menuItems = restTemplate.getForObject(URL + BASE_URI, MenuItem[].class);
-        assert menuItems != null;
         return Arrays.asList(menuItems);
     }
 
     public MenuItem tableOrder(UUID menuItemId){
         try {
             return restTemplate.getForObject(URL + BASE_URI + "/" + menuItemId, MenuItem.class);
-        } catch (HttpClientErrorException.NotFound e) {
-            throw new NotFoundException(ExceptionCode.NOT_FOUND, e.getMessage());
+        } catch (Exception e) {
+            throw new InternalServerException(e.getMessage());
         }
     }
 
