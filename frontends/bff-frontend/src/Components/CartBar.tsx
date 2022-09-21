@@ -15,7 +15,6 @@ export default function CartBar() {
 
   return (
     <div>
-        <React.Fragment>
           <Drawer
             BackdropProps={{invisible: true}}
             anchor={'bottom'}
@@ -34,7 +33,6 @@ export default function CartBar() {
             Cancel order
             </Button>
           </Drawer>
-        </React.Fragment>
     </div>
   );
 }
