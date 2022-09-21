@@ -1,13 +1,8 @@
 <p>
-  my-component works!
+    my-component works!
 </p>
-<div *ngFor = "let item of menu">
-   <h1>{{item.fullName}}</h1>
-   <img src="{{item.image}}" width="400" height="400">
-  Catégorie : {{item.category}}
-  Prix : {{item.price | currency:'EUR':true}}
-  Short name : {{item.shortName}}
+<div *ngFor="let item of menu">
+    <h1>{{item.fullName}}</h1>
+    <img src="{{item.image}}" width="400" height="400"> Catégorie : {{item.category}} Prix : {{item.price | currency:'EUR':true}} Short name : {{item.shortName}}
 
 </div>
-
-

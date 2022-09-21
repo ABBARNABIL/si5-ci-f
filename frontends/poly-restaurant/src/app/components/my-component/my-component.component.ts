@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'src/app/models/menuItem';
-import { MenuControllerService } from 'src/app/services/menuController.service';
+import { MenuService } from 'src/app/services/menu.service';
+import { DiningService } from '../../services/dining.service';
 
 
 @Component({
@@ -11,20 +12,28 @@ import { MenuControllerService } from 'src/app/services/menuController.service';
 export class MyComponentComponent implements OnInit {
   menu : Array<MenuItem> = [];
   constructor(
-    private menuControllerService: MenuControllerService
+    private menuService: MenuService, private diningService : DiningService
   ) {}
 
 
   ngOnInit() {
     this.getTheFullMenu();
+    this.getAllTables();
   }
 
-
+  /***Juste test localhost:3001 */
+  getAllTables(){
+    this.diningService.listAllTables().subscribe(data =>{
+      console.log(data);
+    })
+  }
   getTheFullMenu() {
-    this.menuControllerService.getTheFullMenu().subscribe(data => {
+    this.menuService.getTheFullMenu().subscribe(data => {
       this.menu = data;
-      console.log(this.menu);
+      console.log(data);
     });
   }
+
+
 
 }

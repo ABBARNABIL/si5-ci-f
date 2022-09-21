@@ -1,19 +1,18 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams,HttpResponse, HttpEvent } from '@angular/common/http';
-import { CustomHttpUrlEncodingCodec } from '../configuration/encoder';
 import { Observable } from 'rxjs';
-import { ErrorDTO } from '../models/errorDTO';
 import { MenuItem } from '../models/menuItem';
-import { BASE_PATH, COLLECTION_FORMATS } from '../configuration/variables';
+import { BASE_PATH} from '../configuration/variables';
 import { Configuration } from '../configuration/configuration';
+import {serverMenuUrl} from 'src/configs/server.config'
 
 
 @Injectable({
   providedIn: 'root',
 })
-export class MenuControllerService {
+export class MenuService {
 
-    protected basePath = 'http://localhost:3000';
+    protected basePath = serverMenuUrl;
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -25,6 +24,28 @@ export class MenuControllerService {
             this.configuration = configuration;
             this.basePath = basePath || configuration.basePath || this.basePath;
         }
+    }
+
+    private initializeHeaders(consumesValues:string[]){
+      let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*',
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+        if(consumesValues){
+          const consumes: string[] = consumesValues;
+          const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+          if (httpContentTypeSelected != undefined) {
+              headers = headers.set('Content-Type', httpContentTypeSelected);
+          }
+        }
+        return headers;
     }
 
     /**
@@ -57,28 +78,7 @@ export class MenuControllerService {
         if (body === null || body === undefined) {
             throw new Error('Required parameter body was null or undefined when calling addMenuItem.');
         }
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            '*/*',
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
+        let headers = this.initializeHeaders(['application/json']);
         return this.httpClient.request<MenuItem>('post',`${this.basePath}/menus`,
             {
                 body: body,
@@ -101,22 +101,26 @@ export class MenuControllerService {
     public getTheFullMenu(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<MenuItem>>>;
     public getTheFullMenu(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
+      let headers = this.defaultHeaders;
+        console.log("SERVICE AF");
         let httpHeaderAccepts: string[] = [
-            '*/*',
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
+          '*/*',
+          'application/json'
+      ];
+      const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      if (httpHeaderAcceptSelected != undefined) {
+          headers = headers.set('Accept', httpHeaderAcceptSelected);
+      }
 
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
+      // to determine the Content-Type header
+      const consumes: string[] = [
+          'application/json'
+      ];
+      const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+      if (httpContentTypeSelected != undefined) {
+          headers = headers.set('Content-Type', httpContentTypeSelected);
+      }
+       console.log("SERVICE BEF");
         return this.httpClient.request<Array<MenuItem>>('get',`${this.basePath}/menus`,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -143,21 +147,7 @@ export class MenuControllerService {
             throw new Error('Required parameter menuItemId was null or undefined when calling tableOrder.');
         }
 
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            '*/*',
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
+        let headers = this.initializeHeaders([]);
 
         return this.httpClient.request<MenuItem>('get',`${this.basePath}/menus/${encodeURIComponent(String(menuItemId))}`,
             {
