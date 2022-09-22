@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/bff")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class BffController {
     private final BffService bffService;
 
