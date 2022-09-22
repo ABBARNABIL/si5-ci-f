@@ -5,6 +5,7 @@ import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.ItemsToBeC
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.PreparationRequest;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.dining.Item;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.dining.StartOrdering;
+import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.dining.TableCreation;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.dining.TableOrder;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.kitchen.PreparationStateName;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +25,11 @@ public class UseCaseLogic implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        menuMS.getTheFullMenu().forEach(System.out::println);
+        //tableMS.createTable(new TableCreation(7L));
+        /*menuMS.getTheFullMenu().forEach(System.out::println);
         //System.out.println(menuMS.tableOrder(UUID.fromString("b075b614-d781-401a-8731-09114291699a")));
         PreparationRequest preparationRequest = new PreparationRequest();
-        preparationRequest.setTableId(1L);
+        preparationRequest.setTableId(2L);
         List<ItemsToBeCooked> itemsToBeCooked = List.of(
                 new ItemsToBeCooked("pizza", 2),
                 new ItemsToBeCooked("lasagna", 5)
@@ -54,11 +56,10 @@ public class UseCaseLogic implements CommandLineRunner {
 
         kitchenMS.preparationIsServed(prep.get(0).getId());
 
-        tableMS.listAllTables();
-        var order = diningMS.openTable(new StartOrdering(3L, 4));
-        diningMS.addToTableOrder(order.getId(), new Item(null, "pizza", 2));
+        tableMS.listAllTables().forEach(System.out::println);
+        /*var order = diningMS.openTable(new StartOrdering(2L, 4));
+        diningMS.addToTableOrder(order.getId(), new Item("1", "pizza", 2));
         diningMS.findAllTableOrders();
-        diningMS.tableOrder(order.getId());
-
+        diningMS.tableOrder(order.getId());*/
     }
 }
