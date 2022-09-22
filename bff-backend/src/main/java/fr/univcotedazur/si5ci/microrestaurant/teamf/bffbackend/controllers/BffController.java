@@ -5,13 +5,14 @@ import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.*;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.services.BffService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/bff")
+@RequestMapping(value = "/bff", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class BffController {
     private final BffService bffService;
