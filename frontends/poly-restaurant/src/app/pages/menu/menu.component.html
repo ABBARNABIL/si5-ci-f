@@ -15,15 +15,9 @@
 </div>-->
 
 <div class="content" fxLayout="row wrap" fxLayoutGap="16px grid">
-  <div
-    [fxFlex]="(100/3) + '%'"
-    fxFlex.xs="100%"
-    fxFlex.sm="33%"
-    *ngFor = "let item of menu"
-  >
-  <app-menu-item [menuItem]="item"></app-menu-item>
-  </div>
+    <div [fxFlex]="(100/3) + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let item of menu">
+        <app-menu-item [menuItem]="item"></app-menu-item>
+    </div>
 </div>
-
-
-
+<button mat-button (click)="openTables()">Choose a table</button>
+<app-card></app-card>

@@ -1,0 +1,10 @@
+<div *ngIf="!table.taken">
+    <button class="enabledTable">
+    <mat-card-title style="text-align: center; " class="number ">{{table.number}}</mat-card-title>
+    </button>
+</div>
+<div *ngIf="table.taken">
+    <button class="diseabledTable ">
+      <mat-card-title style="text-align: center; " class="number ">{{table.number}}</mat-card-title>
+    </button>
+</div>

@@ -12,21 +12,14 @@ import { DiningService } from '../../services/dining.service';
 export class MyComponentComponent implements OnInit {
   menu : Array<MenuItem> = [];
   constructor(
-    private menuService: MenuService, private diningService : DiningService
+    private menuService: MenuService
   ) {}
 
 
   ngOnInit() {
     this.getTheFullMenu();
-    this.getAllTables();
   }
 
-  /***Juste test localhost:3001 */
-  getAllTables(){
-    this.diningService.listAllTables().subscribe(data =>{
-      console.log(data);
-    })
-  }
   getTheFullMenu() {
     this.menuService.getTheFullMenu().subscribe(data => {
       this.menu = data;

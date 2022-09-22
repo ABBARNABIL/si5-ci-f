@@ -15,7 +15,7 @@ public class StartOrderingDTO {
     }
 
     public void setCustomersCount(int customersCount) {
-        this.customersCount = customersCount;
+        this.customersCount = customersCount;   
     }
 
     public Long getTableId() {

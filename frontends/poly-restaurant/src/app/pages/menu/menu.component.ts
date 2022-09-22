@@ -1,7 +1,9 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MenuItem } from 'src/app/models/menuItem';
-import { MenuControllerService } from 'src/app/services/menuController.service';
+import { MenuService } from 'src/app/services/menu.service';
 import { SideBarItem } from '../side-bar/side-bar-item/side-bar-item.model';
+import { TablesDialogueComponent } from '../tables-dialogue/tables-dialogue.component';
 
 @Component({
   selector: 'app-menu',
@@ -15,7 +17,7 @@ export class MenuComponent implements OnInit, OnChanges {
 
   menu : Array<MenuItem> = [];
   constructor(
-    private menuControllerService: MenuControllerService
+    private menuService: MenuService,public dialog: MatDialog
   ) {}
 
 
@@ -30,10 +32,17 @@ export class MenuComponent implements OnInit, OnChanges {
 
 
   getTheFullMenu() {
-    this.menuControllerService.getTheFullMenu().subscribe(data => {
+    this.menuService.getTheFullMenu().subscribe(data => {
       this.menu = data;
       this.menu = this.menu.filter(item => item.category === this.activeItem.category);
       console.log(this.menu);
+    });
+  }
+
+  openTables() {
+    const dialogRef = this.dialog.open(TablesDialogueComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
     });
   }
 }

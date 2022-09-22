@@ -18,7 +18,11 @@ import { SideBarItemComponent } from './pages/side-bar/side-bar-item/side-bar-it
 
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MenuItemComponent } from './pages/menu/menu-item/menu-item.component';
-
+import { TablesDialogueComponent } from './pages/tables-dialogue/tables-dialogue.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { ShowTableComponent } from './pages/tables-dialogue/show-table/show-table.component';
+import { CardComponent } from './pages/card/card.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { MenuItemComponent } from './pages/menu/menu-item/menu-item.component';
     SideBarComponent,
     MenuComponent,
     MenuItemComponent,
-    SideBarItemComponent
+    SideBarItemComponent,
+    TablesDialogueComponent,
+    ShowTableComponent,
+    CardComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -38,9 +46,12 @@ import { MenuItemComponent } from './pages/menu/menu-item/menu-item.component';
     BrowserAnimationsModule,
     MatSidenavModule,
     MatCardModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatDialogModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

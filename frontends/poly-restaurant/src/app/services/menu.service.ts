@@ -101,26 +101,9 @@ export class MenuService {
     public getTheFullMenu(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<MenuItem>>>;
     public getTheFullMenu(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-      let headers = this.defaultHeaders;
-        console.log("SERVICE AF");
-        let httpHeaderAccepts: string[] = [
-          '*/*',
+      let headers = this.initializeHeaders( [
           'application/json'
-      ];
-      const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-      if (httpHeaderAcceptSelected != undefined) {
-          headers = headers.set('Accept', httpHeaderAcceptSelected);
-      }
-
-      // to determine the Content-Type header
-      const consumes: string[] = [
-          'application/json'
-      ];
-      const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-      if (httpContentTypeSelected != undefined) {
-          headers = headers.set('Content-Type', httpContentTypeSelected);
-      }
-       console.log("SERVICE BEF");
+      ]);
         return this.httpClient.request<Array<MenuItem>>('get',`${this.basePath}/menus`,
             {
                 withCredentials: this.configuration.withCredentials,
