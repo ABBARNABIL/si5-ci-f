@@ -1,12 +1,10 @@
 package fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.services;
 
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.api.*;
-import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.LunchedOrder;
-import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.Menu;
-import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.MenuCategory;
-import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.Order;
+import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.*;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.dining.Item;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.dining.StartOrdering;
+import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.dining.TableOrder;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.menu.Category;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.menu.MenuItem;
 import lombok.NoArgsConstructor;
@@ -79,6 +77,16 @@ public class BffService {
         //diningMS.prepare(tableOrder.getId());
         log.info("Order "+tableOrder.getId()+" is being prepared");
         return new LunchedOrder(tableOrder.getId().toString());
+    }
+
+    public List<Table> listALlTablesAndAvailability() {
+        log.info("Listing all tables and their availability");
+        var tables = tableMS.listAllTables();
+        List<Table> tablesList = new ArrayList<>();
+        tables.forEach(table -> {
+            tablesList.add(new Table(table.getNumber(), table.isTaken()));
+        });
+        return tablesList;
     }
 
 
