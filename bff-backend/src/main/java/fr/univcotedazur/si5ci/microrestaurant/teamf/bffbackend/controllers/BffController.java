@@ -1,10 +1,7 @@
 package fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.controllers;
 
 
-import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.LunchedOrder;
-import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.Menu;
-import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.MenuCategory;
-import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.Order;
+import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.*;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.services.BffService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,6 +31,11 @@ public class BffController {
     @ResponseStatus(HttpStatus.CREATED)
     public LunchedOrder order(@RequestBody Order order) {
         return bffService.order(order);
+    }
+
+    @GetMapping("/tables")
+    public List<Table> getTables() {
+        return bffService.listALlTablesAndAvailability();
     }
 
 }
