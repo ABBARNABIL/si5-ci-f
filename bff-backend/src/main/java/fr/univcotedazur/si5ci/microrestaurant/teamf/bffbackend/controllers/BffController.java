@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/bff", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/bff", produces = MediaType.APPLICATION_JSON_VALUE)
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class BffController {
     private final BffService bffService;
