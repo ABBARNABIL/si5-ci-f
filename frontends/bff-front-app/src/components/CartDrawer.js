@@ -34,7 +34,7 @@ const Puller = styled(Box)(({ theme }) => ({
   left: "calc(50% - 15px)",
 }));
 
-function CartDrawer(props) {
+function CartDrawer(...props) {
   const { window } = props;
   const [open, setOpen] = React.useState(false);
 

@@ -11,6 +11,7 @@ export default function OrderScreen() {
   const [categories, setCategories] = React.useState([]);
   const [choosenCategory, setChoosenCategory] = React.useState("STARTER");
   const [menuItems, setMenuItems] = React.useState([]);
+  const [choosenItems, setChoosenItems] = React.useState([]);
 
   React.useEffect(() => {
     fetchCategories();
@@ -36,6 +37,13 @@ export default function OrderScreen() {
   const chooseCategory = (category) => {
     setChoosenCategory(category);
     getMenuItemsbyCategory(category);
+    console.log("choosen items: " + choosenItems);
+  };
+
+  const chooseItem = (item) => {
+    const json_item = JSON.stringify(item);
+    setChoosenItems([...choosenItems, json_item]);
+    console.log("choosen items: " + choosenItems);
   };
 
   return (
@@ -78,7 +86,9 @@ export default function OrderScreen() {
           >
             {menuItems.map((_, index) => (
               <Grid item xs={"auto"} sm={4} md={4} key={index}>
-                <MenuItem name={_.fullName} image={_.image} price={_.price} />
+                <div onClick={() => chooseItem(_)}>
+                  <MenuItem name={_.fullName} image={_.image} price={_.price} />
+                </div>
               </Grid>
             ))}
           </Grid>
