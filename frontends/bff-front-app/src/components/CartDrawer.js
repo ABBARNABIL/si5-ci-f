@@ -71,41 +71,42 @@ function CartDrawer(props) {
       >
         <StyledBox
           sx={{
-            position: "absolute",
-            top: -80,
+            position: "relative",
+            top: -95,
             borderTopLeftRadius: 8,
             borderTopRightRadius: 8,
             visibility: "visible",
             right: 0,
-            left: 0,
+            left: 250,
             pointerEvents: "all",
           }}
         >
-          <Puller />
+          <Puller onClick={toggleDrawer(true)} />
           <Typography sx={{ h1: 2 }}>My order</Typography>
           <Typography sx={{ h1: 2, color: "text.secondary" }}>
             Total : 50 $ | Items : 3
           </Typography>
-          <Button
-            size={"large"}
-            sx={{ ml: 60 }}
-            variant="contained"
-            color="success"
-          >
-            Confirm Order
-          </Button>
-          <Button
-            size={"large"}
-            sx={{ ml: 20 }}
-            variant="outlined"
-            color="error"
-          >
-            Cancel Order
-          </Button>
+          <div>
+            <Button
+              size={"large"}
+              sx={{ ml: 53 }}
+              variant="contained"
+              color="success"
+            >
+              Confirm Order
+            </Button>
+            <Button
+              size={"large"}
+              sx={{ ml: 20 }}
+              variant="contained"
+              color="error"
+            >
+              Cancel Order
+            </Button>
+          </div>
         </StyledBox>
         <StyledBox
           sx={{
-            mt: 6,
             px: 2,
             pb: 2,
             height: "100%",
