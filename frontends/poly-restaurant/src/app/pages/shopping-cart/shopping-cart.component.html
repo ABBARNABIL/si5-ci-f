@@ -2,12 +2,16 @@
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                Self aware panel
+                Food cart
             </mat-panel-title>
             <mat-panel-description>
                 Currently I am {{panelOpenState ? 'open' : 'closed'}}
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <p>I'm visible because I am open</p>
+        <app-card *ngFor="let item of items" [item]="item" (itemRemoved)="removeProduct($event)"></app-card>
+        <div>
+            <h1>Total : {{total}}</h1>
+        </div>
+        <button class="btn" (click)="validate()">Validate</button>
     </mat-expansion-panel>
 </mat-accordion>

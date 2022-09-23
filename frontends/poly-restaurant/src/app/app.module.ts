@@ -22,7 +22,8 @@ import { TablesDialogueComponent } from './pages/tables-dialogue/tables-dialogue
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ShowTableComponent } from './pages/tables-dialogue/show-table/show-table.component';
-import { CardComponent } from './pages/card/card.component';
+import { CardComponent } from './pages/shopping-cart/card/card.component';
+import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { CardComponent } from './pages/card/card.component';
     TablesDialogueComponent,
     ShowTableComponent,
     CardComponent,
+    ShoppingCartComponent,
 
   ],
   imports: [
