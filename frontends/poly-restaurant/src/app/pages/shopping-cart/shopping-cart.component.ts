@@ -9,12 +9,10 @@ import { TablesDialogueComponent } from '../tables-dialogue/tables-dialogue.comp
 })
 export class ShoppingCartComponent implements OnInit {
   @Input() items!: any[];
-  @Input() total: any
   @Output() itemRemoved = new EventEmitter();
   panelOpenState = true;
-  
+
   constructor(public dialog: MatDialog) {
-    this.items = [];
    }
 
   ngOnInit(): void {

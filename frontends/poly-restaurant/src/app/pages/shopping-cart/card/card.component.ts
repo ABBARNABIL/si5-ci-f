@@ -6,12 +6,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  panelOpenState = false;
   @Input() item!: any;
   @Output() itemRemoved = new EventEmitter();
-  constructor() {
-    console.log(this.item)
-  }
+
+  constructor() { }
 
   ngOnInit(): void {
   }

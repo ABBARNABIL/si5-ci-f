@@ -2,6 +2,6 @@
     <mat-sidenav opened mode="side">
         <app-side-bar (newItemEvent)="updateMenu($event)"></app-side-bar>
     </mat-sidenav>
-    <app-menu [activeItem]="activeItem" [items]="menu"></app-menu>
+    <app-menu [activeItem]="activeItem" [items]="menu" (itemsAdded)="addItemToCart($event)"></app-menu>
     <app-shopping-cart [items]="cartItems" (itemRemoved)="removeItem($event)"></app-shopping-cart>
 </mat-sidenav-container>

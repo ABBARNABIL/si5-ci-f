@@ -28,7 +28,7 @@ export class MainScreenComponent implements OnInit {
     this.activeItem = item;
   }
 
-  addProductToCart(item : MenuItem) {
+  addItemToCart(item : any) {
     const itemExistInCart = this.cartItems.find(({fullName}) => fullName === item.fullName); // find product by name
     if (!itemExistInCart) {
       this.cartItems.push({...item, num:1}); // enhance "porduct" opject with "num" property
@@ -37,7 +37,6 @@ export class MainScreenComponent implements OnInit {
     itemExistInCart.num += 1;
   }
   removeItem(item : MenuItem) {
-    console.log("gff remove");
     this.cartItems = this.cartItems.filter(({fullName}) => fullName !== item.fullName)
   }
 

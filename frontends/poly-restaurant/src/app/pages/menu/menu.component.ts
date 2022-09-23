@@ -18,12 +18,10 @@ export class MenuComponent implements OnInit {
   @Output() itemsAdded = new EventEmitter();
 
   constructor(  ) {
-    console.log(this.items)
   }
 
   addItemToCart(item: any){
     this.itemsAdded.emit(item);
-    console.log(this.itemsAdded);
   }
 
   ngOnInit(): void {
