@@ -11,51 +11,22 @@ import { Item } from '../../models/item';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements OnInit, OnChanges {
+export class MenuComponent implements OnInit {
 
-  @Input()
-  activeItem! : SideBarItem;
+  @Input() activeItem! : SideBarItem;
+  @Input() items! : any[];
   @Output() itemsAdded = new EventEmitter();
-  menu : Array<MenuItem> = [];
-  total = 0;
-  constructor(
-    private menuService: MenuService,public dialog: MatDialog
-  ) {}
 
+  constructor(  ) {
+    console.log(this.items)
+  }
+
+  addItemToCart(item: any){
+    this.itemsAdded.emit(item);
+    console.log(this.itemsAdded);
+  }
 
   ngOnInit(): void {
   }
 
-  addProductToCart(item : MenuItem) {
-    const productExistInCart = this.menu.find(({fullName}) => fullName === item.fullName); // find product by name
-    if (!productExistInCart) {
-      this.menu.push({...item, fullName:"rrrt"}); // enhance "porduct" opject with "num" property
-      return;
-    }
-    productExistInCart.fullName = "";
-    if(item.price)
-      this.total += item.price
-  }
-  removeProduct(item : MenuItem) {
-    this.menu = this.menu.filter(({fullName}) => fullName !== item.fullName)
-  }
-
-  ngOnChanges() {
-    this.menu = [];
-    this.getTheFullMenu();
-  }
-
-  addItemToCart(item: any){
-      this.itemsAdded.emit(item);
-  }
-
-  getTheFullMenu() {
-    this.menuService.getTheFullMenu().subscribe(data => {
-      this.menu = data;
-      this.menu = this.menu.filter(item => item.category === this.activeItem.category);
-      console.log(this.menu);
-    });
-  }
-
- 
 }

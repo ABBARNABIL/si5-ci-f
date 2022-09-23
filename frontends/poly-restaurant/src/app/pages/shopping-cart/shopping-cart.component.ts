@@ -11,14 +11,16 @@ export class ShoppingCartComponent implements OnInit {
   @Input() items!: any[];
   @Input() total: any
   @Output() itemRemoved = new EventEmitter();
-  panelOpenState = false;
+  panelOpenState = true;
+  
   constructor(public dialog: MatDialog) {
-
+    this.items = [];
    }
 
   ngOnInit(): void {
   }
-  removeProduct(item: any) {
+
+  removeItem(item: any) {
     this.itemRemoved.emit(item)
   }
 

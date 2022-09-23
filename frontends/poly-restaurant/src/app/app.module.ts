@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MyComponentComponent } from './components/my-component/my-component.component';
 import { TopBarComponent } from './pages/top-bar/top-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SideBarComponent } from './pages/side-bar/side-bar.component';
@@ -28,7 +27,6 @@ import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.compo
 @NgModule({
   declarations: [
     AppComponent,
-    MyComponentComponent,
     MainScreenComponent,
     TopBarComponent,
     SideBarComponent,

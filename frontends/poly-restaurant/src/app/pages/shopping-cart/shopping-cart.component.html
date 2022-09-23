@@ -8,7 +8,7 @@
                 Currently I am {{panelOpenState ? 'open' : 'closed'}}
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <app-card *ngFor="let item of items" [item]="item" (itemRemoved)="removeProduct($event)"></app-card>
+        <app-card *ngFor="let item of items" [item]="item" (itemRemoved)="removeItem($event)"></app-card>
         <div>
             <h1>Total : {{total}}</h1>
         </div>
