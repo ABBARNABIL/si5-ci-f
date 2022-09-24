@@ -34,7 +34,7 @@ const Puller = styled(Box)(({ theme }) => ({
   left: "calc(50% - 15px)",
 }));
 
-function CartDrawer(...props) {
+function CartDrawer(props) {
   const { window } = props;
   const [open, setOpen] = React.useState(false);
 
@@ -84,7 +84,7 @@ function CartDrawer(...props) {
           <Puller onClick={toggleDrawer(true)} />
           <Typography sx={{ h1: 2 }}>My order</Typography>
           <Typography sx={{ h1: 2, color: "text.secondary" }}>
-            Total : 50 $ | Items : 3
+            Total : {props.totalPrice} $ | Items : {props.nbItems}
           </Typography>
           <div>
             <Button

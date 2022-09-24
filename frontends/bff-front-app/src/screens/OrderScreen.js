@@ -12,6 +12,7 @@ export default function OrderScreen() {
   const [choosenCategory, setChoosenCategory] = React.useState("STARTER");
   const [menuItems, setMenuItems] = React.useState([]);
   const [choosenItems, setChoosenItems] = React.useState([]);
+  const [totalPrice, setTotalPrice] = React.useState(0);
 
   React.useEffect(() => {
     fetchCategories();
@@ -43,6 +44,7 @@ export default function OrderScreen() {
   const chooseItem = (item) => {
     const json_item = JSON.stringify(item);
     setChoosenItems([...choosenItems, json_item]);
+    setTotalPrice(totalPrice + item.price);
     console.log("choosen items: " + choosenItems);
   };
 
@@ -71,7 +73,7 @@ export default function OrderScreen() {
         </Paper>
       </div>
       <div>
-        <CartDrawer />
+        <CartDrawer nbItems={choosenItems.length} totalPrice={totalPrice} />
       </div>
       <Paper style={{ maxHeight: 700, overflow: "auto" }}>
         <h1 style={{ display: "flex", justifyContent: "center" }}>
