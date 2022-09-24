@@ -4,6 +4,7 @@ import { StartOrderingDTO } from 'src/app/models/startOrderingDTO';
 import { TablesDialogueComponent } from '../tables-dialogue/tables-dialogue.component';
 import { DiningService } from '../../services/dining.service';
 import { TableOrder } from '../../models/tableOrder';
+import { BillDialogueComponent } from '../bill-dialogue/bill-dialogue.component';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -28,7 +29,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   validate(){
-    // if(this.items.length>0){
+    if(this.items.length>0){
       const dialogRef = this.dialog.open(TablesDialogueComponent);
       dialogRef.componentInstance.onAdd.subscribe((data) => {
         console.log(data)
@@ -36,15 +37,17 @@ export class ShoppingCartComponent implements OnInit {
         this.dinigService.openTable(data).subscribe(
           result =>{
             this.items.forEach(item => {
-              this.dinigService.addToTableOrder(item,"");
+              this.dinigService.addToTableOrder(item,""+result.id);
             })
-            // this.tableOrder = result;
-            // console.log(result);
         });
       });
-      // dialogRef.afterClosed().subscribe(result => {
-      //   console.log(`Dialog result: ${result}`);
-      // });
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          const dialogBill = this.dialog.open(BillDialogueComponent);
+        }
+      });
+    } else{
+      alert("Your card is empty");
     }
-  // }
+  }
 }

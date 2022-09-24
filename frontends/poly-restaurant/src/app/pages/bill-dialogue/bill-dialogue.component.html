@@ -1,0 +1,17 @@
+<mat-dialog-content class="mat-typography">
+    <div class="content" fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div [fxFlex]="(100/3) + '%'" fxFlex.xs="100%" fxFlex.sm="33%">
+        </div>
+    </div>
+    <div>
+        <h3 mat-dialog-title>Veillez proceder au payement Payment </h3>
+        <h2>Total : 1000</h2>
+        <img src="https://au4qk.files.wordpress.com/2021/03/logo-toutes-cb.png" height="100px">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+        <img src="https://so-fa.fr/wp-content/uploads/2016/11/paiement_especes.jpg" alt="" srcset="" height="100px ">
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>choose</button>
+</mat-dialog-actions>

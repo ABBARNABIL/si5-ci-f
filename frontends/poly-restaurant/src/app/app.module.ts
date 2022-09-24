@@ -23,6 +23,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { ShowTableComponent } from './pages/tables-dialogue/show-table/show-table.component';
 import { CardComponent } from './pages/shopping-cart/card/card.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
+import { BillDialogueComponent } from './pages/bill-dialogue/bill-dialogue.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.compo
     ShowTableComponent,
     CardComponent,
     ShoppingCartComponent,
+    BillDialogueComponent,
 
   ],
   imports: [
