@@ -19,5 +19,4 @@ export class ShowTableComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
 }

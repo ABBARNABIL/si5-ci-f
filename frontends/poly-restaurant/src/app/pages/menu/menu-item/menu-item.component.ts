@@ -17,7 +17,6 @@ export class MenuItemComponent implements OnInit {
   }
 
   addItemToCart(item: any){
-    console.log("AMMMMMMMMMMMMMMMM");
     this.itemsAdded.emit(item);
     console.log(this.itemsAdded);
 }

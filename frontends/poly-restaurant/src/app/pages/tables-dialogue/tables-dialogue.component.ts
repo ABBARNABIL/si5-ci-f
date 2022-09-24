@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TableOrder } from 'src/app/models/models';
 import { StartOrderingDTO } from 'src/app/models/startOrderingDTO';
@@ -18,7 +18,10 @@ export class TablesDialogueComponent implements OnInit {
   startOrder : StartOrderingDTO = {
     "tableId" : 0,
    "customersCount" : 0
-};
+  };
+  choosenTable : any;
+  onAdd = new EventEmitter();
+  playerName!: string;
 
   constructor(public dialog: MatDialog, private diningService : DiningService) {
     this.diningService.listAllTables().subscribe(data =>{
@@ -30,19 +33,20 @@ export class TablesDialogueComponent implements OnInit {
 
   }
 
-  selectedElement(tableId : number | undefined){
-    let el = document.getElementById("table")!.style.color ="red";
-    this.startOrder.tableId = tableId,
-    this.startOrder.customersCount = this.value;
-
-    console.log(this.startOrder.tableId);
-    console.log(this.startOrder.customersCount);
+  selectedElement(table : any){
+    // let el = document.getElementById("table")!.style.color ="red";
+    // this.startOrder.tableId = tableId,
+    // this.startOrder.customersCount = this.value;
+    this.choosenTable = table
+    console.log(this.choosenTable)
+    // console.log(this.startOrder.tableId);
+    // console.log(this.startOrder.customersCount);
   }
 
-  openTable(){
-     this.diningService.openTable(this.startOrder).subscribe(data => {
-        this.tableOrder= data;
-        console.log(data);
-    })
+
+  onButtonClick() {
+    this.startOrder.tableId = this.choosenTable.number;
+    this.startOrder.customersCount = 1;
+    this.onAdd.emit(this.startOrder);
   }
 }
