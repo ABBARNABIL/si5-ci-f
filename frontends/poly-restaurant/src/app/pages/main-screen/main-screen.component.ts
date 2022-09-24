@@ -14,12 +14,7 @@ export class MainScreenComponent implements OnInit {
   activeItem!: SideBarItem;
   menu : Array<MenuItem> = [];
 
-  constructor(private menuService: MenuService,public dialog: MatDialog) {
-    this.menuService.getTheFullMenu().subscribe(data => {
-    this.menu = data;
-    this.menu = this.menu.filter(item => item.category === this.activeItem.category);
-    console.log(this.menu);
-  }); }
+  constructor(private menuService: MenuService,public dialog: MatDialog) {}
 
   ngOnInit() {
   }
@@ -40,6 +35,19 @@ export class MainScreenComponent implements OnInit {
     this.cartItems = this.cartItems.filter(({fullName}) => fullName !== item.fullName)
   }
 
+  ngOnChanges() {
+    console.log(this.menu)
+    this.menu = [];
+    this.getTheFullMenu();
+  }
+
+  getTheFullMenu() {
+    this.menuService.getTheFullMenu().subscribe(data => {
+      this.menu = data;
+      this.menu = this.menu.filter(item => item.category === this.activeItem.category);
+      console.log(data);
+    });
+  }
 
 
 }

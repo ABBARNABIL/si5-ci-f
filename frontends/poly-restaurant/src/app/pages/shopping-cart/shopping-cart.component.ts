@@ -28,7 +28,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   validate(){
-    if(this.items.length>0){
+    // if(this.items.length>0){
       const dialogRef = this.dialog.open(TablesDialogueComponent);
       dialogRef.componentInstance.onAdd.subscribe((data) => {
         console.log(data)
@@ -46,5 +46,5 @@ export class ShoppingCartComponent implements OnInit {
       //   console.log(`Dialog result: ${result}`);
       // });
     }
-  }
+  // }
 }
