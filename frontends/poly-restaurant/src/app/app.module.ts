@@ -21,7 +21,6 @@ import { TablesDialogueComponent } from './pages/tables-dialogue/tables-dialogue
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ShowTableComponent } from './pages/tables-dialogue/show-table/show-table.component';
-import { CardComponent } from './pages/shopping-cart/card/card.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { BillDialogueComponent } from './pages/bill-dialogue/bill-dialogue.component';
 
@@ -36,7 +35,6 @@ import { BillDialogueComponent } from './pages/bill-dialogue/bill-dialogue.compo
     SideBarItemComponent,
     TablesDialogueComponent,
     ShowTableComponent,
-    CardComponent,
     ShoppingCartComponent,
     BillDialogueComponent,
 

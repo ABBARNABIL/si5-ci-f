@@ -1,17 +1,26 @@
 <mat-accordion>
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel (opened)="panelOpenState = false" (closed)="panelOpenState = true">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                Food cart
+                <h2>My order</h2>
             </mat-panel-title>
             <mat-panel-description>
-                Currently I am {{panelOpenState ? 'open' : 'closed'}}
+              {{panelOpenState ? 'Click to view order' : 'Close the panel'}}
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <app-card *ngFor="let item of items" [item]="item" (itemRemoved)="removeItem($event)"></app-card>
-        <div>
-            <h1>Total : </h1>
+        <!--  -->
+        <div id="block_containor">
+          <div id="block1">
+              <h4>Total : {{total | currency:'EUR':true }} | items : {{itemCount}} </h4>
+          </div>
+          <div id="block2">
+              <h4 class="right">View my order >></h4>
+          </div>
         </div>
-        <button class="btn" (click)="validate()">Validate</button>
+
+        <div id="outer">
+          <div class="inner"><button type="submit" [style.background-color]="'red'">Cancel order</button></div>
+          <div class="inner"><button type="submit" [style.background-color]="'green'">Validate order</button></div>
+        </div>
     </mat-expansion-panel>
 </mat-accordion>

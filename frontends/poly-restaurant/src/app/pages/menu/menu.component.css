@@ -17,3 +17,11 @@ mat-card img{
   height: 80%;
 
 }
+
+
+
+footer{
+  position:fixed;
+  bottom:0px;
+  width:100%;
+  }

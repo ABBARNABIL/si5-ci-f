@@ -12,11 +12,9 @@ import { BillDialogueComponent } from '../bill-dialogue/bill-dialogue.component'
   styleUrls: ['./shopping-cart.component.scss']
 })
 export class ShoppingCartComponent implements OnInit {
-  @Input() items!: any[];
-  @Output() itemRemoved = new EventEmitter();
-  startOrder! : StartOrderingDTO
   panelOpenState = true;
-  tableOrder : any;
+  total : number = 0;
+  itemCount : number = 0;
 
   constructor(public dialog: MatDialog, private dinigService : DiningService) {
    }
@@ -24,30 +22,4 @@ export class ShoppingCartComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  removeItem(item: any) {
-    this.itemRemoved.emit(item)
-  }
-
-  validate(){
-    if(this.items.length>0){
-      const dialogRef = this.dialog.open(TablesDialogueComponent);
-      dialogRef.componentInstance.onAdd.subscribe((data) => {
-        console.log(data)
-        this.startOrder = data;
-        this.dinigService.openTable(data).subscribe(
-          result =>{
-            this.items.forEach(item => {
-              this.dinigService.addToTableOrder(item,""+result.id);
-            })
-        });
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        if(result){
-          const dialogBill = this.dialog.open(BillDialogueComponent);
-        }
-      });
-    } else{
-      alert("Your card is empty");
-    }
-  }
 }
