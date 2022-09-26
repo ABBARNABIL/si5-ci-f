@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import MenuItem from "../components/MenuItem";
+import BffService from "../utils/BffService";
 
 export default function OrderScreen() {
   const [categories, setCategories] = React.useState([]);
@@ -13,26 +14,23 @@ export default function OrderScreen() {
   const [menuItems, setMenuItems] = React.useState([]);
   const [choosenItems, setChoosenItems] = React.useState([]);
   const [totalPrice, setTotalPrice] = React.useState(0);
-
+  const bffService = new BffService();
+  
   React.useEffect(() => {
-    fetchCategories();
+    getCategories();
     getMenuItemsbyCategory(choosenCategory);
   }, []);
 
-  const fetchCategories = async () => {
-    const response = await fetch("http://localhost:8080/bff/menu/categories");
-    const data = await response.json();
-    console.log(data);
-    setCategories(data);
-    return data;
+  const getCategories = async () => {
+    bffService.getCategories().then(response => {
+      setCategories(response.data);
+    });
   };
 
   const getMenuItemsbyCategory = async (category) => {
-    const response = await fetch("http://localhost:8080/bff/menu/" + category);
-    const data = await response.json();
-    console.log(data);
-    setMenuItems(data);
-    return data;
+    bffService.getMenusByCategory(category).then(response => {
+      setMenuItems(response.data);  
+    });
   };
 
   const chooseCategory = (category) => {
