@@ -5,6 +5,7 @@ import { TablesDialogueComponent } from '../tables-dialogue/tables-dialogue.comp
 import { DiningService } from '../../services/dining.service';
 import { TableOrder } from '../../models/tableOrder';
 import { BillDialogueComponent } from '../bill-dialogue/bill-dialogue.component';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -14,40 +15,17 @@ import { BillDialogueComponent } from '../bill-dialogue/bill-dialogue.component'
 export class ShoppingCartComponent implements OnInit {
   @Input() items!: any[];
   @Output() itemRemoved = new EventEmitter();
-  startOrder! : StartOrderingDTO
   panelOpenState = true;
   tableOrder : any;
 
-  constructor(public dialog: MatDialog, private dinigService : DiningService) {
+  constructor(private cartService: CartService) {
    }
 
   ngOnInit(): void {
   }
 
-  removeItem(item: any) {
-    this.itemRemoved.emit(item)
+  validate(){
+    this.cartService.validate();
   }
 
-  validate(){
-    if(this.items.length>0){
-      const dialogRef = this.dialog.open(TablesDialogueComponent);
-      dialogRef.componentInstance.onAdd.subscribe((data) => {
-        console.log(data)
-        this.startOrder = data;
-        this.dinigService.openTable(data).subscribe(
-          result =>{
-            this.items.forEach(item => {
-              this.dinigService.addToTableOrder(item,""+result.id);
-            })
-        });
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        if(result){
-          const dialogBill = this.dialog.open(BillDialogueComponent);
-        }
-      });
-    } else{
-      alert("Your card is empty");
-    }
-  }
 }

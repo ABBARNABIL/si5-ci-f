@@ -15,13 +15,8 @@ export class MenuComponent implements OnInit {
 
   @Input() activeItem! : SideBarItem;
   @Input() items! : any[];
-  @Output() itemsAdded = new EventEmitter();
 
   constructor(  ) {
-  }
-
-  addItemToCart(item: any){
-    this.itemsAdded.emit(item);
   }
 
   ngOnInit(): void {
