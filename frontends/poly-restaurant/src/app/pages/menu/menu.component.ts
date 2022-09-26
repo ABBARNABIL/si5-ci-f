@@ -14,17 +14,24 @@ import { Item } from '../../models/item';
 export class MenuComponent implements OnInit {
 
   @Input() activeItem! : SideBarItem;
-  @Input() items! : any[];
-  @Output() itemsAdded = new EventEmitter();
-
-  constructor(  ) {
-  }
-
-  addItemToCart(item: any){
-    this.itemsAdded.emit(item);
-  }
+  menu : Array<MenuItem> = [];
+  constructor(
+    private menuService: MenuService
+  ) {}
 
   ngOnInit(): void {
   }
 
+
+  ngOnChanges() {
+    this.menu = [];
+    this.getTheFullMenu();
+  }
+
+  getTheFullMenu() {
+    this.menuService.getTheFullMenu().subscribe(data => {
+      this.menu = data;
+      this.menu = this.menu.filter(item => item.category === this.activeItem.category);
+    });
+  }
 }
