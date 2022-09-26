@@ -12,7 +12,8 @@ import { DiningService } from './dining.service';
 export class CartService {
   cartItems: any[] = [];
   startOrder! : StartOrderingDTO
-
+  public totalPrice = 0;
+  
   constructor(public dialog: MatDialog, private diningService : DiningService) { }
 
   addItemToCart(item : any) {
@@ -50,4 +51,6 @@ export class CartService {
       alert("Your card is empty");
     }
   }
+
+
 }

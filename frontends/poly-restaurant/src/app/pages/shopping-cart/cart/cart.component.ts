@@ -2,10 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-card',
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+  templateUrl: './cart.component.html',
+  styleUrls: ['./cart.component.scss']
 })
-export class CardComponent implements OnInit {
+export class CartComponent implements OnInit {
   @Input() item!: any;
 
   constructor() { }
