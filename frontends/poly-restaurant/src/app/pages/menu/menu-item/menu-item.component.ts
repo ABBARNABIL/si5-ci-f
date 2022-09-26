@@ -16,9 +16,4 @@ export class MenuItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  addItemToCart(item: any){
-    this.itemsAdded.emit(item);
-    console.log(this.itemsAdded);
-}
-
 }

@@ -11,7 +11,7 @@ export class MainScreenComponent implements OnInit {
   activeItem!: SideBarItem;
 
 
-  constructor(public dialog: MatDialog) {}
+  constructor() {}
 
   ngOnInit() {
   }
@@ -19,6 +19,5 @@ export class MainScreenComponent implements OnInit {
   updateMenu(item : SideBarItem){
     this.activeItem = item;
   }
-
 
 }

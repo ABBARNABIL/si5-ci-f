@@ -1,7 +1,5 @@
-<div (click)="addItemToCart(menuItem)">
-    <mat-card>
-        <img mat-card- image src="{{menuItem.image}}">
-        <mat-card-title style=" text-align: center; ">{{menuItem.fullName}}</mat-card-title>
-        Prix : {{menuItem.price | currency:'EUR':true}}
-    </mat-card>
-</div>
+<mat-card>
+    <img mat-card- image src="{{menuItem.image}}">
+    <mat-card-title style=" text-align: center; ">{{menuItem.fullName}}</mat-card-title>
+    Prix : {{menuItem.price | currency:'EUR':true}}
+</mat-card>
