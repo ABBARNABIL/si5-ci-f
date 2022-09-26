@@ -39,8 +39,6 @@ export class TablesDialogueComponent implements OnInit {
     // this.startOrder.customersCount = this.value;
     this.choosenTable = table
     console.log(this.choosenTable)
-    // console.log(this.startOrder.tableId);
-    // console.log(this.startOrder.customersCount);
   }
 
 
