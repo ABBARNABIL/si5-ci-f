@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MenuItem } from 'src/app/models/menuItem';
+import { CartService } from '../../../services/cart.service';
 
 @Component({
   selector: 'app-menu-item',
@@ -10,10 +11,13 @@ export class MenuItemComponent implements OnInit {
 
   @Input()
   menuItem!: MenuItem;
-  @Output() itemsAdded = new EventEmitter();
-  constructor() { }
+  constructor(private cartService : CartService) { }
 
   ngOnInit() {
+  }
+
+  addToCart(){
+    this.cartService.addItemToCart(this.menuItem);
   }
 
 }

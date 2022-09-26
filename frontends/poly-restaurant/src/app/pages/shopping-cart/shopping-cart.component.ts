@@ -14,7 +14,6 @@ import { CartService } from '../../services/cart.service';
 })
 export class ShoppingCartComponent implements OnInit {
   @Input() items!: any[];
-  @Output() itemRemoved = new EventEmitter();
   panelOpenState = true;
   tableOrder : any;
 
