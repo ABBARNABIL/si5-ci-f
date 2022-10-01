@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./index.css";
 import OrderScreen from "./screens/OrderScreen";
+import OrderListScreen from "./screens/OrderListScreen";
 import HomeScreen from "./screens/HomeScreen";
 import * as serviceWorker from "./serviceWorker";
 
@@ -12,6 +13,7 @@ ReactDOM.render(
       <Routes>
         <Route exact path="/" element={<HomeScreen />} />
         <Route exact path="/order" element={<OrderScreen />} />
+        <Route exact path="/order-list" element={<OrderListScreen />} />
       </Routes>
     </Router>
   </React.StrictMode>,
