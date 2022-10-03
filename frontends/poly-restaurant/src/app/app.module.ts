@@ -23,6 +23,12 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { ShowTableComponent } from './pages/tables-dialogue/show-table/show-table.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { BillDialogueComponent } from './pages/bill-dialogue/bill-dialogue.component';
+import { MenuItemDialogComponent } from './pages/menu/menu-item/menu-item-dialog/menu-item-dialog.component';
+import { FormsModule } from '@angular/forms';
+import { ViewOrderComponent } from './pages/view-order/view-order.component';
+import {MatTableModule} from '@angular/material/table'
+import {MatIconModule} from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -37,7 +43,8 @@ import { BillDialogueComponent } from './pages/bill-dialogue/bill-dialogue.compo
     ShowTableComponent,
     ShoppingCartComponent,
     BillDialogueComponent,
-
+    MenuItemDialogComponent,
+    ViewOrderComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,10 +55,14 @@ import { BillDialogueComponent } from './pages/bill-dialogue/bill-dialogue.compo
     MatCardModule,
     FlexLayoutModule,
     MatDialogModule,
-    MatExpansionModule
+    MatExpansionModule,
+    FormsModule,
+    MatTableModule,
+    MatIconModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [MenuItemDialogComponent]
 })
 
 export class AppModule { }

@@ -6,21 +6,28 @@
             </mat-panel-title>
             <mat-panel-description>
               {{panelOpenState ? 'Click to view order' : 'Close the panel'}}
+
+              <!--
+              <div>
+                <span class="red-notif">{{itemCount}}</span>
+              </div>
+              -->
+
+
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <!--  -->
         <div id="block_containor">
           <div id="block1">
               <h4>Total : {{total | currency:'EUR':true }} | items : {{itemCount}} </h4>
           </div>
           <div id="block2">
-              <h4 class="right">View my order >></h4>
+              <h4 class="right" [routerLink]="['/view-order']">View my order >></h4>
           </div>
         </div>
 
         <div id="outer">
           <div class="inner"><button type="submit" [style.background-color]="'red'">Cancel order</button></div>
-          <div class="inner"><button type="submit" [style.background-color]="'green'">Validate order</button></div>
+          <div class="inner"><button type="submit" [style.background-color]="'green'">Confirm order</button></div>
 
         </div>
     </mat-expansion-panel>
