@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,13 +12,33 @@ function createData(name, pu, qte, pt) {
   return { name, pu, qte, pt };
 }
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24),
-  createData('Ice cream sandwich', 237, 9.0, 37),
-  createData('Eclair', 262, 16.0, 24),
-];
+// const rows = [
+//   createData('Frozen yoghurt', 159, 6.0, 24),
+//   createData('Ice cream sandwich', 237, 9.0, 37),
+//   createData('Eclair', 262, 16.0, 24),
 
-export default function MenuItemTable() {
+  
+// ];
+
+
+
+export default function MenuItemTable(props) {
+  const [rows, setRows] = React.useState([]);
+
+  const fillRows = (chooseItems) => {
+    let rows = [];
+    chooseItems.forEach((value, key) => {
+      rows.push(createData(key, value["pu"], value["nb"], value["pu"] * value["nb"]));
+    });
+    setRows(rows);
+  }
+
+  useEffect(() => {
+    fillRows(props.items);
+    console.log("props.items: " + rows);
+  });
+
+  console.log("props: " + props.items);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">

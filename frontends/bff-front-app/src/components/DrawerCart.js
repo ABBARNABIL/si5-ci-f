@@ -101,7 +101,7 @@ function DrawerCart(props) {
         >
           <Puller />
           <Typography sx={{ p: 2, color: 'text.secondary' }}>
-            Total : {props.totalPrice} $ | Items : {props.nbItems}
+            Total : {props.total} $ | Items : {props.nbItems}
           </Typography>
         </StyledBox>
         <StyledBox
@@ -112,7 +112,7 @@ function DrawerCart(props) {
             overflow: 'auto',
           }}
         >
-          <MenuItemTable />
+          <MenuItemTable items={props.items} />
         </StyledBox>
       </SwipeableDrawer>
     </Root>
