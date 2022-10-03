@@ -31,7 +31,15 @@ public class BffService {
         log.info("Getting all menu categories");
         List<MenuCategory> menuCategories = new ArrayList<>();
         Arrays.stream(Category.values()).forEach(category -> {
-            menuCategories.add(new MenuCategory(category.name()));
+            if (category == Category.STARTER) {
+                menuCategories.add(new MenuCategory(category.name(), "http://localhost:8080/starter.jpg"));
+            }else if(category == Category.MAIN){
+                menuCategories.add(new MenuCategory(category.name(), "http://localhost:8080/main.jpg"));
+            }else if(category == Category.BEVERAGE){
+                menuCategories.add(new MenuCategory(category.name(), "http://localhost:8080/beverage.jpg"));
+            }else if(category == Category.DESSERT) {
+                menuCategories.add(new MenuCategory(category.name(), "http://localhost:8080/dessert.jpg"));
+            }
         });
         return menuCategories;
     }
