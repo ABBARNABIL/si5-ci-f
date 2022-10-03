@@ -12,14 +12,17 @@ export default function OrderScreen() {
   const [categories, setCategories] = React.useState([]);
   const [choosenCategory, setChoosenCategory] = React.useState("STARTER");
   const [menuItems, setMenuItems] = React.useState([]);
-  const [choosenItems, setChoosenItems] = React.useState([]);
   const [totalPrice, setTotalPrice] = React.useState(0);
   const bffService = new BffService();
+  const [chooseItems, setChooseItems] = React.useState(new Map());
+  const [countItems, setCountItems] = React.useState(0);
   
   React.useEffect(() => {
     getCategories();
     getMenuItemsbyCategory(choosenCategory);
   }, []);
+
+
 
   const getCategories = async () => {
     bffService.getCategories().then(response => {
@@ -36,14 +39,19 @@ export default function OrderScreen() {
   const chooseCategory = (category) => {
     setChoosenCategory(category);
     getMenuItemsbyCategory(category);
-    console.log("choosen items: " + choosenItems);
   };
 
   const chooseItem = (item) => {
-    const json_item = JSON.stringify(item);
-    setChoosenItems([...choosenItems, json_item]);
+    //const json_item = JSON.stringify(item);
+    console.log("item: " + item.fullName);
+    if (chooseItems.has(item.fullName)) {
+      setChooseItems(chooseItems.set(item.fullName, {"pu": item.price,"nb":chooseItems.get(item.fullName)["nb"] + 1}));
+    }else{
+      setChooseItems(chooseItems.set(item.fullName, {"pu": item.price,"nb":1}));
+    }
+    setCountItems(countItems + 1);
     setTotalPrice(totalPrice + item.price);
-    console.log("choosen items: " + choosenItems);
+    console.log("chooseItems: " + chooseItems.get(item.fullName)["pu"]);
   };
 
   return (
@@ -74,7 +82,7 @@ export default function OrderScreen() {
       </Grid>
       <Grid xs={10}>
         <div>
-          <DrawerCart nbItems={choosenItems.length} totalPrice={totalPrice} />
+          <DrawerCart nbItems={countItems} items={chooseItems} total={totalPrice} />
         </div>
         <Paper style={{ maxHeight: 700, overflow: "auto" }}>
           <h1 style={{ display: "flex", justifyContent: "center" }}>
