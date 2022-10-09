@@ -14,6 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Menu implements Serializable {
     private String fullName;
+    private String shortName;
     private double price;
     private URL image;
 }

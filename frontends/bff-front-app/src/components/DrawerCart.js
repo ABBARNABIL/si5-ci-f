@@ -9,6 +9,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuItemTable from "../components/MenuItemTable";
+import { useNavigate } from "react-router-dom";
+
+
 
 const drawerBleeding = 56;
 
@@ -33,6 +36,9 @@ const Puller = styled(Box)(({ theme }) => ({
 }));
 
 function DrawerCart(props) {
+
+  const navigate = useNavigate();
+
   const { window } = props;
   const [open, setOpen] = React.useState(false);
 
@@ -55,7 +61,8 @@ function DrawerCart(props) {
         }}
       />
       <Box sx={{ textAlign: 'right', pt: 1, pb:1 }}>
-        <Button
+            <Button
+              onClick={() => navigate("/order/confirm", {state: {items: props.items, total: props.total}})}
               variant="contained"
               color="success"
             >

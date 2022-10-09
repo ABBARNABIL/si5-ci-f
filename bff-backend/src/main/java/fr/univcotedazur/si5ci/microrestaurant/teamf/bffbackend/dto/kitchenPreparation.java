@@ -5,12 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LunchedOrder {
-    private String orderId;
-    private Long tableId;
-    private boolean ready;
+public class kitchenPreparation {
+    private UUID id;
+    private String shortName;
 }

@@ -2,6 +2,8 @@ package fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.controllers;
 
 
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.*;
+import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.dining.TableWithOrder;
+import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.kitchen.PreparedItem;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.services.BffService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,15 +32,27 @@ public class BffController {
         return bffService.getMenusByCategory(category);
     }
 
-    @PostMapping("/order")
+    @PostMapping("/orders")
     @ResponseStatus(HttpStatus.CREATED)
     public LunchedOrder order(@RequestBody Order order) {
         return bffService.order(order);
     }
 
     @GetMapping("/tables")
-    public List<Table> getTables() {
+    public List<TableWithOrder> getTables() {
         return bffService.listALlTablesAndAvailability();
     }
+
+    @GetMapping("/orders")
+    @ResponseStatus(HttpStatus.OK)
+    public List<LunchedOrder> getOrders() {
+        return bffService.getOrders();
+    }
+
+    /*@GetMapping("/kitchen/available-preparations")
+    @ResponseStatus(HttpStatus.OK)
+    public OrderPrepartion getAllPreparation() {
+        return bffService.getAllPreparationsByTableId(2);
+    }*/
 
 }
