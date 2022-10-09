@@ -9,6 +9,5 @@ import java.util.List;
 @Data
 @Getter
 public class Order implements Serializable {
-    private Integer tableId;
     private List<OrderItem> items;
 }

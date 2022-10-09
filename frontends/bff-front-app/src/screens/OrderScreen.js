@@ -10,6 +10,8 @@ import BffService from "../utils/BffService";
 import QuantityModal from "../components/QuantityModal";
 
 export default function OrderScreen() {
+  // const context = createContext();
+
   const [categories, setCategories] = React.useState([]);
   const [choosenCategory, setChoosenCategory] = React.useState("STARTER");
   const [menuItems, setMenuItems] = React.useState([]);
