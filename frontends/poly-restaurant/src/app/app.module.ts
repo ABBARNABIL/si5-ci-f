@@ -23,7 +23,17 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { ShowTableComponent } from './pages/tables-dialogue/show-table/show-table.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { BillDialogueComponent } from './pages/bill-dialogue/bill-dialogue.component';
+import { TrackingComponent } from './pages/tracking/tracking.component';
+import {MatTableModule} from '@angular/material/table';
+import { RouterModule, Routes } from '@angular/router';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { ControlOrdersComponent } from './pages/control-orders/control-orders.component';
 
+
+const routes: Routes = [
+  {  path: 'track-order', component: TrackingComponent},
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +47,8 @@ import { BillDialogueComponent } from './pages/bill-dialogue/bill-dialogue.compo
     ShowTableComponent,
     ShoppingCartComponent,
     BillDialogueComponent,
+    TrackingComponent,
+    ControlOrdersComponent,
 
   ],
   imports: [
@@ -48,7 +60,11 @@ import { BillDialogueComponent } from './pages/bill-dialogue/bill-dialogue.compo
     MatCardModule,
     FlexLayoutModule,
     MatDialogModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatPaginatorModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]

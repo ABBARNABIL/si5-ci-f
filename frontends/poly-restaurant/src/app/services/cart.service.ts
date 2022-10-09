@@ -5,16 +5,18 @@ import { StartOrderingDTO } from '../models/startOrderingDTO';
 import { BillDialogueComponent } from '../pages/bill-dialogue/bill-dialogue.component';
 import { TablesDialogueComponent } from '../pages/tables-dialogue/tables-dialogue.component';
 import { DiningService } from './dining.service';
+import { TrackingService } from './tracking.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  cartItems: any[] = [];
+  public cartItems: any[] = [];
   startOrder! : StartOrderingDTO
   public totalPrice = 0;
-  
-  constructor(public dialog: MatDialog, private diningService : DiningService) { }
+  public tableOrder : any
+
+  constructor(public dialog: MatDialog, private diningService : DiningService, private tracking : TrackingService) { }
 
   addItemToCart(item : any) {
     const itemExistInCart = this.cartItems.find(({fullName}) => fullName === item.fullName);
@@ -38,7 +40,8 @@ export class CartService {
         this.diningService.openTable(data).subscribe(
           result =>{
             this.cartItems.forEach(item => {
-              this.diningService.addToTableOrder(item,""+result.id);
+                this.tableOrder = this.diningService.addToTableOrder(item,""+result.id);
+                this.tracking.all_orders.push(this.tableOrder)
             })
         });
       });
