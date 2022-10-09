@@ -13,14 +13,20 @@ export class ShoppingCartComponent implements OnInit {
   itemCount : number = 0;
 
   constructor(private cartService: CartService) {
-   }
+    this.cartService.totalPrice.subscribe(total => this.total = total);
+    this.cartService.itemCount.subscribe(count => this.itemCount = count);
+  }
 
   ngOnInit(): void {
   }
 
+  ngOnChanges() {
 
-  validate(){
-    this.cartService.validate();
+  }
+
+
+  confirm(){
+    //this.cartService.validate();
   }
 
 }

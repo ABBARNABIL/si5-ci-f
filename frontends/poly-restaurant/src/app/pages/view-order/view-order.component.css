@@ -1,0 +1,55 @@
+table {
+  width: 100%;
+}
+
+i.icon-green {
+  color: green;
+}
+
+
+i.icon-red {
+  color: red;
+}
+
+i.icon-black {
+  color: black;
+
+}
+
+button.gray-button {
+  background-color: #e0e0e0;
+  color: black;
+  margin: 10px;
+}
+
+div.actions {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+footer{
+  position:fixed;
+  bottom:0px;
+  width:100%;
+  }
+
+  #outer
+{
+    width:100%;
+    text-align: center;
+}
+.inner
+{
+    display: inline-block;
+}
+
+.cancelBtn {
+  background-color: red;
+  margin: 10px;
+}
+
+.confirmBtn {
+  background-color: green;
+  margin: 10px;
+}
