@@ -34,7 +34,7 @@ public class BffController {
 
     @PostMapping("/orders")
     @ResponseStatus(HttpStatus.CREATED)
-    public LunchedOrder order(@RequestBody Order order) {
+    public FullOrder order(@RequestBody Order order) {
         return bffService.order(order);
     }
 
@@ -45,7 +45,7 @@ public class BffController {
 
     @GetMapping("/orders")
     @ResponseStatus(HttpStatus.OK)
-    public List<LunchedOrder> getOrders() {
+    public List<FullOrder> getOrders() {
         return bffService.getOrders();
     }
 
