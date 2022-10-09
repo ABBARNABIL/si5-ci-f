@@ -28,7 +28,7 @@ public class BffService {
     private final MenuMS menuMS;
 
     private Map<String, List<String>> preparationsIdByOrderId = new HashMap<>();
-    private List<LunchedOrder> orders = new ArrayList<>();
+    private List<FullOrder> orders = new ArrayList<>();
 
     public List<MenuCategory> getMenuCategories() {
         log.info("Getting all menu categories");
@@ -69,23 +69,13 @@ public class BffService {
         return null;
     }
 
-    Long getAvailableTableId(){
-        List<TableWithOrder> tables = tableMS.listAllTables();
-        for (TableWithOrder table : tables) {
-            if (!table.isTaken()){
-                return table.getNumber();
-            }
-        }
-        throw new InternalServerException("No available table. Sorry");
-    }
-
     private void addPreparationsToMap(String orderId, List<Preparation> preparations){
         List<String> preparationsId = new ArrayList<>();
         preparations.forEach(preparation -> preparationsId.add(preparation.getId().toString()));
         preparationsIdByOrderId.put(orderId, preparationsId);
     }
 
-    public LunchedOrder order(Order order) {
+    public FullOrder order(Order order) {
         log.info("####### Request for New Order #######");
         // generation aléatoire d'une table
         //var tableId = getAvailableTableId();
@@ -107,12 +97,12 @@ public class BffService {
         log.info("Order "+tableOrder.getId()+" is ready to be sent to the kitchen");
         diningMS.prepare(tableOrder.getId());
         log.info("Order "+tableOrder.getId()+" is sent to the kitchen for preparation");
-        var lunchedOrder =  new LunchedOrder(tableOrder.getId().toString(), tableOrder.getTableNumber(), false);
-        orders.add(lunchedOrder);
-        return lunchedOrder;
+        var fullOrder =  new FullOrder(tableOrder.getId().toString(), tableOrder.getTableNumber(), false, order.getItems());
+        orders.add(fullOrder);
+        return fullOrder;
     }
 
-    public  List<LunchedOrder> getOrders(){
+    public  List<FullOrder> getOrders(){
         log.info("####### Getting orders #######");
         return orders;
     }

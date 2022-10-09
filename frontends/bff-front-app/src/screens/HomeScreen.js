@@ -11,9 +11,13 @@ export default function HomeScreen() {
       <Button onClick={() => navigate("/order")} variant="contained">
         Place Order
       </Button>
-      <Button onClick={() => navigate("/order-list")} variant="contained">
-        Orders list
+      <Button onClick={() => navigate("/dining-order-list")} variant="contained">
+        Dining Orders list
       </Button>
+      <Button onClick={() => navigate("/kitchen-order-list")} variant="contained">
+        Kitchen Orders list
+      </Button>
+
     </div>
   );
 }

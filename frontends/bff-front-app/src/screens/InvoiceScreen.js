@@ -14,11 +14,12 @@ export default function InvoiceScreen() {
     return (
         <Container>
             {/* <h1>OrderScreen {location.state.items}</h1> */}
+            <h3>Thank you for yor order. Below your invoice ...</h3>
             <h1>Invoice</h1>
             <MenuItemTable items={location.state.items} />
-            <h5>Total: {location.state.total}</h5>
-            <h5>Order id: {location.state.order['orderId']} </h5>
-            <h5>Table: {location.state.order['tableId']} </h5>
+            <h3>Total price: {location.state.total}€</h3>
+            <h3>Order id: {location.state.order['orderId']} </h3>
+            <h3>Table: {location.state.order['tableId']} </h3>
         </Container>
     )
 }
