@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import MenuItemTable from "../components/MenuItemTable";
 import BffService from "../utils/BffService";
 
-export default function OrderScreen() {
+export default function ConfirmOrderScreen() {
     const location = useLocation();
     const navigate = useNavigate();
     const bffService = new BffService();
@@ -12,20 +12,19 @@ export default function OrderScreen() {
         console.log("handleOrder");
         const items = []
         for (var [key, value] of location.state.items) {
-            console.log(key + " goes " + value);
             items.push({"shortName":value["shortName"],"quantity":value["nb"]});
         }
+
+        const total = location.state.total;
+        console.log("items "+total);
+
         const order = {
-            // "tableId": 3,
             "items": items
         };
 
-        //order to json
-        console.log("order: " + JSON.stringify(order));
-
         bffService.createOrder(order).then(response => {
             console.log("response: " + JSON.stringify(response.data));
-            //navigate("/order-list");
+            navigate("/invoice", { state: { items: location.state.items, order: response.data, total: total } });
         });
     };
     return (

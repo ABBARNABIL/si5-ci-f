@@ -88,10 +88,11 @@ public class BffService {
     public LunchedOrder order(Order order) {
         log.info("####### Request for New Order #######");
         // generation aléatoire d'une table
-        var tableId = getAvailableTableId();
+        //var tableId = getAvailableTableId();
+        var tableId = orders.size()+1;
 
         log.info("Start opening Table "+tableId);
-        var tableOrder = diningMS.openTable(new StartOrdering(tableId.longValue(), 1));
+        var tableOrder = diningMS.openTable(new StartOrdering((long) tableId, 1));
         log.info("Table "+tableId+" opened with orderId "+tableOrder.getId());
         order.getItems().forEach(item ->{
             diningMS.addToTableOrder(tableOrder.getId(), new Item(getMenuIdByShortName(item.getShortName()), item.getShortName(), item.getQuantity()));
@@ -116,14 +117,10 @@ public class BffService {
         return orders;
     }
 
-    public List<Table> listALlTablesAndAvailability() {
+    public List<TableWithOrder> listALlTablesAndAvailability() {
         log.info("Listing all tables and their availability");
         var tables = tableMS.listAllTables();
-        List<Table> tablesList = new ArrayList<>();
-        tables.forEach(table -> {
-            tablesList.add(new Table(table.getNumber(), table.isTaken()));
-        });
-        return tablesList;
+        return tables;
     }
 
     //private List<kitchenPreparation>

@@ -62,7 +62,7 @@ function DrawerCart(props) {
       />
       <Box sx={{ textAlign: 'right', pt: 1, pb:1 }}>
             <Button
-              onClick={() => navigate("/order/confirm", {state: {items: props.items}})}
+              onClick={() => navigate("/order/confirm", {state: {items: props.items, total: props.total}})}
               variant="contained"
               color="success"
             >

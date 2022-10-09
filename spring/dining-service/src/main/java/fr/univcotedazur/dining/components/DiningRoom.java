@@ -88,7 +88,7 @@ public class DiningRoom {
             tableOrder.setBilled(LocalDateTime.now());
             System.err.println("TO BE IMPLEMENTED: send payment for the tableOrder" + tableOrder.getId() + " on table " +
                     tableOrder.getTableNumber());
-            //tablesLayout.freeTable(tablesLayout.retrieveTable(tableOrder.getTableNumber()));
+            tablesLayout.freeTable(tablesLayout.retrieveTable(tableOrder.getTableNumber()));
             return tableOrderRepository.save(tableOrder);
         }
     }

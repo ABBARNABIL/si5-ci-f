@@ -2,6 +2,7 @@ package fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.controllers;
 
 
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.*;
+import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.dining.TableWithOrder;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.kitchen.PreparedItem;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.services.BffService;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,7 @@ public class BffController {
     }
 
     @GetMapping("/tables")
-    public List<Table> getTables() {
+    public List<TableWithOrder> getTables() {
         return bffService.listALlTablesAndAvailability();
     }
 

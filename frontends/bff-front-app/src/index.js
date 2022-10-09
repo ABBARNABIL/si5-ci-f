@@ -7,6 +7,7 @@ import OrderListScreen from "./screens/OrderListScreen";
 import HomeScreen from "./screens/HomeScreen";
 import * as serviceWorker from "./serviceWorker";
 import ConfirmOrderScreen from "./screens/ConfirmOrderScreen";
+import InvoiceScreen from "./screens/InvoiceScreen";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.render(
         <Route exact path="/order" element={<OrderScreen />} />
         <Route exact path="/order/confirm" element={<ConfirmOrderScreen />} />
         <Route exact path="/order-list" element={<OrderListScreen />} />
+        <Route exact path="/invoice" element={<InvoiceScreen />} />
       </Routes>
     </Router>
   </React.StrictMode>,

@@ -57,11 +57,12 @@ export default function OrderScreen() {
         chooseItems.set(item.fullName, {
           pu: item.price,
           nb: chooseItems.get(item.fullName)["nb"] + quantity,
+          shortName: item.shortName,
         })
       );
     } else {
       setChooseItems(
-        chooseItems.set(item.fullName, { pu: item.price, nb: quantity })
+        chooseItems.set(item.fullName, { pu: item.price, nb: quantity, shortName: item.shortName })
       );
     }
     setCountItems(countItems + quantity);
