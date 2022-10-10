@@ -1,7 +1,9 @@
 package fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.api;
 
+import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.kitchenPreparation;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.exceptions.InternalServerException;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.kitchen.Post;
+import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.kitchen.Preparation;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.kitchen.PreparedItem;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.kitchen.Recipe;
 import lombok.RequiredArgsConstructor;
@@ -36,9 +38,9 @@ public class CookingMS {
         }
     }
 
-    public List<PreparedItem> getPreparatedItemsToStartByPost(Post postName) {
+    public List<kitchenPreparation> getPreparatedItemsToStartByPost(Post postName) {
         try {
-            var res = restTemplate.getForObject(url + BASE_URI + "/?post=" + postName.name(), PreparedItem[].class);
+            var res = restTemplate.getForObject(url + BASE_URI + "/?post=" + postName.name(), kitchenPreparation[].class);
             return List.of(res);
         } catch (Exception e) {
             throw new InternalServerException(e.getMessage());

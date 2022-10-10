@@ -3,6 +3,7 @@ package fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.kitchen;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
+@ToString
 public class Preparation implements Serializable {
     private UUID id;
     private Long tableId;
