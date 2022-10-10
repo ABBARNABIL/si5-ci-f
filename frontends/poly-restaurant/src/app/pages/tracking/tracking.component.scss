@@ -2,6 +2,12 @@ table {
     width: 100%;
 }
 
+.tab {
+    width: 100%;
+    height: 100%;
+    background-image: url("https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTuvurEyFoYbw7bPu7ydOsAVO09CqiesvUbIagJt15nMEDdEtwgHRz2gmoEkdD8ppBx6rDoVCEHDSuxHhvPLnJR9VxBvtkdGgmd0IVWQhA&usqp=CAE");
+}
+
 .mat-form-field {
     font-size: 14px;
     width: 100%;
@@ -10,4 +16,23 @@ table {
 td,
 th {
     width: 25%;
+}
+
+.content {
+    margin-left: 90px;
+}
+
+.example-button-row {
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+.example-button button {
+    margin-right: 8px;
+    margin-left: 20px;
+}
+
+.orders {
+    margin-left: 40%;
+    align-content: center;
 }

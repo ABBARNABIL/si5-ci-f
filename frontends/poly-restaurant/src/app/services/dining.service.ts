@@ -1,7 +1,7 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams,HttpResponse, HttpEvent } from '@angular/common/http';
 
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Item } from '../models/item';
 import { Preparation } from '../models/preparation';
 import { StartOrderingDTO } from '../models/startOrderingDTO';
@@ -20,7 +20,6 @@ export class DiningService {
     protected basePath = serverDiningUrl;
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
-    public tableOrder$: Subject<TableOrder> = new Subject();
 
     constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH_DINING) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
@@ -45,7 +44,7 @@ export class DiningService {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
         if(consumesValues){
-          const consumes: string[] = consumesValues;
+          const consumes: string[] = consumesValues;  
           const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
           if (httpContentTypeSelected != undefined) {
               headers = headers.set('Content-Type', httpContentTypeSelected);
@@ -61,7 +60,10 @@ export class DiningService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addToTableOrder(body: Item, tableOrderId: string, observe: any = 'body', reportProgress: boolean = false ): void {
+    public addToTableOrder(body: Item, tableOrderId: string, observe?: 'body', reportProgress?: boolean): Observable<TableOrder>;
+    public addToTableOrder(body: Item, tableOrderId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TableOrder>>;
+    public addToTableOrder(body: Item, tableOrderId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TableOrder>>;
+    public addToTableOrder(body: Item, tableOrderId: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
             throw new Error('Required parameter body was null or undefined when calling addToTableOrder.');
@@ -73,7 +75,7 @@ export class DiningService {
 
         let headers = this.initializeHeaders(['application/json']);
 
-        this.httpClient.post<TableOrder>(`${this.basePath}/tableOrders/${encodeURIComponent(String(tableOrderId))}`,
+        return this.httpClient.request<TableOrder>('post',`${this.basePath}/tableOrders/${encodeURIComponent(String(tableOrderId))}`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
@@ -81,9 +83,6 @@ export class DiningService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).subscribe((order) => {
-          this.tableOrder$.next(order)
-        }
         );
     }
 

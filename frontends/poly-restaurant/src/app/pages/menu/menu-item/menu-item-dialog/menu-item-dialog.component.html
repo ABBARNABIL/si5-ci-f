@@ -2,26 +2,27 @@
 
 <mat-dialog-content>
 
-  <div style="display:inline-block;vertical-align:top;">
-    <img src="{{item.image}}" class="img">
-  </div>
-  <div style="display:inline-block;">
+    <div style="display:inline-block;vertical-align:top;">
+        <img src="{{item.image}}" class="img">
+    </div>
+    <div style="display:inline-block;">
 
-  </div>
-  <div style="display:inline-block;">
-    <div>
-      Select number of items:
     </div>
-    <div>
-      <button (click)="subtract()" class="btn btn-default">-</button>
-      <input type="number" name="Quantity" [(ngModel)]="quantity"/>
-      <button (click)="add()"class="btn btn-default">+</button>
+    <div style="display:inline-block;">
+        <div>
+            Select number of items:
+        </div>
+        <div>
+            <button (click)="subtract()" class="btn btn-default">-</button>
+            <input type="number" name="Quantity" />
+            <!--[(ngModel)]="quantity"-->
+            <button (click)="add()" class="btn btn-default">+</button>
+        </div>
+        <div>
+            <button (click)="addToCart()" class="btn btn-default" [style.background-color]="'green'">Add to cart</button> <br>
+            <button (click)="close()" class="btn btn-default" [style.background-color]="'red'">Close</button>
+        </div>
     </div>
-    <div>
-      <button (click)="addToCart()" class="btn btn-default" [style.background-color]="'green'">Add to cart</button> <br>
-      <button (click)="close()" class="btn btn-default" [style.background-color]="'red'">Close</button>
-    </div>
-  </div>
 </mat-dialog-content>
 
 <!--

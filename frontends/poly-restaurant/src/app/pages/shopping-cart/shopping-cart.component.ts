@@ -26,7 +26,7 @@ export class ShoppingCartComponent implements OnInit {
 
 
   confirm(){
-    //this.cartService.validate();
+    // this.cartService.validate();
   }
 
 }

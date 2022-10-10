@@ -1,34 +1,81 @@
 import { Injectable, IterableDiffers } from '@angular/core';
+import { Subject } from 'rxjs';
 import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TrackingService {
-  public all_orders : any = [];
-  iterableDiffer: any;
+  orders_DATA: Subject<any[]> = new Subject<any[]>();
+  public all_orders = [
+    {
+      "id": "disdzis-fgfg",
+      "tableNumber": "2",
+      "customersCount": 2,
+      "opened": "",
+      "lines": "",
+      "status":false
+    },
+    {
+      "id": "zhdzhd-ffg",
+      "tableNumber": "3",
+      "customersCount": 2,
+      "opened": "",
+      "lines": "",
+      "status":false
+    },
+    {
+      "id": "zhdzhd-rgrgr",
+      "tableNumber": "4",
+      "customersCount": 2,
+      "opened": "",
+      "lines": "",
+      "status":false
+    },{
+      "id": "uoppp-etue",
+      "tableNumber": "5",
+      "customersCount": 2,
+      "opened": "",
+      "lines": "",
+      "status":false
+    },{
+      "id": "uduhd-euude",
+      "tableNumber": "6",
+      "customersCount": 2,
+      "opened": "",
+      "lines": "",
+      "status":false
+    },{
+      "id": "jifieue-gugu",
+      "tableNumber": "7",
+      "customersCount": 2,
+      "opened": "",
+      "lines": "",
+      "status":false
+    },{
+      "id": "gjgjj-yyii",
+      "tableNumber": "8",
+      "customersCount": 2,
+      "opened": "",
+      "lines": "",
+      "status":false
+    }
+  ]
+
+  public finishOrders: any = []
+
+  iterableDiffer: any
   inputArray :any = []
 
   constructor(){
-    console.log()
+    this.orders_DATA.subscribe((value) => {
+      this.all_orders = value
+  });
   }
-  // constructor(private iterableDiffers: IterableDiffers) {
-  //   this.iterableDiffer = this.iterableDiffers.find([]).create();
-  //   console.log("jhsjxhslkj")
-  // }
 
-  // ngOnInit(){
-  //   console.log("hdkdhhhhhhhhhh")
-  //   this.inputArray.push("3")
-  //   console.log(this.inputArray)
-  // }
-
-  // ngDoCheck() {
-  //   let changes = this.iterableDiffer.diff(this.inputArray);
-  //   if (changes) {
-  //       console.log('Changes detected!');
-  //   }
-  // }
+  ngOnInit(){
+  }
+  
   getTime(){
     this.all_orders.forEach((order: any) => {
         console.log(order)
