@@ -24,9 +24,12 @@ export class ShoppingCartComponent implements OnInit {
 
   }
 
+  cancel() {
+    this.cartService.cancel();
+  }
 
   confirm(){
-    // this.cartService.validate();
+    this.cartService.validate();
   }
 
 }

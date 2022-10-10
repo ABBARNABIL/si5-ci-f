@@ -28,11 +28,10 @@ public class DiningStartUpLogic implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         if (tablesLayout.findAll().size() == 0) { // in case of container restart, mongodb will be already populated
-            tablesLayout.addTable(1L);
-            tablesLayout.addTable(2L);
-            tablesLayout.addTable(3L);
+            for (long i = 1L; i <= 50L; i++) {
+                tablesLayout.addTable(i);
+            }
         }
+        
     }
-
-
 }

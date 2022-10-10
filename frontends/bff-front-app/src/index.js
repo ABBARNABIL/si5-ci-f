@@ -6,6 +6,9 @@ import OrderScreen from "./screens/OrderScreen";
 import OrderListScreen from "./screens/OrderListScreen";
 import HomeScreen from "./screens/HomeScreen";
 import * as serviceWorker from "./serviceWorker";
+import ConfirmOrderScreen from "./screens/ConfirmOrderScreen";
+import InvoiceScreen from "./screens/InvoiceScreen";
+import KitchenOrderListScreen from "./screens/KitchenOrderListScreen";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,7 +16,10 @@ ReactDOM.render(
       <Routes>
         <Route exact path="/" element={<HomeScreen />} />
         <Route exact path="/order" element={<OrderScreen />} />
-        <Route exact path="/order-list" element={<OrderListScreen />} />
+        <Route exact path="/order/confirm" element={<ConfirmOrderScreen />} />
+        <Route exact path="/dining-order-list" element={<OrderListScreen />} />
+        <Route exact path="/kitchen-order-list" element={<KitchenOrderListScreen />} />
+        <Route exact path="/invoice" element={<InvoiceScreen />} />
       </Routes>
     </Router>
   </React.StrictMode>,

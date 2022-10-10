@@ -6,10 +6,9 @@ import Typography from '@mui/material/Typography';
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { Container } from "@mui/system";
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
+import { Divider, Stack, Chip, Button } from "@mui/material";
 
-export default function OrderListScreen() {
+export default function KitchenOrderListScreen() {
 
   const [orders, setOrders] = React.useState([]);
   const bffService = new BffService();
@@ -22,17 +21,19 @@ export default function OrderListScreen() {
 
   const getOrders = async () => {
     bffService.getOrders().then(response => {
-      setOrders(response.data);
+      //filter orders that are not finished
+      setOrders(response.data.filter(order => order.finished === false));
+      //setOrders(response.data);
     });
   };
 
-  console.log("orders: " + orders.length);
+  console.log("ttttt: " + JSON.stringify(orders));
 
   return (
     <Container >
       <Grid sx={{ bgcolor: 'text.secondary', p:2 }}>
-        <h2>Dining vision</h2>
-        <center><h2>Orders list</h2></center>
+        <h2>Kitchen vision</h2>
+        <center><h2>Orders</h2></center>
         <Box sx={{ flexGrow: 1 }} >
           <Grid
             container
@@ -43,16 +44,20 @@ export default function OrderListScreen() {
               <Grid item xs={"auto"} sm={4} md={4} key={index}>
                 <Card color="blue">
                   <CardContent>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                      N° {value.shortOrderId}
-                    </Typography>
                     <Typography>
                       <Stack direction="row" spacing={2}>
                         <Typography variant="h7" component="div">
                           Table: {value.tableId}
                         </Typography>
-                        {value.finished === true && <Chip label="READY" size="small" color="success" />}
-                        {value.finished === false && <Chip label="NOT READY" size="small" color="warning" />}
+                        <Divider orientation="vertical" flexItem />
+                        {value.started === false && <Button size="small" variant="contained" color="primary" onClick={() => {bffService.startOrder(value.orderId)}}>START</Button>}
+                        {value.started === true && <Button size="small" variant="contained" color="secondary" onClick={() => {bffService.finishOrder(value.orderId)}}>FINISH</Button>}
+                      </Stack>
+                      <Divider sx={{m:1}}/>
+                      <Stack direction="column" spacing={1}>
+                         {value.items.map((item, index) => (
+                            <Stack> {item.shortName} x {item.quantity}</Stack>
+                          ))}
                       </Stack>
                     </Typography>
                   </CardContent>

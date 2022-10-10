@@ -5,6 +5,7 @@ import { MenuService } from 'src/app/services/menu.service';
 import { SideBarItem } from '../side-bar/side-bar-item/side-bar-item.model';
 import { TablesDialogueComponent } from '../tables-dialogue/tables-dialogue.component';
 import { Item } from '../../models/item';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-menu',
@@ -15,8 +16,11 @@ export class MenuComponent implements OnInit {
 
   @Input() activeItem! : SideBarItem;
   menu : Array<MenuItem> = [];
+  itemCount = 0;
+
   constructor(
-    private menuService: MenuService
+    private menuService: MenuService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -26,6 +30,7 @@ export class MenuComponent implements OnInit {
   ngOnChanges() {
     this.menu = [];
     this.getTheFullMenu();
+    this.cartService.itemCount.subscribe(count => this.itemCount = count);
   }
 
   getTheFullMenu() {

@@ -26,8 +26,13 @@
         </div>
 
         <div id="outer">
+<<<<<<< HEAD
             <div class="inner"><button type="submit" [style.background-color]="'red'">Cancel order</button></div>
             <div class="inner"><button type="submit" [style.background-color]="'green'">Confirm order</button></div>
+=======
+          <div class="inner"><button type="submit" [style.background-color]="'red'" (click)="cancel()">Cancel order</button></div>
+          <div class="inner"><button type="submit" [style.background-color]="'green'" (click)="confirm()">Confirm order</button></div>
+>>>>>>> bf71d256f938d1b6c4b2d2a5f888e071265a0770
 
         </div>
     </mat-expansion-panel>

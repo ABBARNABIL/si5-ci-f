@@ -1,0 +1,11 @@
+img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+div {
+  height: 120px;
+  width: 100px;
+  background-color: blue;
+}

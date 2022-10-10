@@ -12,13 +12,6 @@ function createData(name, pu, qte, pt) {
   return { name, pu, qte, pt };
 }
 
-// const rows = [
-//   createData('Frozen yoghurt', 159, 6.0, 24),
-//   createData('Ice cream sandwich', 237, 9.0, 37),
-//   createData('Eclair', 262, 16.0, 24),
-
-// ];
-
 export default function MenuItemTable(props) {
   const [rows, setRows] = React.useState([]);
 
@@ -34,9 +27,8 @@ export default function MenuItemTable(props) {
 
   useEffect(() => {
     fillRows(props.items);
-  });
+  }, [props]); 
 
-  console.log("props: " + props.items);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">

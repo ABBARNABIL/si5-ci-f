@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MenuItem } from '../models/menuItem';
 import { StartOrderingDTO } from '../models/startOrderingDTO';
+import { TableOrder } from '../models/tableOrder';
+import { TableWithOrderDTO } from '../models/tableWithOrderDTO';
 import { BillDialogueComponent } from '../pages/bill-dialogue/bill-dialogue.component';
 import { TablesDialogueComponent } from '../pages/tables-dialogue/tables-dialogue.component';
 import { DiningService } from './dining.service';
@@ -16,6 +18,7 @@ export class CartService {
   startOrder! : StartOrderingDTO
   public totalPrice: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   public itemCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  public orderBeingPrepared!: TableOrder;
 
   constructor(public dialog: MatDialog, private diningService : DiningService) { }
 
@@ -59,29 +62,92 @@ export class CartService {
     this.calculateTotalItems();
   }
 
-  /*validate(){
-    if(this.cartItems.length>0){
-      const dialogRef = this.dialog.open(TablesDialogueComponent);
-      dialogRef.componentInstance.onAdd.subscribe((data) => {
-        console.log(data)
-        this.startOrder = data;
-        this.diningService.openTable(data).subscribe(
-          result =>{
-            this.cartItems.forEach(item => {
-                this.tableOrder = this.diningService.addToTableOrder(item,""+result.id);
-                this.tracking.all_orders.push(this.tableOrder)
-            })
-        });
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        if(result){
-          const dialogBill = this.dialog.open(BillDialogueComponent);
+  async validate(){
+    if(this.getItemCount() > 0){
+      this.diningService.listAllTables().subscribe(
+        res => {
+          let availableTables = res.filter(table => table.taken == false);
+          let randomTable = availableTables[Math.floor(Math.random() * availableTables.length)];
+          let startOrderingDTO : StartOrderingDTO = {tableId: randomTable.number, customersCount:3};
+          console.log(startOrderingDTO);
+          console.log("+++++++++++++++++++++++++++++++");
+          this.diningService.openTable(startOrderingDTO).subscribe(
+            result =>{
+              console.log("xxxxxxxxxxxxxxxxxxxxxxxx");
+              console.log(result);
+              let count = 0;
+              this.cartItems.forEach((value, key) => {
+                console.log("key: " + key);
+                console.log("value: " + value);
+                this.diningService.addToTableOrder({
+                  id: key.id,
+                  shortName: key.shortName,
+                  howMany: value
+                }, ""+result.id).subscribe(
+                  resul => {
+                    count++;
+                    console.log("added to order");
+                    console.log(resul.id);
+                    console.log(resul);
+                    if (count == this.cartItems.size) {
+                      this.diningService.prepare(""+result.id).subscribe(
+                        _ => {
+                          this.diningService.bill(""+result.id).subscribe(
+                            result => {
+                              this.orderBeingPrepared = result;
+                            }
+                          );
+                        });
+                    }
+                  }
+                );
+              });
+
+            /*this.cartItems.clear();
+            this.calculateTotalPrice();
+            this.calculateTotalItems();*/
+          });
+
         }
+      );
+
+    }
+  }
+
+  /*async validate(){
+    if(this.getItemCount() > 0){
+      let availbleTableNumber = await this.getRandomAvailableTable();
+      let startOrderingDTO : StartOrderingDTO = {tableId: availbleTableNumber, customersCount:3};
+      console.log(startOrderingDTO);
+      this.diningService.openTable(startOrderingDTO).subscribe(
+        result =>{
+          for (const [key, value] of this.cartItems.entries()) {
+            this.diningService.addToTableOrder({
+              id: key.id,
+              shortName: key.shortName,
+              howMany: value
+          }, ""+result.id);
+        }
+        this.diningService.prepare(""+result.id).subscribe(
+          _ => {
+            this.diningService.bill(""+result.id).subscribe(
+              result => {
+                this.orderBeingPrepared = result;
+              }
+            );
+          });
       });
-    } else{
-      alert("Your card is empty");
+      this.cartItems.clear();
+      this.calculateTotalPrice();
+      this.calculateTotalItems();
     }
   }*/
+
+  cancel() {
+    this.cartItems.clear();
+    this.calculateTotalPrice();
+    this.calculateTotalItems();
+  }
 
   calculateTotalPrice() {
     let sum = 0;
@@ -115,6 +181,22 @@ export class CartService {
       }
     });
     return item;
+  }
+
+  getItemCount() : number {
+    return this.itemCount.value;
+  }
+
+  async getRandomAvailableTable() : Promise<number> {
+    this.diningService.listAllTables().subscribe(
+      result => {
+        let availableTables = result.filter(table => table.taken == false);
+        let randomTable = availableTables[Math.floor(Math.random() * availableTables.length)];
+        return randomTable.number;
+      }
+    );
+    console.log("Error: No available tables");
+    return 0;
   }
 
 }

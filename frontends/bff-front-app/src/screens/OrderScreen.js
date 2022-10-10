@@ -10,6 +10,8 @@ import BffService from "../utils/BffService";
 import QuantityModal from "../components/QuantityModal";
 
 export default function OrderScreen() {
+  // const context = createContext();
+
   const [categories, setCategories] = React.useState([]);
   const [choosenCategory, setChoosenCategory] = React.useState("STARTER");
   const [menuItems, setMenuItems] = React.useState([]);
@@ -55,11 +57,12 @@ export default function OrderScreen() {
         chooseItems.set(item.fullName, {
           pu: item.price,
           nb: chooseItems.get(item.fullName)["nb"] + quantity,
+          shortName: item.shortName,
         })
       );
     } else {
       setChooseItems(
-        chooseItems.set(item.fullName, { pu: item.price, nb: quantity })
+        chooseItems.set(item.fullName, { pu: item.price, nb: quantity, shortName: item.shortName })
       );
     }
     setCountItems(countItems + quantity);

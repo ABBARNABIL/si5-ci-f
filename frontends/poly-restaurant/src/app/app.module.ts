@@ -33,6 +33,7 @@ import { MenuItemDialogComponent } from './pages/menu/menu-item/menu-item-dialog
 import { FormsModule } from '@angular/forms';
 import { ViewOrderComponent } from './pages/view-order/view-order.component';
 import {MatIconModule} from '@angular/material/icon';
+import { MenuFilterComponent } from './pages/menu/menu-filter/menu-filter.component';
 
 
 
@@ -58,6 +59,7 @@ const routes: Routes = [
     ControlOrdersComponent,
     MenuItemDialogComponent,
     ViewOrderComponent,
+    MenuFilterComponent
   ],
   imports: [
     BrowserModule,
