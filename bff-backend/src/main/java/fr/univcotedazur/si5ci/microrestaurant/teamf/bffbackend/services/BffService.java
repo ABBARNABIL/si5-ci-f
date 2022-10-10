@@ -80,6 +80,7 @@ public class BffService {
         // generation aléatoire d'une table
         //var tableId = getAvailableTableId();
         var tableId = orders.size()+1;
+        var shortOrderId = String.format("%04d", tableId);
 
         log.info("Start opening Table "+tableId);
         var tableOrder = diningMS.openTable(new StartOrdering((long) tableId, 1));
@@ -95,9 +96,9 @@ public class BffService {
         var bill = diningMS.bill(tableOrder.getId());
         log.info("Order "+tableOrder.getId()+" paid successfully");
         log.info("Order "+tableOrder.getId()+" is ready to be sent to the kitchen");
-        diningMS.prepare(tableOrder.getId());
+        //diningMS.prepare(tableOrder.getId());
         log.info("Order "+tableOrder.getId()+" is sent to the kitchen for preparation");
-        var fullOrder =  new FullOrder(tableOrder.getId().toString(), tableOrder.getTableNumber(), false, order.getItems());
+        var fullOrder =  new FullOrder(tableOrder.getId().toString(), shortOrderId, tableOrder.getTableNumber(), false, false, order.getItems());
         orders.add(fullOrder);
         return fullOrder;
     }
@@ -141,9 +142,26 @@ public class BffService {
         return res;
     }
 
-    public void startTablePreparationsInKitchen(String tableId) {
-        log.info("Starting preparations for table "+tableId);
-        //cookingMS.startToPrepareItemOnPost("");
+    public FullOrder startOrder(String orderId) {
+        log.info("####### Request for Starting Order #######");
+        log.info("Starting order "+orderId);
+        orders.forEach(order -> {
+            if (order.getOrderId().equals(orderId)) {
+                order.setStarted(true);
+            }
+        });
+        return orders.stream().filter(order -> order.getOrderId().equals(orderId)).findFirst().get();
+    }
+
+    public FullOrder finishOrder(String orderId) {
+        log.info("####### Request for Finishing Order #######");
+        log.info("Finishing order "+orderId);
+        orders.forEach(order -> {
+            if (order.getOrderId().equals(orderId)) {
+                order.setFinished(true);
+            }
+        });
+        return orders.stream().filter(order -> order.getOrderId().equals(orderId)).findFirst().get();
     }
 
 
