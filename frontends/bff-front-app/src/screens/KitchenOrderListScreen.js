@@ -15,13 +15,15 @@ export default function KitchenOrderListScreen() {
   
   React.useEffect(() => {
     getOrders();
-  }, []);
+  }, [orders]);
 
 
 
   const getOrders = async () => {
     bffService.getOrders().then(response => {
-      setOrders(response.data);
+      //filter orders that are not finished
+      setOrders(response.data.filter(order => order.finished === false));
+      //setOrders(response.data);
     });
   };
 
@@ -48,8 +50,8 @@ export default function KitchenOrderListScreen() {
                           Table: {value.tableId}
                         </Typography>
                         <Divider orientation="vertical" flexItem />
-                        {value.ready === false && <Button size="small" variant="contained" color="primary" onClick={() => {bffService.updateOrder(value.orderId, true); getOrders();}}>START</Button>}
-                        {value.ready === true && <Button size="small" variant="contained" color="secondary" onClick={() => {bffService.updateOrder(value.orderId, false); getOrders();}}>FINISH</Button>}
+                        {value.started === false && <Button size="small" variant="contained" color="primary" onClick={() => {bffService.startOrder(value.orderId)}}>START</Button>}
+                        {value.started === true && <Button size="small" variant="contained" color="secondary" onClick={() => {bffService.finishOrder(value.orderId)}}>FINISH</Button>}
                       </Stack>
                       <Divider sx={{m:1}}/>
                       <Stack direction="column" spacing={1}>

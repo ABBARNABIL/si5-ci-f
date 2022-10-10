@@ -16,7 +16,7 @@ export default function OrderListScreen() {
   
   React.useEffect(() => {
     getOrders();
-  }, []);
+  }, [orders]);
 
 
 
@@ -44,15 +44,15 @@ export default function OrderListScreen() {
                 <Card color="blue">
                   <CardContent>
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                      N° {value.orderId}
+                      N° {value.shortOrderId}
                     </Typography>
                     <Typography>
                       <Stack direction="row" spacing={2}>
                         <Typography variant="h7" component="div">
                           Table: {value.tableId}
                         </Typography>
-                        {value.ready === true && <Chip label="READY" size="small" color="success" />}
-                        {value.ready === false && <Chip label="NOT READY" size="small" color="warning" />}
+                        {value.finished === true && <Chip label="READY" size="small" color="success" />}
+                        {value.finished === false && <Chip label="NOT READY" size="small" color="warning" />}
                       </Stack>
                     </Typography>
                   </CardContent>
