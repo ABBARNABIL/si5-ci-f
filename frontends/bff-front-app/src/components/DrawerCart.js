@@ -65,6 +65,7 @@ function DrawerCart(props) {
               onClick={() => navigate("/order/confirm", {state: {items: props.items, total: props.total}})}
               variant="contained"
               color="success"
+              disabled={props.items.size === 0}
             >
               Confirm Order
             </Button>

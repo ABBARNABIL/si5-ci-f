@@ -15,7 +15,7 @@ export default function InvoiceScreen() {
             <h1>Invoice</h1>
             <MenuItemTable items={location.state.items} />
             <h3>Total price: {location.state.total}$</h3>
-            <h3>Order id: {location.state.order['orderId']} </h3>
+            <h3>Order id: {location.state.order['shortOrderId']} </h3>
             <h3>Table: {location.state.order['tableId']} </h3>
         </Container>
     )
