@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
 import { MenuItem } from '../models/menuItem';
 import { StartOrderingDTO } from '../models/startOrderingDTO';
 import { TableOrder } from '../models/tableOrder';
@@ -68,50 +68,47 @@ export class CartService {
           let availableTables = res.filter(table => table.taken == false);
           let randomTable = availableTables[Math.floor(Math.random() * availableTables.length)];
           let startOrderingDTO : StartOrderingDTO = {tableId: randomTable.number, customersCount:3};
-          console.log(startOrderingDTO);
-          console.log("+++++++++++++++++++++++++++++++");
           this.diningService.openTable(startOrderingDTO).subscribe(
             result =>{
-              console.log("xxxxxxxxxxxxxxxxxxxxxxxx");
               console.log(result);
               let count = 0;
+              let promises: Array<Promise<any>> = [];
+
               this.cartItems.forEach((value, key) => {
                 console.log("key: " + key);
                 console.log("value: " + value);
-                this.diningService.addToTableOrder({
+                promises.push(lastValueFrom((this.diningService.addToTableOrder({
                   id: key.id,
                   shortName: key.shortName,
                   howMany: value
-                }, ""+result.id).subscribe(
-                  resul => {
-                    count++;
-                    console.log("added to order");
-                    console.log(resul.id);
-                    console.log(resul);
-                    if (count == this.cartItems.size) {
+                }, ""+result.id))));
+
+                Promise.all(promises).then(() => {
+                  this.diningService.tableOrder(result.id!).subscribe(
+                    res => {
                       this.diningService.prepare(""+result.id).subscribe(
                         _ => {
                           this.diningService.bill(""+result.id).subscribe(
                             result => {
                               this.orderBeingPrepared = result;
-                            }
-                          );
+                              this.cartItems.clear();
+                              this.calculateTotalPrice();
+                              this.calculateTotalItems();
+                            });
                         });
-                    }
-                  }
-                );
+                       });
+                      });
+                  });
               });
-
-            /*this.cartItems.clear();
-            this.calculateTotalPrice();
-            this.calculateTotalItems();*/
           });
-
-        }
-      );
-
     }
   }
+
+
+
+
+
+
 
   /*async validate(){
     if(this.getItemCount() > 0){
