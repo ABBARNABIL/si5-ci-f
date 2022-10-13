@@ -35,6 +35,74 @@ public class KitchenStartUpLogic implements ApplicationRunner {
                             Post.BAR,
                             List.of("Serve it!"),
                             1));
+            recipeRepository.save(new Recipe("salade italienne",
+                    Post.COLD_DISH,
+                    List.of("put salad", "add vinigar", "mix it"),
+                    2));
+            recipeRepository.save(new Recipe("salade niçoise",
+                    Post.COLD_DISH,
+                    List.of("put salad", "add vinigar", "mix it"),
+                    2));
+            recipeRepository.save(new Recipe("salade cesar",
+                    Post.COLD_DISH,
+                    List.of("put salad", "add vinigar", "mix it"),
+                    2));
+            recipeRepository.save(new Recipe("pancakes",
+                    Post.COLD_DISH,
+                    List.of("pancake", "add honey"),
+                    2));
+            recipeRepository.save(new Recipe("omelette",
+                    Post.HOT_DISH,
+                    List.of("eggs", "cook"),
+                    2));
+            recipeRepository.save(new Recipe("burger",
+                    Post.HOT_DISH,
+                    List.of("stack", "add sauce"),
+                    3));
+            recipeRepository.save(new Recipe("pasta",
+                    Post.HOT_DISH,
+                    List.of("pasta", "add sauce"),
+                    3));
+            recipeRepository.save(new Recipe("nouilles",
+                    Post.HOT_DISH,
+                    List.of("noodles", "add sauce"),
+                    3));
+            recipeRepository.save(new Recipe("soupe",
+                    Post.HOT_DISH,
+                    List.of("vegetebales", "mix"),
+                    3));
+            recipeRepository.save(new Recipe("vin rouge",
+                    Post.BAR,
+                    List.of("Serve it!"),
+                    1));
+            recipeRepository.save(new Recipe("vin blanc",
+                    Post.BAR,
+                    List.of("Serve it!"),
+                    1));
+            recipeRepository.save(new Recipe("fanta",
+                    Post.BAR,
+                    List.of("Serve it!"),
+                    1));
+            recipeRepository.save(new Recipe("pepsi",
+                    Post.BAR,
+                    List.of("Serve it!"),
+                    1));
+            recipeRepository.save(new Recipe("tiramissu",
+                    Post.COLD_DISH,
+                    List.of("Serve it!"),
+                    1));
+            recipeRepository.save(new Recipe("glace 3",
+                    Post.COLD_DISH,
+                    List.of("Serve it!"),
+                    1));
+            recipeRepository.save(new Recipe("tarte citron",
+                    Post.COLD_DISH,
+                    List.of("Serve it!"),
+                    1));
+            recipeRepository.save(new Recipe("brownie",
+                    Post.COLD_DISH,
+                    List.of("Serve it!"),
+                    1));
         }
     }
 
