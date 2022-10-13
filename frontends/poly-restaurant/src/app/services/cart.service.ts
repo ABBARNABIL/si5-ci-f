@@ -86,15 +86,17 @@ export class CartService {
                 }, ""+result.id).subscribe(
                   resul => {
                     count++;
-                    console.log("added to order");
-                    console.log(resul.id);
-                    console.log(resul);
-                    if (count == this.cartItems.size) {
+                    console.log(" line hjdhjzh " +resul.lines?.length)
+                    console.log("ff "+resul)
+                    if (resul.lines?.length == this.cartItems.size) {
                       this.diningService.prepare(""+result.id).subscribe(
                         _ => {
                           this.diningService.bill(""+result.id).subscribe(
                             result => {
                               this.orderBeingPrepared = result;
+                              this.cartItems.clear();
+                              this.calculateTotalPrice();
+                              this.calculateTotalItems();
                             }
                           );
                         });
@@ -103,9 +105,7 @@ export class CartService {
                 );
               });
 
-            /*this.cartItems.clear();
-            this.calculateTotalPrice();
-            this.calculateTotalItems();*/
+
           });
 
         }

@@ -7,12 +7,12 @@
             <div fxFlex="20%" *ngFor="let order of orders" class="example-button-row">
                 <mat-card class="mat-elevation-z4">
                     <mat-card-header>
-                        <mat-card-title>Table {{order.tableNumber}}</mat-card-title>
+                        <mat-card-title>No.Order : {{order.id}} </mat-card-title>
                     </mat-card-header>
 
                     <mat-card-content>
                         <p>
-                            No. Order : {{order.id}}
+                            Table {{order.tableNumber}}
                         </p>
                     </mat-card-content>
                     <mat-card-actions class="example-button">

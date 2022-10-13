@@ -9,7 +9,7 @@ export class TrackingService {
   orders_DATA: Subject<any[]> = new Subject<any[]>();
   public all_orders = [
     {
-      "id": "disdzis-fgfg",
+      "id": "disdzis",
       "tableNumber": "2",
       "customersCount": 2,
       "opened": "",
@@ -17,7 +17,7 @@ export class TrackingService {
       "status":false
     },
     {
-      "id": "zhdzhd-ffg",
+      "id": "zhdzhd",
       "tableNumber": "3",
       "customersCount": 2,
       "opened": "",
@@ -25,35 +25,35 @@ export class TrackingService {
       "status":false
     },
     {
-      "id": "zhdzhd-rgrgr",
+      "id": "zhdzhd",
       "tableNumber": "4",
       "customersCount": 2,
       "opened": "",
       "lines": "",
       "status":false
     },{
-      "id": "uoppp-etue",
+      "id": "uoppp",
       "tableNumber": "5",
       "customersCount": 2,
       "opened": "",
       "lines": "",
       "status":false
     },{
-      "id": "uduhd-euude",
+      "id": "uduhd",
       "tableNumber": "6",
       "customersCount": 2,
       "opened": "",
       "lines": "",
       "status":false
     },{
-      "id": "jifieue-gugu",
+      "id": "jifieue",
       "tableNumber": "7",
       "customersCount": 2,
       "opened": "",
       "lines": "",
       "status":false
     },{
-      "id": "gjgjj-yyii",
+      "id": "gjgjj",
       "tableNumber": "8",
       "customersCount": 2,
       "opened": "",
@@ -75,7 +75,7 @@ export class TrackingService {
 
   ngOnInit(){
   }
-  
+
   getTime(){
     this.all_orders.forEach((order: any) => {
         console.log(order)
