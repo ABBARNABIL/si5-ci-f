@@ -79,12 +79,14 @@ public class BffService {
         log.info("####### Request for New Order #######");
         // generation aléatoire d'une table
         //var tableId = getAvailableTableId();
+        //generate number between 1 and 4
         var tableId = orders.size()+1;
-        var shortOrderId = String.format("%04d", tableId);
+
 
         log.info("Start opening Table "+tableId);
         var tableOrder = diningMS.openTable(new StartOrdering((long) tableId, 1));
         log.info("Table "+tableId+" opened with orderId "+tableOrder.getId());
+        var shortOrderId = tableOrder.getId().toString().substring(0, 4);
         order.getItems().forEach(item ->{
             diningMS.addToTableOrder(tableOrder.getId(), new Item(getMenuIdByShortName(item.getShortName()), item.getShortName(), item.getQuantity()));
             log.info("Added item "+item.getShortName()+" ; Quantity: "+item.getQuantity()+" to order "+tableOrder.getId());
@@ -96,7 +98,7 @@ public class BffService {
         var bill = diningMS.bill(tableOrder.getId());
         log.info("Order "+tableOrder.getId()+" paid successfully");
         log.info("Order "+tableOrder.getId()+" is ready to be sent to the kitchen");
-        //diningMS.prepare(tableOrder.getId());
+        diningMS.prepare(tableOrder.getId());
         log.info("Order "+tableOrder.getId()+" is sent to the kitchen for preparation");
         var fullOrder =  new FullOrder(tableOrder.getId().toString(), shortOrderId, tableOrder.getTableNumber(), false, false, order.getItems());
         orders.add(fullOrder);
