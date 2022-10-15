@@ -52,7 +52,8 @@ export default function OrderListScreen() {
                           Table: {value.tableId}
                         </Typography>
                         {value.finished === true && <Chip label="READY" size="small" color="success" />}
-                        {value.finished === false && <Chip label="NOT READY" size="small" color="warning" />}
+                        {value.finished === false && value.started == true && <Chip label="STARTED" size="small" color="primary" />}
+                        {value.finished === false && value.started == false && <Chip label="NOT READY" size="small" color="warning" />}
                       </Stack>
                     </Typography>
                   </CardContent>
