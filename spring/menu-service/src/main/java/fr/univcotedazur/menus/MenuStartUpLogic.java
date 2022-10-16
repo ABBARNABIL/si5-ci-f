@@ -23,7 +23,7 @@ public class MenuStartUpLogic implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         menuItemRepository.save(createMenuItem("Salade verte italienne","salade italienne",5,STARTER,
                 new URL("https://raw.githubusercontent.com/ABBARNABIL/images-ci/main/images/salade.jpg")));
-        menuItemRepository.save(createMenuItem("Salade verte niçoise","salade niçoise",5.3,STARTER,
+        menuItemRepository.save(createMenuItem("Salade verte de nice","salade de nice",5.3,STARTER,
                 new URL("https://raw.githubusercontent.com/ABBARNABIL/images-ci/main/images/salade_nicoise.jpg")));
         menuItemRepository.save(createMenuItem("Salade verte césar","salade cesar",4.8,STARTER,
                 new URL("https://raw.githubusercontent.com/ABBARNABIL/images-ci/main/images/salade_cesar.jpg")));
