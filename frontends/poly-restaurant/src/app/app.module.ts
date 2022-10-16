@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -34,8 +34,11 @@ import { FormsModule } from '@angular/forms';
 import { ViewOrderComponent } from './pages/view-order/view-order.component';
 import {MatIconModule} from '@angular/material/icon';
 import { MenuFilterComponent } from './pages/menu/menu-filter/menu-filter.component';
+import { HomeComponent } from './pages/home/home.component';
 
-
+export function initServicesFactory() {
+  // localStorage.clear()
+}
 
 const routes: Routes = [
   {  path: 'track-order', component: TrackingComponent},
@@ -59,7 +62,8 @@ const routes: Routes = [
     ControlOrdersComponent,
     MenuItemDialogComponent,
     ViewOrderComponent,
-    MenuFilterComponent
+    MenuFilterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +82,12 @@ const routes: Routes = [
     MatTableModule,
     MatIconModule,
   ],
-  providers: [],
+  providers: [
+      {
+        provide: APP_INITIALIZER,
+        useFactory: initServicesFactory,
+      },
+  ],
   bootstrap: [AppComponent],
   entryComponents: [MenuItemDialogComponent]
 })

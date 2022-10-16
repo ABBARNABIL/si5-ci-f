@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { MenuItem } from '../models/menuItem';
 import { BASE_PATH} from '../configuration/variables';
 import { Configuration } from '../configuration/configuration';
-import {serverMenuUrl} from 'src/configs/server.config'
+import {serverMenuUrl,serverURL} from 'src/configs/server.config'
 
 
 @Injectable({
@@ -12,7 +12,7 @@ import {serverMenuUrl} from 'src/configs/server.config'
 })
 export class MenuService {
 
-    protected basePath = serverMenuUrl;
+    protected basePath = serverURL+"menu";
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 

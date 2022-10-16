@@ -9,7 +9,7 @@ import { PreparedItemInternal } from '../models/preparedItemInternal';
 import { Recipe } from '../models/recipe';
 import { CustomHttpUrlEncodingCodec } from '../configuration/encoder';
 import { PreparedItemPublic } from '../models/preparedItemPublic';
-import {serverKitchenUrl} from 'src/configs/server.config'
+import {serverKitchenUrl,serverURL} from 'src/configs/server.config'
 
 
 @Injectable({
@@ -17,7 +17,7 @@ import {serverKitchenUrl} from 'src/configs/server.config'
 })
 export class KitchenService {
 
-    protected basePath = serverKitchenUrl;
+    protected basePath = serverURL+"kitchen";
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 

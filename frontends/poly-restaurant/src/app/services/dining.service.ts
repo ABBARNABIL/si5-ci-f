@@ -10,14 +10,14 @@ import { Configuration } from '../configuration/configuration';
 import { BASE_PATH_DINING} from '../configuration/variables';
 import { TableCreationDTO } from '../models/tableCreationDTO';
 import { TableWithOrderDTO } from '../models/tableWithOrderDTO';
-import {serverDiningUrl} from 'src/configs/server.config'
+import {serverDiningUrl,serverURL} from 'src/configs/server.config'
 
 @Injectable({
   providedIn: 'root',
 })
 export class DiningService {
 
-    protected basePath = serverDiningUrl;
+    protected basePath = serverURL+"dining";
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -44,7 +44,7 @@ export class DiningService {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
         if(consumesValues){
-          const consumes: string[] = consumesValues;  
+          const consumes: string[] = consumesValues;
           const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
           if (httpContentTypeSelected != undefined) {
               headers = headers.set('Content-Type', httpContentTypeSelected);

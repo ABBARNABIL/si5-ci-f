@@ -12,7 +12,7 @@ export class ControlOrdersComponent implements OnInit {
   displayedColumns: string[] = ['order', 'start'];
   orders: any
   constructor(private tracking : TrackingService, private kitchenService: KitchenService) {
-    this.orders = this.tracking.all_orders
+    //this.orders = this.tracking.all_orders
   }
   ngOnInit(): void {
 
@@ -30,11 +30,11 @@ export class ControlOrdersComponent implements OnInit {
 
     //this.kitchenService.finishToPrepareItemOnPost(orderId)
     // this.tracking.finishOrders.push(orderId)
-    this.tracking.all_orders.forEach((element: { id: any; status: boolean; }) => {
-      if (element.id == orderId) element.status=true
-    });
-    console.log(this.tracking.all_orders)
-    this.tracking.orders_DATA.next(this.tracking.all_orders)
+    // this.tracking.all_orders.forEach((element: { id: any; status: boolean; }) => {
+    //   if (element.id == orderId) element.status=true
+    // });
+    // console.log(this.tracking.all_orders)
+    // this.tracking.orders_DATA.next(this.tracking.all_orders)
   }
 
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject, elementAt, lastValueFrom, Observable } from 'rxjs';
 import { MenuItem } from '../models/menuItem';
 import { StartOrderingDTO } from '../models/startOrderingDTO';
 import { TableOrder } from '../models/tableOrder';
@@ -8,7 +9,9 @@ import { TableWithOrderDTO } from '../models/tableWithOrderDTO';
 import { BillDialogueComponent } from '../pages/bill-dialogue/bill-dialogue.component';
 import { TablesDialogueComponent } from '../pages/tables-dialogue/tables-dialogue.component';
 import { DiningService } from './dining.service';
+import { KitchenService } from './kitchen.service';
 import { TrackingService } from './tracking.service';
+import { Preparation } from '../models/preparation';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +23,9 @@ export class CartService {
   public itemCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   public orderBeingPrepared!: TableOrder;
 
-  constructor(public dialog: MatDialog, private diningService : DiningService) { }
+  constructor(public dialog: MatDialog, private diningService : DiningService,
+    private kitchenService : KitchenService,
+    private router: Router,private tracking: TrackingService) { }
 
   addItemToCart(item : MenuItem) {
     let itemSet = this.findItemByFullName(item.fullName);
@@ -62,6 +67,46 @@ export class CartService {
     this.calculateTotalItems();
   }
 
+  // async validate(){
+  //   if(this.getItemCount() > 0){
+  //     this.diningService.listAllTables().subscribe(
+  //       res => {
+  //         let availableTables = res.filter(table => table.taken == false);
+  //         let randomTable = availableTables[Math.floor(Math.random() * availableTables.length)];
+  //         let startOrderingDTO : StartOrderingDTO = {tableId: randomTable.number, customersCount:3};
+  //         this.diningService.openTable(startOrderingDTO).subscribe(
+  //           result =>{
+  //             console.log(result);
+  //             let promises: Array<Promise<any>> = [];
+
+  //             this.cartItems.forEach((value, key) => {
+  //               promises.push(lastValueFrom((this.diningService.addToTableOrder({
+  //                 id: key.id,
+  //                 shortName: key.shortName,
+  //                 howMany: value
+  //               }, ""+result.id))));
+
+  //               Promise.all(promises).then(() => {
+  //                     this.diningService.prepare(""+result.id).subscribe(
+  //                       preparations => {
+  //                         this.diningService.bill(""+result.id).subscribe(
+  //                           result => {
+  //                             this.tracking.orders.next(this.tracking.orders.getValue().concat([result]))
+  //                             this.orderBeingPrepared = result;
+  //                             this.cartItems.clear();
+  //                             this.calculateTotalPrice();
+  //                             this.calculateTotalItems();
+  //                           });
+  //                       });
+  //                      });
+  //                 });
+  //             });
+  //         });
+  //   }
+  // }
+
+
+
   async validate(){
     if(this.getItemCount() > 0){
       this.diningService.listAllTables().subscribe(
@@ -71,46 +116,50 @@ export class CartService {
           let startOrderingDTO : StartOrderingDTO = {tableId: randomTable.number, customersCount:3};
           this.diningService.openTable(startOrderingDTO).subscribe(
             result =>{
-              console.log(result);
-              let count = 0;
-              let promises: Array<Promise<any>> = [];
 
-              this.cartItems.forEach((value, key) => {
-                console.log("key: " + key);
-                console.log("value: " + value);
-                promises.push(lastValueFrom((this.diningService.addToTableOrder({
-                  id: key.id,
-                  shortName: key.shortName,
-                  howMany: value
-                }, ""+result.id))));
+                let promises: Array<Promise<any>> = [];
 
-                Promise.all(promises).then(() => {
-                  this.diningService.tableOrder(result.id!).subscribe(
-                    res => {
-                      this.diningService.prepare(""+result.id).subscribe(
-                        _ => {
-                          this.diningService.bill(""+result.id).subscribe(
-                            result => {
-                              this.orderBeingPrepared = result;
+                this.cartItems.forEach((value, key) => {
+                  console.log( key);
+                  console.log("value: " + value);
+                  promises.push(lastValueFrom((this.diningService.addToTableOrder({
+                    id: key.id,
+                    shortName: key.shortName,
+                    howMany: value
+                  }, ""+result.id))));
+
+                  Promise.all(promises).then(() => {
+                    this.diningService.bill(""+result.id!).subscribe(
+                      _ => {
+                        this.diningService.prepare(""+result.id).subscribe(
+                          res => {
+                            this.diningService.tableOrder(""+result.id).subscribe(tableOrder => {
+                              this.tracking.saveOrder(tableOrder)
+                              this.orderBeingPrepared = tableOrder;
+                              this.tracking.startAll(tableOrder)
                               this.cartItems.clear();
                               this.calculateTotalPrice();
                               this.calculateTotalItems();
-                            });
-                        });
-                       });
-                      });
+                              this.router.navigate(['/track-order'])
+                            })
+                            }
+                          );
+                        }
+                    );
                   });
-              });
-          });
+                });
+            }
+          );
+        }
+      );
     }
   }
 
 
 
+  finish(){
 
-
-
-
+  }
   /*async validate(){
     if(this.getItemCount() > 0){
       let availbleTableNumber = await this.getRandomAvailableTable();
@@ -145,6 +194,7 @@ export class CartService {
     this.calculateTotalPrice();
     this.calculateTotalItems();
   }
+
 
   calculateTotalPrice() {
     let sum = 0;

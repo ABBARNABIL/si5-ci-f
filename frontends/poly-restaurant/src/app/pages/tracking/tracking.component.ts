@@ -3,6 +3,7 @@ import { TrackingService } from '../../services/tracking.service';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { TableOrder } from 'src/app/models/tableOrder';
 
 export interface UserData {
   id: string;
@@ -53,14 +54,20 @@ const NAMES: string[] = [
 
 export class TrackingComponent implements OnInit {
 
-  orders : any = []
+  orders : any[] = []
   status : Boolean = true
   constructor(private trackingService : TrackingService) {
-    this.orders = this.trackingService.all_orders
+
   }
 
   ngOnInit(): void {
+    this.orders = this.trackingService.allStorage()
 
   }
+
+  ngDoCheck(){
+    this.orders = this.trackingService.allStorage()
+  }
+  
 }
 
