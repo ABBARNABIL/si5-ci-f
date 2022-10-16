@@ -13,8 +13,12 @@ import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.menu.Categ
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.menu.MenuItem;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -27,8 +31,9 @@ public class BffService {
     private final KitchenMS kitchenMS;
     private final MenuMS menuMS;
 
-    private Map<String, List<String>> preparationsIdByOrderId = new HashMap<>();
     private List<FullOrder> orders = new ArrayList<>();
+    public static HashMap<String, String> shouldBeReadyAtArray = new HashMap<>();
+    public static HashMap<String, List<String>> preparationIdByOrderId = new HashMap<>();
 
     public List<MenuCategory> getMenuCategories() {
         log.info("Getting all menu categories");
@@ -69,22 +74,14 @@ public class BffService {
         return null;
     }
 
-    private void addPreparationsToMap(String orderId, List<Preparation> preparations){
-        List<String> preparationsId = new ArrayList<>();
-        preparations.forEach(preparation -> preparationsId.add(preparation.getId().toString()));
-        preparationsIdByOrderId.put(orderId, preparationsId);
-    }
-
     public FullOrder order(Order order) {
         log.info("####### Request for New Order #######");
-        // generation aléatoire d'une table
-        //var tableId = getAvailableTableId();
         var tableId = orders.size()+1;
-        var shortOrderId = String.format("%04d", tableId);
 
         log.info("Start opening Table "+tableId);
         var tableOrder = diningMS.openTable(new StartOrdering((long) tableId, 1));
         log.info("Table "+tableId+" opened with orderId "+tableOrder.getId());
+        var shortOrderId = tableOrder.getId().toString().substring(0, 4);
         order.getItems().forEach(item ->{
             diningMS.addToTableOrder(tableOrder.getId(), new Item(getMenuIdByShortName(item.getShortName()), item.getShortName(), item.getQuantity()));
             log.info("Added item "+item.getShortName()+" ; Quantity: "+item.getQuantity()+" to order "+tableOrder.getId());
@@ -96,15 +93,28 @@ public class BffService {
         var bill = diningMS.bill(tableOrder.getId());
         log.info("Order "+tableOrder.getId()+" paid successfully");
         log.info("Order "+tableOrder.getId()+" is ready to be sent to the kitchen");
-        //diningMS.prepare(tableOrder.getId());
         log.info("Order "+tableOrder.getId()+" is sent to the kitchen for preparation");
-        var fullOrder =  new FullOrder(tableOrder.getId().toString(), shortOrderId, tableOrder.getTableNumber(), false, false, order.getItems());
+        log.info("Starting all preparations for order "+tableOrder.getId());
+        var prepare =  diningMS.prepare(tableOrder.getId()).get(0);
+        log.info("Preparation "+prepare);
+        var preparedItems = prepare.getPreparedItems();
+        var preparationsIds = new ArrayList<String>();
+        preparedItems.forEach(preparedUtem ->{
+            log.info("Preparation "+preparedUtem.getId()+" started");
+            var prep = cookingMS.startToPrepareItemOnPost(preparedUtem.getId());
+            preparationsIds.add(prep.getId().toString());
+        });
+        var shouldBeReadyAt = prepare.getShouldBeReadyAt().plusHours(2).plusMinutes(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        shouldBeReadyAtArray.put(tableOrder.getId().toString(), shouldBeReadyAt);
+        preparationIdByOrderId.put(tableOrder.getId().toString(), preparationsIds);
+
+        var fullOrder =  new FullOrder(tableOrder.getId().toString(), shortOrderId, tableOrder.getTableNumber(), false, order.getItems());
         orders.add(fullOrder);
         return fullOrder;
     }
 
     public  List<FullOrder> getOrders(){
-        log.info("####### Getting orders #######");
+        //log.info("####### Getting orders #######");
         return orders;
     }
 
@@ -126,43 +136,39 @@ public class BffService {
             kitchenPreparations.add(new kitchenPreparation(preparationItem.getId(), preparationItem.getShortName()));
         });
 
-
-       /* var barAvailableItems = cookingMS.getPreparatedItemsToStartByPost(Post.BAR);
-        var coldDishAvailableItems = cookingMS.getPreparatedItemsToStartByPost(Post.COLD_DISH);
-        var hotDishAvailableItems = cookingMS.getPreparatedItemsToStartByPost(Post.HOT_DISH);
-
-        Map<String, List<kitchenPreparation>> availableItems = new HashMap<>();
-        availableItems.put(Post.BAR.name(), barAvailableItems);
-        availableItems.put(Post.COLD_DISH.name(), coldDishAvailableItems);
-        availableItems.put(Post.HOT_DISH.name(), hotDishAvailableItems);*/
-
         var res = new OrderPrepartion();
         res.setTableId(tablePreparations.getTableId().toString());
         res.setPreparations(kitchenPreparations);
         return res;
     }
 
-    public FullOrder startOrder(String orderId) {
-        log.info("####### Request for Starting Order #######");
-        log.info("Starting order "+orderId);
-        orders.forEach(order -> {
-            if (order.getOrderId().equals(orderId)) {
-                order.setStarted(true);
-            }
-        });
-        return orders.stream().filter(order -> order.getOrderId().equals(orderId)).findFirst().get();
+
+    @Scheduled(fixedDelay = 1000)
+    public void finishOrdersPreparation() {
+        if(BffService.shouldBeReadyAtArray.size() > 0){
+            BffService.shouldBeReadyAtArray.forEach((key, value) -> {
+                if(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).equals(value)){
+                    //BffService.shouldBeReadyAtArray.remove(key);
+                    log.info("Order " + key + " is ready");
+                    BffService.preparationIdByOrderId.get(key).forEach(preparationId -> {
+                        cookingMS.finishToPrepareItemOnPost(UUID.fromString(preparationId));
+                        log.info("Preparation " + preparationId + " is finished");
+                    });
+                    //get key index in should be ready at array
+                    orders.forEach(order -> {
+                        if(order.getOrderId().equals(key)){
+                            order.setStatus(true);
+                        }
+                    });
+                }
+            });
+
+        }
     }
 
-    public FullOrder finishOrder(String orderId) {
-        log.info("####### Request for Finishing Order #######");
-        log.info("Finishing order "+orderId);
-        orders.forEach(order -> {
-            if (order.getOrderId().equals(orderId)) {
-                order.setFinished(true);
-            }
-        });
-        return orders.stream().filter(order -> order.getOrderId().equals(orderId)).findFirst().get();
+    public boolean isOrderFinished(Integer tableId) {
+       var res =  kitchenMS.getAllPreparationsByPreparationStateAndTableId(PreparationStateName.READY_TO_BE_SERVED, Long.valueOf(tableId));
+         return res.size() > 0;
     }
-
 
 }

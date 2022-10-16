@@ -15,7 +15,6 @@ public class FullOrder {
     private String orderId;
     private String shortOrderId;
     private Long tableId;
-    private boolean started;
-    private boolean finished;
+    private boolean status;
     private List<OrderItem> items;
 }

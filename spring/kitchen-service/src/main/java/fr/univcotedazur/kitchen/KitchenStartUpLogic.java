@@ -39,7 +39,7 @@ public class KitchenStartUpLogic implements ApplicationRunner {
                     Post.COLD_DISH,
                     List.of("put salad", "add vinigar", "mix it"),
                     2));
-            recipeRepository.save(new Recipe("salade niçoise",
+            recipeRepository.save(new Recipe("salade de nice",
                     Post.COLD_DISH,
                     List.of("put salad", "add vinigar", "mix it"),
                     2));

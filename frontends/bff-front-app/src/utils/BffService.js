@@ -16,9 +16,5 @@ export default class BffService {
     createOrder = async (order) => await this.api.post("/orders", order);
 
     getOrders = async () => await this.api.get("/orders");
-
-    startOrder = async (orderId) => await this.api.put("/orders/" + orderId + "/start");
-
-    finishOrder = async (orderId) => await this.api.put("/orders/" + orderId + "/finish");
 }
 
