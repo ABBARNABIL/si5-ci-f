@@ -22,6 +22,7 @@ export class CartService {
   public totalPrice: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   public itemCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   public orderBeingPrepared!: TableOrder;
+  public trackingId: string = "";
 
   constructor(public dialog: MatDialog, private diningService : DiningService,
     private kitchenService : KitchenService,
@@ -136,7 +137,8 @@ export class CartService {
                             this.diningService.tableOrder(""+result.id).subscribe(tableOrder => {
                               this.tracking.saveOrder(tableOrder)
                               this.orderBeingPrepared = tableOrder;
-                              this.tracking.startAll(tableOrder)
+                              this.tracking.startAll(tableOrder);
+                              this.trackingId = tableOrder.id?.substring(0, 4) ?? "";
                               this.cartItems.clear();
                               this.calculateTotalPrice();
                               this.calculateTotalItems();
@@ -153,6 +155,8 @@ export class CartService {
       );
     }
   }
+
+
 
 
 

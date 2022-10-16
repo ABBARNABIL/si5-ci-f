@@ -1,5 +1,5 @@
 <mat-card (click)="selectItem()">
     <img mat-card- image src="{{menuItem.image}}">
     <mat-card-title style=" text-align: center; ">{{menuItem.fullName}}</mat-card-title>
-    Prix : {{menuItem.price | currency:'EUR':true}}
+    <div style=" text-align: center; ">Prix : {{menuItem.price | currency:'EUR':true}}</div>
 </mat-card>

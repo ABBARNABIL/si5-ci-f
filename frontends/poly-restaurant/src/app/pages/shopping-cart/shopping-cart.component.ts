@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { StatusService } from 'src/app/services/status.service';
 import { CartService } from '../../services/cart.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class ShoppingCartComponent implements OnInit {
   total : number = 0;
   itemCount : number = 0;
 
-  constructor(private cartService: CartService) {
+  constructor(private cartService: CartService, private statutService: StatusService) {
     this.cartService.totalPrice.subscribe(total => this.total = total);
     this.cartService.itemCount.subscribe(count => this.itemCount = count);
   }
@@ -30,6 +31,7 @@ export class ShoppingCartComponent implements OnInit {
 
   confirm(){
     this.cartService.validate();
+    this.statutService.openDialog();
   }
 
 }

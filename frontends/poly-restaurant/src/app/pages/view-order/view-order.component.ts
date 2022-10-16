@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
+import { StatusService } from 'src/app/services/status.service';
 
 export interface OrderElement {
   fullName: string;
@@ -18,7 +20,8 @@ export interface OrderElement {
 export class ViewOrderComponent implements OnInit {
   displayedColumns: string[] = ['fullName', 'unitPrice', 'quantity', 'totalPrice', 'actions'];
   dataSource: OrderElement[] = [];
-  constructor(private cartService:CartService) { }
+  constructor(private cartService:CartService,
+    private router: Router, private statusService: StatusService) { }
 
   ngOnInit() {
     this.updateDataSource();
@@ -59,5 +62,16 @@ export class ViewOrderComponent implements OnInit {
         totalPrice: this.cartService.calculatePrice(item)
       });
     }
+  }
+
+  cancel() {
+    this.cartService.cancel();
+    this.router.navigate(["/"]);
+  }
+
+  confirm() {
+    this.router.navigate(["/"]);
+    this.cartService.validate();
+    this.statusService.openDialog();
   }
 }

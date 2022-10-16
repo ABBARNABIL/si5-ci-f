@@ -2,7 +2,7 @@
     <mat-expansion-panel (opened)="panelOpenState = false" (closed)="panelOpenState = true">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <h2>My order</h2>
+                <h2>My order | {{itemCount}} </h2>
             </mat-panel-title>
             <mat-panel-description>
                 {{panelOpenState ? 'Click to view order' : 'Close the panel'}}
@@ -24,8 +24,8 @@
         </div>
 
         <div id="outer">
-            <div class="inner"><button type="submit" [style.background-color]="'red'" (click)="cancel()">Cancel order</button></div>
-            <div class="inner"><button type="submit" [style.background-color]="'green'" (click)="confirm()">Confirm order</button></div>
+            <div class="inner"><button type="submit" [style.background-color]="'red'" (click)="cancel()" style="margin: 1em; text-align: center; padding: 1em; font-size: large; border-radius: 2em;">Cancel order</button></div>
+            <div class="inner"><button type="submit" [style.background-color]="'green'" (click)="confirm()" style="margin: 1em; text-align: center; padding: 1em; font-size: large; border-radius: 2em;">Confirm order</button></div>
 
         </div>
     </mat-expansion-panel>

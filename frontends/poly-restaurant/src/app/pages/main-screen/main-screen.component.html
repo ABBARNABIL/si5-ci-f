@@ -1,6 +1,15 @@
-<mat-sidenav-container class="example-container">
+<div *ngIf="isStarted.value">
+  <mat-sidenav-container class="example-container">
     <mat-sidenav opened mode="side">
         <app-side-bar (newItemEvent)="updateMenu($event)"></app-side-bar>
     </mat-sidenav>
     <app-menu [activeItem]="activeItem"></app-menu>
-</mat-sidenav-container>
+  </mat-sidenav-container>
+</div>
+
+<div  *ngIf="!isStarted.value"style="background-color: black; height: 100%; width: 100%; position: absolute;">
+  <video [muted]="'muted'" autoplay="autoplay" loop="loop" playsinline id="video-start" style="height: 100%; width: 100%; position: absolute;">
+    <source src="../../../assets/video.mp4" type="video/mp4">
+  </video>
+  <button (click)="onStart()" style="position: absolute; left:45%;top: 80%; background-color: green; color: white; font-size: 2em; font-weight: bold;">Place order</button>
+</div>
