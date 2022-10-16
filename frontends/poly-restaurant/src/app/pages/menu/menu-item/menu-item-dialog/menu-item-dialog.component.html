@@ -15,17 +15,12 @@
         <div>
             <button (click)="subtract()" class="btn btn-default">-</button>
             <input type="number" name="Quantity" />
-            <!--[(ngModel)]="quantity"-->
             <button (click)="add()" class="btn btn-default">+</button>
         </div>
-        <div>
-            <button (click)="addToCart()" class="btn btn-default" [style.background-color]="'green'">Add to cart</button> <br>
-            <button (click)="close()" class="btn btn-default" [style.background-color]="'red'">Close</button>
+        <div style="text-align: center;">
+            <button (click)="addToCart()" class="btn btn-default" [style.background-color]="'green'" style="margin: 0.2em;width:40%;text-align: center;">Add to cart</button> <br>
+            <button (click)="close()" class="btn btn-default" [style.background-color]="'red'" style="width:40%;text-align: center;">  Cancel</button>
         </div>
-    </div>
-    <div style="text-align: center;">
-        <button (click)="addToCart()" class="btn btn-default" [style.background-color]="'green'" style="margin: 0.2em;width:40%;text-align: center;">Add to cart</button> <br>
-        <button (click)="close()" class="btn btn-default" [style.background-color]="'red'" style="width:40%;text-align: center;">  Cancel</button>
     </div>
 </mat-dialog-content>
 

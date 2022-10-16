@@ -140,7 +140,6 @@ export class CartService {
                               this.cartItems.clear();
                               this.calculateTotalPrice();
                               this.calculateTotalItems();
-                              this.router.navigate(['/track-order'])
                             })
                             }
                           );

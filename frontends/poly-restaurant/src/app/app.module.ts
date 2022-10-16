@@ -34,7 +34,6 @@ import { FormsModule } from '@angular/forms';
 import { ViewOrderComponent } from './pages/view-order/view-order.component';
 import {MatIconModule} from '@angular/material/icon';
 import { MenuFilterComponent } from './pages/menu/menu-filter/menu-filter.component';
-import { HomeComponent } from './pages/home/home.component';
 
 export function initServicesFactory() {
   // localStorage.clear()
@@ -63,7 +62,6 @@ const routes: Routes = [
     MenuItemDialogComponent,
     ViewOrderComponent,
     MenuFilterComponent,
-    HomeComponent
   ],
   imports: [
     BrowserModule,
