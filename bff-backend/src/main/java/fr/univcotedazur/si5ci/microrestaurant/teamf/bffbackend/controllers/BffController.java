@@ -48,23 +48,6 @@ public class BffController {
     public List<FullOrder> getOrders() {
         return bffService.getOrders();
     }
-
-    @PutMapping("/orders/{orderId}/start")
-    @ResponseStatus(HttpStatus.OK)
-    public FullOrder startOrder(@PathVariable("orderId") String orderId) {
-        return bffService.startOrder(orderId);
-    }
-
-    @PutMapping("/orders/{orderId}/finish")
-    @ResponseStatus(HttpStatus.OK)
-    public FullOrder finishOrder(@PathVariable("orderId") String orderId) {
-        return bffService.finishOrder(orderId);
-    }
-
-    /*@GetMapping("/kitchen/available-preparations")
-    @ResponseStatus(HttpStatus.OK)
-    public OrderPrepartion getAllPreparation() {
-        return bffService.getAllPreparationsByTableId(2);
-    }*/
+    
 
 }
