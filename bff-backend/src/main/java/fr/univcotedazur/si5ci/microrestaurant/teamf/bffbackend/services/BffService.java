@@ -96,6 +96,7 @@ public class BffService {
         log.info("Order "+tableOrder.getId()+" is sent to the kitchen for preparation");
         log.info("Starting all preparations for order "+tableOrder.getId());
         var prepare =  diningMS.prepare(tableOrder.getId()).get(0);
+        log.info("Preparation "+prepare);
         var preparedItems = prepare.getPreparedItems();
         var preparationsIds = new ArrayList<String>();
         preparedItems.forEach(preparedUtem ->{
@@ -113,7 +114,7 @@ public class BffService {
     }
 
     public  List<FullOrder> getOrders(){
-        log.info("####### Getting orders #######");
+        //log.info("####### Getting orders #######");
         return orders;
     }
 

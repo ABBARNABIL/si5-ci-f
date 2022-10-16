@@ -48,6 +48,6 @@ public class BffController {
     public List<FullOrder> getOrders() {
         return bffService.getOrders();
     }
-    
+
 
 }
