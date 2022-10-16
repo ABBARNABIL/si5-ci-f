@@ -18,4 +18,5 @@ mat-card img{
 
 mat-card {
   cursor: pointer;
+  height: 20em;
 }

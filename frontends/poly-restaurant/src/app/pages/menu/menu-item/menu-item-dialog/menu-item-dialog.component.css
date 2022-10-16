@@ -5,3 +5,7 @@ img {
   width: auto;
   height: auto;
 }
+
+.btn-default {
+  text-align: center;
+}
