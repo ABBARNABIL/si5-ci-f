@@ -100,11 +100,11 @@ public class BffService {
         var preparedItems = prepare.getPreparedItems();
         var preparationsIds = new ArrayList<String>();
         preparedItems.forEach(preparedUtem ->{
-            log.info("Preparation "+preparedUtem.getId()+" started");
+            //log.info("Preparation "+preparedUtem.getId()+" started");
             var prep = cookingMS.startToPrepareItemOnPost(preparedUtem.getId());
             preparationsIds.add(prep.getId().toString());
         });
-        var shouldBeReadyAt = prepare.getShouldBeReadyAt().plusHours(2).plusMinutes(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        var shouldBeReadyAt = LocalDateTime.now().plusMinutes(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         shouldBeReadyAtArray.put(tableOrder.getId().toString(), shouldBeReadyAt);
         preparationIdByOrderId.put(tableOrder.getId().toString(), preparationsIds);
 
@@ -152,7 +152,7 @@ public class BffService {
                     log.info("Order " + key + " is ready");
                     BffService.preparationIdByOrderId.get(key).forEach(preparationId -> {
                         cookingMS.finishToPrepareItemOnPost(UUID.fromString(preparationId));
-                        log.info("Preparation " + preparationId + " is finished");
+                        //log.info("Preparation " + preparationId + " is finished");
                     });
                     //get key index in should be ready at array
                     orders.forEach(order -> {
