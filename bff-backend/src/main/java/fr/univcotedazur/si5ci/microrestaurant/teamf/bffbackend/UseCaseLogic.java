@@ -1,13 +1,7 @@
 package fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend;
 
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.api.*;
-import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.ItemsToBeCooked;
-import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.PreparationRequest;
-import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.dining.Item;
-import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.dining.StartOrdering;
-import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.dining.TableCreation;
-import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.dining.TableOrder;
-import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.kitchen.PreparationStateName;
+import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.services.BffExtensionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -25,41 +19,15 @@ public class UseCaseLogic implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        //tableMS.createTable(new TableCreation(7L));
-        /*menuMS.getTheFullMenu().forEach(System.out::println);
-        //System.out.println(menuMS.tableOrder(UUID.fromString("b075b614-d781-401a-8731-09114291699a")));
-        PreparationRequest preparationRequest = new PreparationRequest();
-        preparationRequest.setTableId(2L);
-        List<ItemsToBeCooked> itemsToBeCooked = List.of(
-                new ItemsToBeCooked("pizza", 2),
-                new ItemsToBeCooked("lasagna", 5)
-        );
-        preparationRequest.setItemsToBeCookedList(itemsToBeCooked);
-        //set the order to the kitchen
-        var prep = kitchenMS.takeOrder(preparationRequest);
+    // RELATION BETWEEN TABLE AND TABLET
+        BffExtensionService.tableIdWithTabletId.put(1, List.of(1, 2, 3, 4));
+        BffExtensionService.tableIdWithTabletId.put(2, List.of(1, 2, 3, 4));
+        BffExtensionService.tableIdWithTabletId.put(3, List.of(1, 2, 3, 4));
+        BffExtensionService.tableIdWithTabletId.put(4, List.of(1, 2, 3, 4));
+        BffExtensionService.tableIdWithTabletId.put(5, List.of(1, 2, 3, 4));
+        BffExtensionService.tableIdWithTabletId.put(6, List.of(1, 2, 3, 4));
+        BffExtensionService.tableIdWithTabletId.put(7, List.of(1, 2, 3, 4));
+        BffExtensionService.tableIdWithTabletId.put(8, List.of(1, 2, 3, 4));
 
-        kitchenMS.findPreparationById(prep.get(0).getId());
-        prep.get(0).getPreparedItems().forEach(x -> {
-            cookingMS.startToPrepareItemOnPost(x.getId());
-        });
-        kitchenMS.getAllPreparationsByPreparationStateAndTableId(PreparationStateName.READY_TO_BE_SERVED, 1L);
-        kitchenMS.getAllPreparationsByPreparationStateAndTableId(PreparationStateName.PREPARATION_STARTED, 1L);
-        //Thread.sleep(5000);
-        prep.get(0).getPreparedItems().forEach(x -> {
-            cookingMS.finishToPrepareItemOnPost(x.getId());
-        });
-        kitchenMS.getAllPreparationsByPreparationStateAndTableId(PreparationStateName.READY_TO_BE_SERVED, 1L);
-
-
-        kitchenMS.findPreparationById(prep.get(0).getId());
-        //cookingMS.getPreparatedItemsToStartByPost(Post.HOT_DISH);
-
-        kitchenMS.preparationIsServed(prep.get(0).getId());
-
-        tableMS.listAllTables().forEach(System.out::println);
-        /*var order = diningMS.openTable(new StartOrdering(2L, 4));
-        diningMS.addToTableOrder(order.getId(), new Item("1", "pizza", 2));
-        diningMS.findAllTableOrders();
-        diningMS.tableOrder(order.getId());*/
     }
 }
