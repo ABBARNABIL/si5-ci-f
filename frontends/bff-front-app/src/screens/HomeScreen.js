@@ -20,13 +20,10 @@ export default function HomeScreen() {
           objectFit: "cover",
         }}
       >
-        <source
-          src={require("../assets/video.mp4")}
-          type="video/mp4"
-        />
+        <source src={require("../assets/video.mp4")} type="video/mp4" />
       </video>
       <Button
-        onClick={() => navigate("/order")}
+        onClick={() => navigate("/tablette-order")}
         variant="contained"
         style={{
           top: "80%",

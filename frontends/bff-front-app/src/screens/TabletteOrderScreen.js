@@ -8,8 +8,12 @@ import Grid from "@mui/material/Grid";
 import MenuItem from "../components/MenuItem";
 import BffService from "../utils/BffService";
 import QuantityModal from "../components/QuantityModal";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
 
-export default function OrderScreen() {
+export default function TabletteOrderScreen() {
   // const context = createContext();
 
   const [categories, setCategories] = React.useState([]);
@@ -43,7 +47,7 @@ export default function OrderScreen() {
     });
   };
 
-  const chooseCategory = (category) => {
+  const chooseCategory = (event, category) => {
     setChoosenCategory(category);
     getMenuItemsbyCategory(category);
   };
@@ -80,31 +84,21 @@ export default function OrderScreen() {
 
   return (
     <Grid container>
-      <Grid xs={2}>
-        <div style={{ position: "relative" }}>
-          <Paper style={{ maxHeight: 700, overflow: "auto" }}>
-            <List
-              sx={{
-                width: "100%",
-                maxWidth: 250,
-                bgcolor: "background.paper",
-                mb: 10,
-              }}
+      <Box sx={{ width: "100%", typography: "body1", position: "absolute" }}>
+        <TabContext value={choosenCategory}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <TabList
+              onChange={chooseCategory}
+              aria-label="lab API tabs example"
             >
-              {categories.map((value) => (
-                <div onClick={() => chooseCategory(value.name)}>
-                  <CategoryItem
-                    name={value.name}
-                    image={value.image}
-                    onClick={() => setChoosenCategory(value.name)}
-                  />
-                </div>
+              {categories.map((category) => (
+                <Tab value={category.name} label={category.name} />
               ))}
-            </List>
-          </Paper>
-        </div>
-      </Grid>
-      <Grid xs={10}>
+            </TabList>
+          </Box>
+        </TabContext>
+      </Box>
+      <Grid xs={14}>
         <div>
           <DrawerCart
             nbItems={countItems}
@@ -118,6 +112,8 @@ export default function OrderScreen() {
           <h1 style={{ display: "flex", justifyContent: "center" }}>
             {choosenCategory}
           </h1>
+          <h3>table Id : {tableId}</h3>
+          <h3>tablet Number: {tabletNumber}</h3>
 
           <Box sx={{ flexGrow: 1, ml: 10 }}>
             <QuantityModal
@@ -130,7 +126,7 @@ export default function OrderScreen() {
             <Grid
               container
               spacing={{ xs: 2, md: 3 }}
-              columns={{ xs: 4, sm: 8, md: 16 }}
+              columns={{ xs: 4, sm: 8, md: 20 }}
             >
               {menuItems.map((_, index) => (
                 <Grid item xs={"auto"} sm={4} md={4} key={index}>

@@ -1,20 +1,23 @@
 import axios from "axios";
 
 export default class BffService {
-    constructor() {
-        this.api = axios.create({
-            baseURL: "http://localhost:8080/bff"
-        });
-    }
+  constructor() {
+    this.api = axios.create({
+      baseURL: "http://localhost:8080/bff",
+    });
+  }
 
-    getTAbles = async () => await this.api.get("/tables");
+  getTAbles = async () => await this.api.get("/tables");
 
-    getCategories = async () => await this.api.get("/menu/categories");
+  getCategories = async () => await this.api.get("/menu/categories");
 
-    getMenusByCategory = async (category) => await this.api.get("/menu/" + category)
+  getMenusByCategory = async (category) =>
+    await this.api.get("/menu/" + category);
 
-    createOrder = async (order) => await this.api.post("/orders", order);
+  createOrder = async (order) => await this.api.post("/orders", order);
 
-    getOrders = async () => await this.api.get("/orders");
+  getOrders = async () => await this.api.get("/orders");
+
+  createOrderTablette = async (tabletteOrder) =>
+    await this.api.post("/tablet-orders", tabletteOrder);
 }
-

@@ -4,12 +4,14 @@ package fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.controllers;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.*;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.dining.TableWithOrder;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.models.kitchen.PreparedItem;
+import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.services.BffExtensionService;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.services.BffService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +21,7 @@ import java.util.Map;
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class BffController {
     private final BffService bffService;
+    private  final BffExtensionService bffExtensionService;
 
     @GetMapping("/menu/categories")
     @ResponseStatus(HttpStatus.OK)
@@ -47,6 +50,18 @@ public class BffController {
     @ResponseStatus(HttpStatus.OK)
     public List<FullOrder> getOrders() {
         return bffService.getOrders();
+    }
+
+    @PostMapping("/tablet-orders")
+    @ResponseStatus(HttpStatus.OK)
+    public TabletOrder tabletOrder(@RequestBody TabletOrder tabletOrder) {
+        return bffExtensionService.tabletOrder(tabletOrder);
+    }
+
+    @PostMapping("/orders/{tableId}")
+    @ResponseStatus(HttpStatus.OK)
+    public FullOrder order(@PathVariable("tableId") Integer tableId) {
+        return bffExtensionService.order(tableId);
     }
 
 

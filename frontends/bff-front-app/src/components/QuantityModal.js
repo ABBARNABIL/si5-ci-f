@@ -53,6 +53,7 @@ export default function QuantityModal(props) {
               alignItems: "center",
               justifyContent: "center",
               display: "flex",
+              fontSize: 30,
             }}
             id="modal-modal-title"
             variant="h6"

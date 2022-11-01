@@ -166,9 +166,4 @@ public class BffService {
         }
     }
 
-    public boolean isOrderFinished(Integer tableId) {
-       var res =  kitchenMS.getAllPreparationsByPreparationStateAndTableId(PreparationStateName.READY_TO_BE_SERVED, Long.valueOf(tableId));
-         return res.size() > 0;
-    }
-
 }
