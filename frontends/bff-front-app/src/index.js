@@ -9,18 +9,24 @@ import * as serviceWorker from "./serviceWorker";
 import ConfirmOrderScreen from "./screens/ConfirmOrderScreen";
 import InvoiceScreen from "./screens/InvoiceScreen";
 import KitchenOrderListScreen from "./screens/KitchenOrderListScreen";
+import TableScreen from "./screens/v2-app/TableScreen";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Routes>
-        <Route exact path="/" element={<HomeScreen />} />
-        <Route exact path="/order" element={<OrderScreen />} />
-        <Route exact path="/order/confirm" element={<ConfirmOrderScreen />} />
-        <Route exact path="/dining-order-list" element={<OrderListScreen />} />
-        <Route exact path="/kitchen-order-list" element={<KitchenOrderListScreen />} />
-        <Route exact path="/invoice" element={<InvoiceScreen />} />
-      </Routes>
+        <Route exact path="/" element={<HomeScreen />} />{" "}
+        <Route exact path="/order" element={<OrderScreen />} />{" "}
+        <Route exact path="/order/confirm" element={<ConfirmOrderScreen />} />{" "}
+        <Route exact path="/dining-order-list" element={<OrderListScreen />} />{" "}
+        <Route
+          exact
+          path="/kitchen-order-list"
+          element={<KitchenOrderListScreen />}
+        />{" "}
+        <Route exact path="/invoice" element={<InvoiceScreen />} />{" "}
+        <Route exact path="/table" element={<TableScreen />} />{" "}
+      </Routes>{" "}
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
