@@ -13,6 +13,8 @@ export default function TableScreen() {
   const navigate = useNavigate();
 
     const [orders, setOrders] = React.useState([]);
+    const [fullOrder, setFullOrder] = React.useState([]);
+
     const bffService = new BffService();
     const tableId = "1"
     //call useEffect each 30 seconds
@@ -42,12 +44,19 @@ export default function TableScreen() {
 
       });
     };
-  
+    
+    const validateTableOrders = async (tableId) => {
+      bffService.validateTableOrders(tableId).then(response => { 
+        fullOrder(response.data);
+        console.log(orders)
+        console.log(orders.status)
+
+      });
+    };
   
     return (
         <Grid sx={{ bgcolor: 'text.secondary', p:2 }}>
-          <h2>Dining vision</h2>
-          <center><h2></h2></center>
+          <center><h2>Table Orders</h2></center>
           <Box sx={{ flexGrow: 1 }} >
             <Grid
               container
@@ -59,25 +68,28 @@ export default function TableScreen() {
                   <Card color="blue">
                     <CardContent>
                       <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
-                        Tablette N° {value.tabletNumber}
+                      <center>Tablette N° {value.tabletNumber}</center>
                       </Typography>
                       {value.items.map((content, ind) =>(
                           <Typography>
                           <Stack direction="row" spacing={2}>
-                            <Typography variant="h7" component="div">
+                            <Typography variant="h6" component="div">
                               <li>{content.shortName} * {content.quantity}</li>
                             </Typography>
-                            
                           </Stack>
                         </Typography>
                       )
                       )}
+                      <Typography variant="h5" component="div">
+                          Total : {value.price} $
+                      </Typography>
                     </CardContent>
                   </Card>
                 </Grid>
               ))}
               <Button 
-                  onClick={() => navigate("/orders-preparing")}
+                  onClick={() => 
+                    navigate("/orders-preparing")}
                   variant="contained" style={{
                     top: "80%",
                     width: "300px",

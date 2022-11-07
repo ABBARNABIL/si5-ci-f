@@ -39,14 +39,13 @@ public class BffExtensionService {
         log.info("Tablet order for table id : " + order.getTableId() + " and tablet id : " + order.getTabletNumber());
         var menu = menuMS.getTheFullMenu();
         //get price of each item
-        List<Double> prices = new ArrayList<>();
+        double totalPrice = 0;
         for (OrderItem item : order.getItems()) {
-            MenuItem menuItem = menu.stream().filter(m -> m.getShortName() == item.getShortName()).findFirst().orElse(null);
+            MenuItem menuItem = menu.stream().filter(m -> m.getShortName().equals(item.getShortName())).findFirst().orElse(null);
             if (menuItem != null) {
-                prices.add(menuItem.getPrice()*item.getQuantity());
+                totalPrice += menuItem.getPrice()*item.getQuantity();
             }
         }
-        var totalPrice = prices.stream().mapToDouble(Double::doubleValue).sum();
         order.setPrice(totalPrice);
 
         ordersByTabletIdAndTableId.putIfAbsent(order.getTableId(), new HashMap<>());
@@ -56,7 +55,7 @@ public class BffExtensionService {
         ordersByTableId.get(order.getTableId()).add(order);
         return order;
     }
-
+    
     public String getMenuIdByShortName(String shortName) {
         var menus = menuMS.getTheFullMenu();
         for (MenuItem menu : menus) {
