@@ -1,12 +1,12 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
-import DrawerCart from "../components/DrawerCart";
+import DrawerCart from "../../components/DrawerCart";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import MenuItem from "../components/MenuItem";
-import BffService from "../utils/BffService";
-import QuantityModal from "../components/QuantityModal";
+import MenuItem from "../../components/MenuItem";
+import BffService from "../../utils/BffService";
+import QuantityModal from "../../components/QuantityModal";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
