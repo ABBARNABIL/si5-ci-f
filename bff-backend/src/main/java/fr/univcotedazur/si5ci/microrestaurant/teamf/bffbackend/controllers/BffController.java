@@ -58,7 +58,7 @@ public class BffController {
         return bffExtensionService.tabletOrder(tabletOrder);
     }
 
-    @PostMapping("/orders/{tableId}")
+    @GetMapping("/orders/{tableId}")
     @ResponseStatus(HttpStatus.OK)
     public FullOrder order(@PathVariable("tableId") Integer tableId) {
         return bffExtensionService.order(tableId);

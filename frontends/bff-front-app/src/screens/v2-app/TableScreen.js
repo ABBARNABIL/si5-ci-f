@@ -1,85 +1,89 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import React from "react";
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-
-
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Stack from '@mui/material/Stack';
+import BffService from "../../utils/BffService";
+import Button from '@mui/material/Button';
 
 export default function TableScreen() {
-    const [expanded, setExpanded] = React.useState(false);
+    const [orders, setOrders] = React.useState({});
+    const [items, setItems] = React.useState([]);
+    const bffService = new BffService();
+    const tableId = "1"
+    //call useEffect each 30 seconds
+    var cardStyle = {
+        display: 'block',
+        width: '30vw',
+        transitionDuration: '0.3s',
+        height: '45vw'
+    }
 
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
-
-    return ( 
-        <Card sx = { 
-            { maxWidth: 345 } }>
-            <CardHeader avatar = { 
-                <Avatar sx = {
-                    { bgcolor: red[500] }
-                }
-                aria-label = "recipe">R </Avatar>
-                }
-                action = { <IconButton aria-label = "settings">
-                            <MoreVertIcon/>
-                            </IconButton>
-                        }
-                title = "Shrimp and Chorizo Paella"
-                subheader = "September 14, 2016" />
-            <CardMedia component = "img"
-            height = "194"
-            image = "/static/images/cards/paella.jpg"
-            alt = "Paella dish" />
-            <CardContent>
-                <Typography variant = "body2" color = "text.secondary">
-                    This impressive paella is a perfect party dish and a fun meal to cook together with your guests.Add 1 cup of frozen peas along with the mussels,
-                    if you like. 
-                </Typography> 
-            </CardContent >
-            <CardActions disableSpacing >
-                <IconButton aria-label = "add to favorites">
-                <FavoriteIcon />
-                </IconButton> <IconButton aria-label = "share"> <ShareIcon />
-                </IconButton>
-            </CardActions> 
-            <Collapse in = { expanded } timeout = "auto" unmountOnExit >
-                <CardContent>
-                    <Typography paragraph> 
-                        Method: 
-                    </Typography> 
-                    <Typography paragraph>
-                        Heat 1 / 2 cup of the broth in a pot until simmering, add saffron and set aside
-                        for 10 minutes. 
-                    </Typography> 
-                    <Typography paragraph>
-                        Heat oil in a(14 - to 16 - inch) paella pan or a large, deep skillet over medium - high heat.Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly browned, 6 to 8 minutes.Transfer shrimp to a large plate and set aside, leaving chicken and chorizo in the pan.Add pimentón, bay leaves, garlic, tomatoes, onion, salt and pepper, and cook,
-                        stirring often until thickened and fragrant, about 10 minutes.Add saffron broth and remaining 4 1 / 2 cups chicken broth; bring to a boil. 
-                    </Typography> 
-                    <Typography paragraph >
-                        Add rice and stir very gently to distribute.Top with artichokes and peppers, and cook without stirring, until most of the liquid is absorbed,
-                        15 to 18 minutes.Reduce heat to medium - low, add reserved shrimp and mussels, tucking them down into the rice, and cook again without stirring, until mussels have opened and rice is just tender, 5 to 7 minutes more.(Discard any mussels that don & apos; t open.) 
-                    </Typography> 
-                    <Typography>
-                        Set aside off of the heat to
-                        let rest
-                        for 10 minutes, and then serve. 
-                    </Typography>  
-                </CardContent>
-            </Collapse>  
-        </Card>
+    React.useEffect(() => {
+      // const interval = setInterval(() => {
         
+      // }, 1000);
+
+      // return () => clearInterval(interval);
+      getTableOrders(tableId);
+      console.log("fjjjjjjjjjjjjjjjjjjjjjj")
+    }, [orders]); 
+  
+  
+    const getTableOrders = async (tableId) => {
+      bffService.getTableOrders(tableId).then(response => { 
+        setOrders(response.data);
+        setItems(response.data.items)
+        console.log(orders)
+        console.log(orders.status)
+
+      });
+    };
+  
+  
+    return (
+        <Grid sx={{ bgcolor: 'text.secondary', p:2 }}>
+          <h2>Dining vision</h2>
+          <center><h2>{JSON.stringify(orders.status)}</h2></center>
+          <Box sx={{ flexGrow: 1 }} >
+            <Grid
+              container
+              spacing={{ xs: 2, md: 3 }}
+              columns={{ xs: 4, sm: 8, md: 12 }}
+            >
+              {items.map((value, index) => (
+                <Grid item xs={"auto"} sm={4} md={4} key={index} style={cardStyle}>
+                  <Card color="blue">
+                    <CardContent>
+                      <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
+                        Tablette N° {index+1}
+                      </Typography>
+                      <Typography>
+                        <Stack direction="row" spacing={2}>
+                          <Typography variant="h7" component="div">
+                             Table: {value.shortName} 
+                          </Typography>
+                          
+                        </Stack>
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+              <Button variant="contained" style={{
+                    top: "80%",
+                    width: "300px",
+                    height: "60px",
+                    align : "center",
+                    position: "absolute",
+                    left: "40%",
+                    fontSize: "20px",
+                  }}>
+              Valider</Button>
+            </Grid>
+          </Box>
+        </Grid>
     );
-}
+  }
