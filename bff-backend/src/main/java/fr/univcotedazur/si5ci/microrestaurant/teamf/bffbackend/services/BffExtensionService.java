@@ -21,6 +21,7 @@ public class BffExtensionService {
     public static HashMap<Integer, List<Integer>> tableIdWithTabletId = new HashMap<>(); // relation table et tablet <tableId, List<tabletId>>; Voir useCaseLogic.java à la racine du projet
     public List<FullOrder> orders; //toutes les commandes
     public HashMap<Integer, HashMap<Integer, List<OrderItem>>> ordersByTabletIdAndTableId = new HashMap<>(); // <tableId, <tabletId, List<OrderItem>>> ; commandes par tablette et par table
+    public HashMap<Integer, List<TabletOrder>> ordersByTableId = new HashMap<>(); // <tableId, List<TabletOrder>>; commandes par table
 
 
 
@@ -28,6 +29,8 @@ public class BffExtensionService {
         log.info("Tablet order for table id : " + order.getTableId() + " and tablet id : " + order.getTabletNumber());
         ordersByTabletIdAndTableId.putIfAbsent(order.getTableId(), new HashMap<>());
         ordersByTabletIdAndTableId.get(order.getTableId()).put(order.getTabletNumber(), order.getItems());
+        ordersByTableId.putIfAbsent(order.getTableId(), new ArrayList<>());
+        ordersByTableId.get(order.getTableId()).add(order);
         return order;
     }
 
@@ -40,7 +43,7 @@ public class BffExtensionService {
     }
 
     public TableOrderStatusByCategory getOrderStatusByCategory(Integer tableId, Integer orderId){
-
+      //
 
 
 
@@ -48,8 +51,9 @@ public class BffExtensionService {
         return  null;
     }
 
-    public HashMap<Integer, List<OrderItem>> getTabletOrders(Integer tableId){
-        return ordersByTabletIdAndTableId.get(tableId);
+    public List<TabletOrder> getTabletOrders(Integer tableId){
+        log.info("Get all tablet orders for table id : " + tableId);
+        return ordersByTableId.get(tableId);
     }
 
 
