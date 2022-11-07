@@ -36,16 +36,6 @@ public class BffExtensionService {
         FullOrder fullOrder = new FullOrder();
         fullOrder.setTableId(tableId.longValue());
         fullOrder.setItems(ordersByTabletIdAndTableId.get(tableId).values().stream().flatMap(List::stream).toList());
-        //TODO : Appliquer la meme logique que dans BffService pour les orders
-        // for (int i = 0; i<=4 ; i++){
-        //     OrderItem order = new OrderItem("short",3);
-        //     List<OrderItem> ordersG = new ArrayList<>();
-        //     if (fullOrder.getItems()!= null){
-        //         ordersG.addAll(fullOrder.getItems());
-        //     }
-        //     ordersG.add(order);
-        //     fullOrder.setItems(ordersG);
-        // }
         return fullOrder;
     }
 

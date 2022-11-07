@@ -9,8 +9,7 @@ import BffService from "../../utils/BffService";
 import Button from '@mui/material/Button';
 
 export default function TableScreen() {
-    const [orders, setOrders] = React.useState({});
-    const [items, setItems] = React.useState([]);
+    const [orders, setOrders] = React.useState([]);
     const bffService = new BffService();
     const tableId = "1"
     //call useEffect each 30 seconds
@@ -35,7 +34,6 @@ export default function TableScreen() {
     const getTableOrders = async (tableId) => {
       bffService.getTableOrders(tableId).then(response => { 
         setOrders(response.data);
-        setItems(response.data.items)
         console.log(orders)
         console.log(orders.status)
 
@@ -46,14 +44,14 @@ export default function TableScreen() {
     return (
         <Grid sx={{ bgcolor: 'text.secondary', p:2 }}>
           <h2>Dining vision</h2>
-          <center><h2>{JSON.stringify(orders.status)}</h2></center>
+          <center><h2></h2></center>
           <Box sx={{ flexGrow: 1 }} >
             <Grid
               container
               spacing={{ xs: 2, md: 3 }}
               columns={{ xs: 4, sm: 8, md: 12 }}
             >
-              {items.map((value, index) => (
+              {orders.map((value, index) => (
                 <Grid item xs={"auto"} sm={4} md={4} key={index} style={cardStyle}>
                   <Card color="blue">
                     <CardContent>
