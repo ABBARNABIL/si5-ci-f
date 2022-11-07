@@ -25,7 +25,11 @@ ReactDOM.render(
           element={<KitchenOrderListScreen />}
         />
         <Route exact path="/invoice" element={<InvoiceScreen />} />
-        <Route exact path="/tablette-order" element={<TabletteOrderScreen />} />
+        <Route
+          exact
+          path="/tablette-order/:tableId/:tabletNumber"
+          element={<TabletteOrderScreen />}
+        />
       </Routes>
     </Router>
   </React.StrictMode>,
