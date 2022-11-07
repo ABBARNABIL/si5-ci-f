@@ -3,6 +3,7 @@ package fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.services;
 
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.FullOrder;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.OrderItem;
+import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.TableOrderStatusByCategory;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.TabletOrder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,19 @@ public class BffExtensionService {
         fullOrder.setItems(ordersByTabletIdAndTableId.get(tableId).values().stream().flatMap(List::stream).toList());
         //TODO : Appliquer la meme logique que dans BffService pour les orders
         return fullOrder;
+    }
+
+    public TableOrderStatusByCategory getOrderStatusByCategory(Integer tableId, Integer orderId){
+
+
+
+
+
+        return  null;
+    }
+
+    public HashMap<Integer, List<OrderItem>> getTabletOrders(Integer tableId){
+        return ordersByTabletIdAndTableId.get(tableId);
     }
 
 
