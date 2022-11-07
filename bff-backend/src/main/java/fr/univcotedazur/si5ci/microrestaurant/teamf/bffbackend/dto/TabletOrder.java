@@ -17,4 +17,5 @@ public class TabletOrder implements Serializable {
     private Integer tableId;
     private Integer tabletNumber;
     private List<OrderItem> items;
+    private double price;
 }
