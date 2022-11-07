@@ -10,6 +10,7 @@ import ConfirmOrderScreen from "./screens/ConfirmOrderScreen";
 import InvoiceScreen from "./screens/InvoiceScreen";
 import KitchenOrderListScreen from "./screens/KitchenOrderListScreen";
 import TableScreen from "./screens/v2-app/TableScreen";
+import PreparingScreen from "./screens/v2-app/PreparingScreen";
 import TabletteOrderScreen from "./screens/TabletteOrderScreen";
 
 ReactDOM.render(
@@ -32,6 +33,7 @@ ReactDOM.render(
         <Route exact path="/invoice" element={<InvoiceScreen />} />{" "}
         <Route exact path="/table" element={<TableScreen />} />{" "}
         <Route exact path="/tablette-order" element={<TabletteOrderScreen />} />
+        <Route exact path="/orders-preparing" element={<PreparingScreen />} />
       </Routes>
     </Router>
   </React.StrictMode>,

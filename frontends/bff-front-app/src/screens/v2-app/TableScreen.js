@@ -7,8 +7,11 @@ import Box from "@mui/material/Box";
 import Stack from '@mui/material/Stack';
 import BffService from "../../utils/BffService";
 import Button from '@mui/material/Button';
+import { useNavigate } from "react-router-dom";
 
 export default function TableScreen() {
+  const navigate = useNavigate();
+
     const [orders, setOrders] = React.useState([]);
     const bffService = new BffService();
     const tableId = "1"
@@ -56,21 +59,26 @@ export default function TableScreen() {
                   <Card color="blue">
                     <CardContent>
                       <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
-                        Tablette N° {index+1}
+                        Tablette N° {value.tabletNumber}
                       </Typography>
-                      <Typography>
-                        <Stack direction="row" spacing={2}>
-                          <Typography variant="h7" component="div">
-                             Table: {value.shortName} 
-                          </Typography>
-                          
-                        </Stack>
-                      </Typography>
+                      {value.items.map((content, ind) =>(
+                          <Typography>
+                          <Stack direction="row" spacing={2}>
+                            <Typography variant="h7" component="div">
+                              <li>{content.shortName} * {content.quantity}</li>
+                            </Typography>
+                            
+                          </Stack>
+                        </Typography>
+                      )
+                      )}
                     </CardContent>
                   </Card>
                 </Grid>
               ))}
-              <Button variant="contained" style={{
+              <Button 
+                  onClick={() => navigate("/orders-preparing")}
+                  variant="contained" style={{
                     top: "80%",
                     width: "300px",
                     height: "60px",
