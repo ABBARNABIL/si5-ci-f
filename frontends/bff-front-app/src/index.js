@@ -11,7 +11,7 @@ import InvoiceScreen from "./screens/InvoiceScreen";
 import KitchenOrderListScreen from "./screens/KitchenOrderListScreen";
 import TableScreen from "./screens/v2-app/TableScreen";
 import PreparingScreen from "./screens/v2-app/PreparingScreen";
-import TabletteOrderScreen from "./screens/TabletteOrderScreen";
+import TabletteOrderScreen from "./screens/v2-app/TabletteOrderScreen";
 
 ReactDOM.render(
   <React.StrictMode>
