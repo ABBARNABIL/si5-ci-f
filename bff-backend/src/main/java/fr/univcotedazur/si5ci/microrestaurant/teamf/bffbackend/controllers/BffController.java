@@ -64,5 +64,17 @@ public class BffController {
         return bffExtensionService.order(tableId);
     }
 
+    @GetMapping("/orders/{tableId}/status")
+    @ResponseStatus(HttpStatus.OK)
+    public TableOrderStatusByCategory getOrderStatusByCategory(@PathVariable("tableId") Integer tableId, @RequestParam("orderId") Integer orderId) {
+        return bffExtensionService.getOrderStatusByCategory(tableId, orderId);
+    }
+
+    @GetMapping("/orders/{tableId}")
+    @ResponseStatus(HttpStatus.OK)
+    public HashMap<Integer, List<OrderItem>> getTabletOrders(@PathVariable("tableId") Integer tableId) {
+        return bffExtensionService.getTabletOrders(tableId);
+    }
+
 
 }
