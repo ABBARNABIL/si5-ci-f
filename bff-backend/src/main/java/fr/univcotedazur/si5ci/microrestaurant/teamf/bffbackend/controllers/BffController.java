@@ -72,7 +72,7 @@ public class BffController {
 
     @GetMapping("/orders/{tableId}")
     @ResponseStatus(HttpStatus.OK)
-    public HashMap<Integer, List<OrderItem>> getTabletOrders(@PathVariable("tableId") Integer tableId) {
+    public List<TabletOrder> getTabletOrders(@PathVariable("tableId") Integer tableId) {
         return bffExtensionService.getTabletOrders(tableId);
     }
 
