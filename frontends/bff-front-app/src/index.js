@@ -30,10 +30,15 @@ ReactDOM.render(
           path="/kitchen-order-list"
           element={<KitchenOrderListScreen />}
         />{" "}
-        <Route exact path="/invoice" element={<InvoiceScreen />} />{" "}
         <Route exact path="/table" element={<TableScreen />} />{" "}
         <Route exact path="/tablette-order" element={<TabletteOrderScreen />} />
         <Route exact path="/orders-preparing" element={<PreparingScreen />} />
+        <Route exact path="/invoice" element={<InvoiceScreen />} />
+        <Route
+          exact
+          path="/tablette-order/:tableId/:tabletNumber"
+          element={<TabletteOrderScreen />}
+        />
       </Routes>
     </Router>
   </React.StrictMode>,

@@ -1,6 +1,5 @@
 import * as React from "react";
-import List from "@mui/material/List";
-import CategoryItem from "../components/CategoryItem";
+import { useParams } from "react-router-dom";
 import DrawerCart from "../components/DrawerCart";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -26,8 +25,8 @@ export default function TabletteOrderScreen() {
   const [modalItemName, setModalItemName] = React.useState();
   const [selectedItem, setSelectedItem] = React.useState();
 
-  const tableId = 1;
-  const tabletNumber = 3;
+  const { tableId } = useParams();
+  const { tabletNumber } = useParams();
 
   React.useEffect(() => {
     getCategories();
