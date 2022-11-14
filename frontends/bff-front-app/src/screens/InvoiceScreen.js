@@ -9,12 +9,6 @@ export default function InvoiceScreen() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    setInterval(() => {
-      navigate("/");
-    }, 5000);
-  }, []);
-
   return (
     <Container>
       {/* <h1>OrderScreen {location.state.items}</h1> */}
