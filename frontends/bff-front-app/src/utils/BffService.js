@@ -25,5 +25,7 @@ export default class BffService {
 
   validateTableOrders = async (tableId) => await this.api.post("/orders/"+tableId);
 
+  getAllTableOrders = async () => await this.api.get("/orders/");
+
   }
 

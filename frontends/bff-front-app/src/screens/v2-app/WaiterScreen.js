@@ -9,18 +9,12 @@ import BffService from "../../utils/BffService";
 import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { Chip } from "@mui/material";
 
 
 export default function WaiterScreen() {
-  const navigate = useNavigate();
-
-    const [orders, setOrders] = React.useState([]);
-    const [fullOrder, setFullOrder] = React.useState([]);
-    const tableId = 1;
-
-
+  
     const bffService = new BffService();
-    //call useEffect each 30 seconds
     var cardStyle = {
         display: 'block',
         width: '30vw',
@@ -29,30 +23,19 @@ export default function WaiterScreen() {
     }
 
     React.useEffect(() => {
-      getTableOrders(tableId);
-    }, [orders]); 
+      //getOrdersByPost
+    }, []); 
   
   
-    const getTableOrders = async (tableId) => {
-      bffService.getTableOrders(tableId).then(response => { 
-        setOrders(response.data);
-        console.log(orders)
-        console.log(orders.status)
-
-      });
-    };
-    
-    const validateTableOrders = async (tableId) => {
-      bffService.validateTableOrders(tableId).then(response => { 
-        fullOrder(response.data);
-        console.log(orders)
-        console.log(orders.status)
+    const getTableOrders = async () => {
+      bffService.getAllTableOrders().then(response => { 
+        console.log("all orders")
 
       });
     };
   
     return (
-        <Grid sx={{ bgcolor: 'text.secondary', p:2 }}>
+        <Grid sx={{ p:2 }}>
           <center><h2>Waiter Screen</h2></center>
           <Box sx={{ flexGrow: 1 }} >
             <Grid
@@ -60,43 +43,28 @@ export default function WaiterScreen() {
               spacing={{ xs: 2, md: 3 }}
               columns={{ xs: 4, sm: 8, md: 12 }}
             >
-              {orders.map((value, index) => (
-                <Grid item xs={"auto"} sm={4} md={4} key={index} style={cardStyle}>
+              {/* {orders.map((value, index) => ( */}
+                {/* <Grid item xs={"auto"} sm={4} md={4} key={index} style={cardStyle}> */}
+                <Grid item xs={"auto"} sm={4} md={3}>
                   <Card color="blue">
                     <CardContent>
-                      <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
-                      <center>Table N° {value.tabletNumber}</center>
+                      <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
+                      <center>Table N° </center>
                       </Typography>
-                      {value.items.map((content, ind) =>(
+                      {/* {value.items.map((content, ind) =>( */}
                           <Typography>
                           <Stack direction="row" spacing={2}>
                             <Typography variant="h6" component="div">
-                              <li>{content.shortName} * {content.quantity}</li>
+                              HOT <Chip color="primary" label="READY" />
                             </Typography>
                           </Stack>
                         </Typography>
-                      )
-                      )}
-                      <Typography variant="h5" component="div">
-                          Total : {value.price} $
-                      </Typography>
+                      {/* ) */}
+                      {/* )} */}
                     </CardContent>
                   </Card>
                 </Grid>
-              ))}
-              <Button 
-                  onClick={() => 
-                    navigate("/orders-preparing")}
-                  variant="contained" style={{
-                    top: "80%",
-                    width: "300px",
-                    height: "60px",
-                    align : "center",
-                    position: "absolute",
-                    left: "40%",
-                    fontSize: "20px",
-                  }}>
-              Valider</Button>
+              {/* ))} */}
             </Grid>
           </Box>
         </Grid>
