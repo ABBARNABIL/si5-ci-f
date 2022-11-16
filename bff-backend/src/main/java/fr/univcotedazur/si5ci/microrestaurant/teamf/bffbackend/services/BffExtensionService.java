@@ -73,8 +73,10 @@ public class BffExtensionService {
         fullOrder.setItems(ordersByTabletIdAndTableId.get(tableId).values().stream().flatMap(List::stream).toList());
         //TODO : Appliquer la meme logique que dans BffService pour les orders
         var tableOrder = diningMS.openTable(new StartOrdering((long) tableId, 1));
+        fullOrder.setOrderId(tableOrder.getId().toString());
         log.info("Table "+tableId+" opened with orderId "+tableOrder.getId());
         var shortOrderId = tableOrder.getId().toString().substring(0, 4);
+        fullOrder.setShortOrderId(shortOrderId);
         fullOrder.getItems().forEach(item ->{
             diningMS.addToTableOrder(tableOrder.getId(), new Item(getMenuIdByShortName(item.getShortName()), item.getShortName(), item.getQuantity()));
             log.info("Added item "+item.getShortName()+" ; Quantity: "+item.getQuantity()+" to order "+tableOrder.getId());
