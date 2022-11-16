@@ -11,12 +11,12 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 
-export default function TableScreen() {
+export default function WaiterScreen() {
   const navigate = useNavigate();
 
     const [orders, setOrders] = React.useState([]);
     const [fullOrder, setFullOrder] = React.useState([]);
-    const { tableId } = useParams();
+    const tableId = 1;
 
 
     const bffService = new BffService();
@@ -29,13 +29,7 @@ export default function TableScreen() {
     }
 
     React.useEffect(() => {
-      // const interval = setInterval(() => {
-        
-      // }, 1000);
-
-      // return () => clearInterval(interval);
       getTableOrders(tableId);
-      console.log("fjjjjjjjjjjjjjjjjjjjjjj")
     }, [orders]); 
   
   
@@ -59,7 +53,7 @@ export default function TableScreen() {
   
     return (
         <Grid sx={{ bgcolor: 'text.secondary', p:2 }}>
-          <center><h2>Table Orders</h2></center>
+          <center><h2>Waiter Screen</h2></center>
           <Box sx={{ flexGrow: 1 }} >
             <Grid
               container
@@ -71,7 +65,7 @@ export default function TableScreen() {
                   <Card color="blue">
                     <CardContent>
                       <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
-                      <center>Tablette N° {value.tabletNumber}</center>
+                      <center>Table N° {value.tabletNumber}</center>
                       </Typography>
                       {value.items.map((content, ind) =>(
                           <Typography>
