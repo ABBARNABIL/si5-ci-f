@@ -1,6 +1,5 @@
 package fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.controllers;
 
-
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.dto.*;
 import fr.univcotedazur.si5ci.microrestaurant.teamf.bffbackend.services.BffExtensionService;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +14,7 @@ import java.util.List;
 @RequestMapping(value = "/bff", produces = MediaType.APPLICATION_JSON_VALUE)
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class BffExtensionController {
-    private  final BffExtensionService bffExtensionService;
-
+    private final BffExtensionService bffExtensionService;
 
     @PostMapping("/tablet-orders")
     @ResponseStatus(HttpStatus.OK)
@@ -30,11 +28,6 @@ public class BffExtensionController {
         return bffExtensionService.order(tableId);
     }
 
-    @GetMapping("/orders/{tableId}/status")
-    @ResponseStatus(HttpStatus.OK)
-    public TableOrderStatusByCategory getOrderStatusByCategory(@PathVariable("tableId") Integer tableId, @RequestParam("orderId") Integer orderId) {
-        return bffExtensionService.getOrderStatusByCategory(tableId, orderId);
-    }
 
     @GetMapping("/orders/{tableId}")
     @ResponseStatus(HttpStatus.OK)
@@ -42,5 +35,10 @@ public class BffExtensionController {
         return bffExtensionService.getTabletOrders(tableId);
     }
 
+    @GetMapping("/orders/status-by-category")
+    @ResponseStatus(HttpStatus.OK)
+    public List<StatusByCategoryAndTable> getStatusByCategoryAndTable() {
+        return bffExtensionService.getStatusByCategoryAndTable();
+    }
 
 }
