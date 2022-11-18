@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -131,6 +132,26 @@ public class BffExtensionService {
     public List<TabletOrder> getTabletOrders(Integer tableId) {
         log.info("Get all tablet orders for table id : " + tableId);
         return ordersByTableId.get(tableId);
+    }
+
+    public void finishPreparation(String tableId, String category) {
+        for(String preparationId : preperationByTableIdAndCategory.get(tableId).get(category)) {
+            cookingMS.finishToPrepareItemOnPost(UUID.fromString(preparationId));
+        }
+        switch (category) {
+            case "STARTER":
+                tableOrderStatusByCategories.stream().filter(t -> t.getTableId().equals(tableId)).findFirst().get().setSTARTER(true);
+                break;
+            case "MAIN":
+                tableOrderStatusByCategories.stream().filter(t -> t.getTableId().equals(tableId)).findFirst().get().setMAIN(true);
+                break;
+            case "DESSERT":
+                tableOrderStatusByCategories.stream().filter(t -> t.getTableId().equals(tableId)).findFirst().get().setDESSERT(true);
+                break;
+            case "BEVERAGE":
+                tableOrderStatusByCategories.stream().filter(t -> t.getTableId().equals(tableId)).findFirst().get().setBEVERAGE(true);
+                break;
+        }
     }
 
 }

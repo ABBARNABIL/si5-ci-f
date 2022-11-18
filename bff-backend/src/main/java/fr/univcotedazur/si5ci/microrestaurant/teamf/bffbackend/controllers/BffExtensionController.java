@@ -41,4 +41,10 @@ public class BffExtensionController {
         return bffExtensionService.getStatusByCategoryAndTable();
     }
 
+    @PutMapping("/preparation/{tableId}/{category}")
+    @ResponseStatus(HttpStatus.OK)
+    public void finishPreparation(@PathVariable("tableId") String tableId, @PathVariable("category") String category) {
+        bffExtensionService.finishPreparation(tableId, category);
+    }
+
 }
