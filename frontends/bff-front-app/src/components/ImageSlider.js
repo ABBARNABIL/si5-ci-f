@@ -5,7 +5,6 @@ import "../../src/style.css";
 import React from "react";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import { useNavigate } from "react-router-dom";
-import Typography from "@mui/material/Typography";
 
 const ImageSlider = ({ images }) => {
   const navigate = useNavigate();
@@ -40,9 +39,6 @@ const ImageSlider = ({ images }) => {
           ))}
         </Slider>
       </div>
-      <Typography variant="h4" style={{ textAlign: "center", top: 30 }}>
-        Play a game while waiting for your order
-      </Typography>
     </>
   );
 };

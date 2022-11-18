@@ -1,20 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
-import SendIcon from "@mui/icons-material/Send";
+import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 
 export default function PreparingScreen() {
-  //navigate to the menu page
+  const navigate = useNavigate();
 
   return (
     <div className="login-wrapper">
-    <h1>Your orders is preparing</h1>
+      <h1 style={{ left: "10%" }}> Preparing your order...</h1>
       <video
         loop
         autoPlay
         muted
         style={{
-          height: "100%",
+          height: "85%",
           width: "100%",
           position: "absolute",
           objectFit: "cover",
@@ -22,6 +22,23 @@ export default function PreparingScreen() {
       >
         <source src={require("../../assets/preparing.mp4")} type="video/mp4" />
       </video>
+      <Button
+        onClick={() => navigate("/game-list")}
+        variant="contained"
+        style={{
+          top: "80%",
+          width: "300px",
+          height: "60px",
+          position: "absolute",
+          left: "36%",
+          fontSize: "20px",
+          backgroundColor: "#21b6ae",
+          borderRadius: "18px",
+        }}
+        endIcon={<SportsEsportsIcon fontSize="large" />}
+      >
+        Go to game list
+      </Button>
     </div>
   );
 }

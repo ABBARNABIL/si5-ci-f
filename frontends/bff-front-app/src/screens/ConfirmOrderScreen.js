@@ -54,7 +54,7 @@ export default function ConfirmOrderScreen() {
 
     bffService.createOrderTablette(tabletteOrder).then((response) => {
       console.log("response: " + JSON.stringify(response.data));
-      navigate("/game-list", {
+      navigate("/orders-preparing", {
         state: {
           items: location.state.items,
           order: response.data,
