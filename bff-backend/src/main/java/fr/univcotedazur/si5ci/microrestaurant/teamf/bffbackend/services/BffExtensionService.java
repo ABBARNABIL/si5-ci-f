@@ -98,10 +98,10 @@ public class BffExtensionService {
         });
         log.info("Order " + tableOrder.getId() + " is ready to be sent to the kitchen");
         diningMS.tableOrder(tableOrder.getId());
-        // log.info("Billing for order "+tableOrder.getId());
+        log.info("Billing for order "+tableOrder.getId());
         var bill = diningMS.bill(tableOrder.getId());
-        // log.info("Order "+tableOrder.getId()+" paid successfully");
-        // log.info("Order "+tableOrder.getId()+" is ready to be sent to the kitchen");
+        log.info("Order "+tableOrder.getId()+" paid successfully");
+        log.info("Order "+tableOrder.getId()+" is ready to be sent to the kitchen");
         log.info("Order " + tableOrder.getId() + " is sent to the kitchen for preparation");
         log.info("Starting all preparations for order " + tableOrder.getId());
         var prepare = diningMS.prepare(tableOrder.getId());
@@ -121,7 +121,7 @@ public class BffExtensionService {
             });
         });
         tableOrderStatusByCategories.add(new StatusByCategoryAndTable(tableId.toString(), false, false, false, false));
-        log.info(preperationByTableIdAndCategory.toString());
+        //log.info(preperationByTableIdAndCategory.toString());
         return fullOrder;
     }
 
@@ -135,8 +135,13 @@ public class BffExtensionService {
     }
 
     public void finishPreparation(String tableId, String category) {
-        for(String preparationId : preperationByTableIdAndCategory.get(tableId).get(category)) {
-            cookingMS.finishToPrepareItemOnPost(UUID.fromString(preparationId));
+        log.info("Finish all preparations for table id : " + tableId + " for category : " + category);
+        try {
+            for(String preparationId : preperationByTableIdAndCategory.get(tableId).get(category)) {
+                cookingMS.finishToPrepareItemOnPost(UUID.fromString(preparationId));
+            }
+        } catch (Exception e) {
+
         }
         switch (category) {
             case "STARTER":

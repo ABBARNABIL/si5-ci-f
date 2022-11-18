@@ -15,6 +15,7 @@ import TabletteOrderScreen from "./screens/v2-app/TabletteOrderScreen";
 import GameScreen from "./screens/v2-app/GameScreen";
 import GamePlayScreen from "./screens/v2-app/GamePlayScreen";
 import WaiterScreen from "./screens/v2-app/WaiterScreen";
+import CookingScreen from "./screens/v2-app/CookingScreen"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -48,6 +49,11 @@ ReactDOM.render(
           exact
           path="/waiter"
           element={<WaiterScreen />}
+        />
+      <Route
+          exact
+          path="/cooking"
+          element={<CookingScreen />}
         />
       </Routes>
     </Router>

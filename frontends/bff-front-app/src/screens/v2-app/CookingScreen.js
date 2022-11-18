@@ -6,10 +6,10 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Stack from '@mui/material/Stack';
 import BffService from "../../utils/BffService";
-import { Chip } from "@mui/material";
+import { Button, Chip } from "@mui/material";
 
 
-export default function WaiterScreen() {
+export default function CookingScreen() {
   const [orders, setOrders] = React.useState([]);
   
     const bffService = new BffService();
@@ -30,10 +30,16 @@ export default function WaiterScreen() {
         setOrders(response.data)
       });
     };
+
+    const finishTableCategory = async (tableId, category ) =>{
+      bffService.finishTableCategory(tableId, category).then(response => { 
+        //setOrders(response.data)
+      });
+    }
   
     return (
         <Grid sx={{ p:2 }}>
-          <center><h2>Waiter Screen</h2></center>
+          <center><h2>Cooking Screen</h2></center>
           <Box sx={{ flexGrow: 1 }} >
             <Grid
               container
@@ -53,7 +59,7 @@ export default function WaiterScreen() {
                               Starter 
                             </Typography>
                             <Typography variant="h6" component="div">
-                              {value.starter === true ? <Chip label="Ready" size="small" color="success" /> : <Chip label="Not Ready" size="small" color="error" />}
+                              {value.starter === false ? <Button variant="contained" size="small"  color="success" onClick={()=>{finishTableCategory(value.tableId, "STARTER")}}>Finish</Button> : <Chip label="Finished" size="small" color="primary" />}
                             </Typography>
                           </Stack>
                         </Typography>
@@ -63,7 +69,7 @@ export default function WaiterScreen() {
                               Main 
                             </Typography>
                             <Typography variant="h6" component="div">
-                              {value.main === true ? <Chip label="Ready" size="small" color="success" /> : <Chip label="Not Ready" size="small" color="error" />}
+                            {value.main === false ? <Button variant="contained" color="success" size="small" onClick={()=>{finishTableCategory(value.tableId, "MAIN")}}>Finish</Button> : <Chip label="Finished" size="small" color="primary" />}
                             </Typography>
                           </Stack>
                         </Typography>
@@ -73,7 +79,7 @@ export default function WaiterScreen() {
                               Dessert 
                             </Typography>
                             <Typography variant="h6" component="div">
-                              {value.dessert === true ? <Chip label="Ready" size="small" color="success" /> : <Chip label="Not Ready" size="small" color="error" />}
+                            {value.dessert === false ? <Button variant="contained" color="success" size="small" onClick={()=>{finishTableCategory(value.tableId, "DESSERT")}}>Finish</Button> : <Chip label="Finished" size="small" color="primary" />}
                             </Typography>
                           </Stack>
                         </Typography>
@@ -83,7 +89,7 @@ export default function WaiterScreen() {
                               Beverage 
                             </Typography>
                             <Typography variant="h6" component="div">
-                              {value.beverage === true ? <Chip label="Ready" size="small" color="success" /> : <Chip label="Not Ready" size="small" color="error" />}
+                            {value.beverage === false ? <Button variant="contained" color="success" size="small" onClick={()=>{finishTableCategory(value.tableId, "BEVERAGE")}}>Finish</Button> : <Chip label="Finished" size="small" color="primary" />}
                             </Typography>
                           </Stack>
                         </Typography>
