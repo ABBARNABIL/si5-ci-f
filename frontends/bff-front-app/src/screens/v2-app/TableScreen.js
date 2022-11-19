@@ -9,6 +9,7 @@ import BffService from "../../utils/BffService";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import Modal from "@mui/material/Modal";
 
 export default function TableScreen() {
   const navigate = useNavigate();
@@ -16,6 +17,21 @@ export default function TableScreen() {
   const [orders, setOrders] = React.useState([]);
   const [fullOrder, setFullOrder] = React.useState([]);
   const { tableId } = useParams();
+  const [openModal, setOpenModal] = React.useState(false);
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 350,
+    height: 100,
+    bgcolor: "#E0BBE4",
+    border: "2px solid #000",
+    boxShadow: 24,
+    borderRadius: 6,
+    p: 4,
+  };
 
   const bffService = new BffService();
   //call useEffect each 30 seconds
@@ -54,12 +70,58 @@ export default function TableScreen() {
 
   const handleOrderTable = () => {
     console.log("handleOrder");
+    setOpenModal(true);
+  };
+
+  const handleChoice = () => {
+    console.log("handleChoice");
     validateTableOrders(tableId);
     navigate("/orders-preparing");
   };
 
   return (
     <Grid sx={{ bgcolor: "text.secondary", p: 2 }}>
+      <div>
+        <Modal
+          open={openModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                display: "flex",
+                fontSize: 30,
+              }}
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+            >
+              You want to split the bill ?
+            </Typography>
+            <Button
+              style={{ top: "20%", left: "10%" }}
+              size={"large"}
+              variant="contained"
+              color="success"
+              onClick={() => handleChoice()}
+            >
+              Yes
+            </Button>
+            <Button
+              style={{ top: "20%", left: "50%" }}
+              size={"large"}
+              variant="contained"
+              color="error"
+              onClick={() => handleChoice()}
+            >
+              No
+            </Button>
+          </Box>
+        </Modal>
+      </div>
       <center>
         <h2>Table Orders</h2>
       </center>
@@ -100,20 +162,20 @@ export default function TableScreen() {
           ))}
         </Grid>
         <Button
-            onClick={handleOrderTable}
-            variant="contained"
-            style={{
-              top: "80%",
-              width: "300px",
-              height: "60px",
-              align: "center",
-              position: "absolute",
-              left: "40%",
-              fontSize: "20px",
-            }}
-          >
-            Valider
-          </Button>
+          onClick={handleOrderTable}
+          variant="contained"
+          style={{
+            top: "80%",
+            width: "300px",
+            height: "60px",
+            align: "center",
+            position: "absolute",
+            left: "40%",
+            fontSize: "20px",
+          }}
+        >
+          Valider
+        </Button>
       </Box>
     </Grid>
   );

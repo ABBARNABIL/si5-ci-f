@@ -30,7 +30,7 @@ export default function HomeScreen() {
           width: "300px",
           height: "60px",
           position: "absolute",
-          left: "40%",
+          left: "33%",
           fontSize: "20px",
         }}
         endIcon={<SendIcon />}
