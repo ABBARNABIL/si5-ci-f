@@ -92,13 +92,14 @@ export default function TableScreen() {
                     </Typography>
                   ))}
                   <Typography variant="h5" component="div">
-                    Total : {value.price} $
+                    Total : {value.price} €
                   </Typography>
                 </CardContent>
               </Card>
             </Grid>
           ))}
-          <Button
+        </Grid>
+        <Button
             onClick={handleOrderTable}
             variant="contained"
             style={{
@@ -113,7 +114,6 @@ export default function TableScreen() {
           >
             Valider
           </Button>
-        </Grid>
       </Box>
     </Grid>
   );

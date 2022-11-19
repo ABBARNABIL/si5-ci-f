@@ -16,6 +16,8 @@ import GameScreen from "./screens/v2-app/GameScreen";
 import GamePlayScreen from "./screens/v2-app/GamePlayScreen";
 import WaiterScreen from "./screens/v2-app/WaiterScreen";
 import CookingScreen from "./screens/v2-app/CookingScreen"
+import PreparingScreenTable from "./screens/v2-app/PreparingScreenTable"
+import CustomersTrackingScreen from "./screens/v2-app/CustomersTrackingScreen"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -36,10 +38,12 @@ ReactDOM.render(
         />{" "}
         <Route exact path="/table/:tableId" element={<TableScreen />} />{" "}
         <Route exact path="/tablette-order" element={<TabletteOrderScreen />} />
-        <Route exact path="/orders-preparing" element={<PreparingScreen />} />
+        <Route exact path="/orders-confirmation" element={<PreparingScreen />} />
         <Route exact path="/invoice" element={<InvoiceScreen />} />
         <Route exact path="/game-list" element={<GameScreen />} />
         <Route exact path="/gameplay" element={<GamePlayScreen />} />
+        <Route exact path="/orders-preparing" element={<PreparingScreenTable />} />
+        <Route exact path="/table-orders-tracking" element={<CustomersTrackingScreen />} />
         <Route
           exact
           path="/tablette-order/:tableId/:tabletNumber"

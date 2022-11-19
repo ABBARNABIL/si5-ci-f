@@ -1,14 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "@mui/material/Button";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
+import Button from "@mui/material/Button";
 
-export default function PreparingScreen() {
+export default function PreparingScreenTable() {
   const navigate = useNavigate();
 
   return (
     <div className="login-wrapper">
-      <h1 style={{ left: "10%" }}> Waiting for your order...</h1>
+      <h1 style={{ left: "10%" }}> Preparing your order...</h1>
       <video
         loop
         autoPlay
@@ -23,7 +23,7 @@ export default function PreparingScreen() {
         <source src={require("../../assets/preparing.mp4")} type="video/mp4" />
       </video>
       <Button
-        onClick={() => navigate("/game-list")}
+        onClick={() => navigate("/table-orders-tracking")}
         variant="contained"
         style={{
           top: "80%",
@@ -35,9 +35,8 @@ export default function PreparingScreen() {
           backgroundColor: "#21b6ae",
           borderRadius: "18px",
         }}
-        endIcon={<SportsEsportsIcon fontSize="large" />}
       >
-        Go to game list
+        Track Orders
       </Button>
     </div>
   );

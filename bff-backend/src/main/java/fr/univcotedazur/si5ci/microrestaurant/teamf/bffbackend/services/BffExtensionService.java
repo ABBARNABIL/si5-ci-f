@@ -130,7 +130,7 @@ public class BffExtensionService {
     }
 
     public List<TabletOrder> getTabletOrders(Integer tableId) {
-        log.info("Get all tablet orders for table id : " + tableId);
+        // log.info("Get all tablet orders for table id : " + tableId);
         return ordersByTableId.get(tableId);
     }
 

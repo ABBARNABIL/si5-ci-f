@@ -23,7 +23,7 @@ export default function HomeScreen() {
         <source src={require("../assets/video.mp4")} type="video/mp4" />
       </video>
       <Button
-        onClick={() => navigate("/tablette-order/1/2")}
+        onClick={() => navigate("/tablette-order/1/1")}
         variant="contained"
         style={{
           top: "80%",

@@ -6,10 +6,10 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Stack from '@mui/material/Stack';
 import BffService from "../../utils/BffService";
-import { Button, Chip } from "@mui/material";
+import { Chip } from "@mui/material";
 
 
-export default function CookingScreen() {
+export default function CustomersTrackingScreen() {
   const [orders, setOrders] = React.useState([]);
   
     const bffService = new BffService();
@@ -30,16 +30,10 @@ export default function CookingScreen() {
         setOrders(response.data)
       });
     };
-
-    const finishTableCategory = async (tableId, category ) =>{
-      bffService.finishTableCategory(tableId, category).then(response => { 
-        //setOrders(response.data)
-      });
-    }
   
     return (
         <Grid sx={{ p:2 }}>
-          <center><h2>Cooking Screen</h2></center>
+          <center><h2>Order tracking</h2></center>
           <Box sx={{ flexGrow: 1 }} >
             <Grid
               container
@@ -59,7 +53,7 @@ export default function CookingScreen() {
                               Starter 
                             </Typography>
                             <Typography variant="h6" component="div">
-                              {value.starter === false ? <Button variant="contained" size="small"  color="error" onClick={()=>{finishTableCategory(value.tableId, "STARTER")}}>Finish</Button> : <Chip label="Finished" size="small" color="primary" />}
+                              {value.starter === true ? <Chip label="Ready" size="small" color="success" /> : <Chip label="Not Ready" size="small" color="error" />}
                             </Typography>
                           </Stack>
                         </Typography>
@@ -69,7 +63,7 @@ export default function CookingScreen() {
                               Main 
                             </Typography>
                             <Typography variant="h6" component="div">
-                            {value.main === false ? <Button variant="contained" color="error" size="small" onClick={()=>{finishTableCategory(value.tableId, "MAIN")}}>Finish</Button> : <Chip label="Finished" size="small" color="primary" />}
+                              {value.main === true ? <Chip label="Ready" size="small" color="success" /> : <Chip label="Not Ready" size="small" color="error" />}
                             </Typography>
                           </Stack>
                         </Typography>
@@ -79,7 +73,7 @@ export default function CookingScreen() {
                               Dessert 
                             </Typography>
                             <Typography variant="h6" component="div">
-                            {value.dessert === false ? <Button variant="contained" color="error" size="small" onClick={()=>{finishTableCategory(value.tableId, "DESSERT")}}>Finish</Button> : <Chip label="Finished" size="small" color="primary" />}
+                              {value.dessert === true ? <Chip label="Ready" size="small" color="success" /> : <Chip label="Not Ready" size="small" color="error" />}
                             </Typography>
                           </Stack>
                         </Typography>
@@ -89,7 +83,7 @@ export default function CookingScreen() {
                               Beverage 
                             </Typography>
                             <Typography variant="h6" component="div">
-                            {value.beverage === false ? <Button variant="contained" color="error" size="small" onClick={()=>{finishTableCategory(value.tableId, "BEVERAGE")}}>Finish</Button> : <Chip label="Finished" size="small" color="primary" />}
+                              {value.beverage === true ? <Chip label="Ready" size="small" color="success" /> : <Chip label="Not Ready" size="small" color="error" />}
                             </Typography>
                           </Stack>
                         </Typography>
